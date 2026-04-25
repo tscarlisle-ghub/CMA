@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CMA — Financial Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="tb-left">
+    <span class="tb-brand">CMA</span>
+    <span class="tb-co">Carlisle Moore Architects</span>
+  </div>
+  <div class="tb-right">
+    <span class="tb-period" id="tbPeriod"></span>
+    <button class="btn btn-sm btn-toolbar" onclick="window.print()">Print</button>
+    <button class="btn btn-sm btn-toolbar" onclick="exportData()">Export</button>
+    <button class="btn btn-sm btn-primary" onclick="showTab('import')">Import QB</button>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tab active"    onclick="showTab('firm')">Firm</div>
+  <div class="tab t-scott"   onclick="showTab('scott')">Scott</div>
+  <div class="tab t-bill"    onclick="showTab('bill')">Bill</div>
+  <div class="tab"           onclick="showTab('pipeline')">Pipeline</div>
+  <div class="tab"           onclick="showTab('expenses')">Expenses</div>
+  <div class="tab"           onclick="showTab('cash')">Cash & AR</div>
+  <div class="tab"           onclick="showTab('import')">Import / Data</div>
+  <div class="tab"           onclick="showTab('settings')">Settings</div>
+</div>
+
+<div class="app-body">
+<div class="main-content" id="mainContent">
+
+<!-- FIRM -->
+<div class="tab-panel active" id="tab-firm">
+  <div class="metric-grid" id="firmMetrics"></div>
+  <div class="chart-grid">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Revenue by Principal — Trailing 6 mo.</span>
+        <div class="legend"><span class="li"><span class="ls" style="background:var(--scott)"></span>Scott</span><span class="li"><span class="ls" style="background:var(--bill)"></span>Bill</span></div>
+      </div>
+      <div class="cw" style="height:185px"><canvas id="firmRevChart" role="img" aria-label="Revenue by principal">Revenue by principal trailing 6 months.</canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Net Margin — Trailing 6 mo.</span></div>
+      <div class="cw" style="height:185px"><canvas id="firmMarginChart" role="img" aria-label="Net margin trend">Margin trend.</canvas></div>
+    </div>
+  </div>
+  <div class="chart-grid">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Expense Mix</span></div>
+      <div class="cw" style="height:185px"><canvas id="firmExpDonut" role="img" aria-label="Expense breakdown">Expense categories.</canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Action Items</span></div>
+      <div id="firmActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCOTT -->
+<div class="tab-panel" id="tab-scott">
+  <div class="section-header"><span class="section-name">Scott Carlisle</span><span class="section-badge scott">Principal</span></div>
+  <div class="metric-grid" id="scottMetrics"></div>
+  <div class="chart-grid">
+    <div class="panel accent-scott">
+      <div class="panel-header"><span class="panel-title">Scott — Revenue Trailing 6 mo.</span></div>
+      <div class="cw" style="height:185px"><canvas id="scottRevChart" role="img" aria-label="Scott revenue trend">Scott's revenue over time.</canvas></div>
+    </div>
+    <div class="panel accent-scott">
+      <div class="panel-header"><span class="panel-title">Scott — Active Projects</span></div>
+      <div style="overflow-y:auto;max-height:215px"><table class="dt"><thead><tr><th>Project</th><th>Phase</th><th>Fee</th><th>Remaining</th></tr></thead><tbody id="scottPipelineTable"></tbody></table></div>
+    </div>
+  </div>
+  <div class="panel accent-scott">
+    <div class="panel-header"><span class="panel-title">Scott — Estimated Tax Picture</span><span class="panel-meta">2026 projection · S-corp · Married filing jointly</span></div>
+    <div id="scottTaxPanel"></div>
+  </div>
+</div>
+
+<!-- BILL -->
+<div class="tab-panel" id="tab-bill">
+  <div class="section-header"><span class="section-name">Bill Moore</span><span class="section-badge bill">Principal</span></div>
+  <div class="metric-grid" id="billMetrics"></div>
+  <div class="chart-grid">
+    <div class="panel accent-bill">
+      <div class="panel-header"><span class="panel-title">Bill — Revenue Trailing 6 mo.</span></div>
+      <div class="cw" style="height:185px"><canvas id="billRevChart" role="img" aria-label="Bill revenue trend">Bill's revenue over time.</canvas></div>
+    </div>
+    <div class="panel accent-bill">
+      <div class="panel-header"><span class="panel-title">Bill — Active Projects</span></div>
+      <div style="overflow-y:auto;max-height:215px"><table class="dt"><thead><tr><th>Project</th><th>Phase</th><th>Fee</th><th>Remaining</th></tr></thead><tbody id="billPipelineTable"></tbody></table></div>
+    </div>
+  </div>
+  <div class="panel accent-bill">
+    <div class="panel-header"><span class="panel-title">Bill — Estimated Tax Picture</span><span class="panel-meta">2026 projection · S-corp · Married filing jointly</span></div>
+    <div id="billTaxPanel"></div>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<div class="tab-panel" id="tab-pipeline">
+  <div class="metric-grid" id="plMetrics"></div>
+  <div class="panel" style="margin-bottom:16px">
+    <div class="panel-header"><span class="panel-title">Active Projects</span>
+      <div class="legend">
+        <span class="li"><span class="pill pill-sd" style="font-size:8px;padding:1px 5px">SD</span></span>
+        <span class="li"><span class="pill pill-dd" style="font-size:8px;padding:1px 5px">DD</span></span>
+        <span class="li"><span class="pill pill-cd" style="font-size:8px;padding:1px 5px">CD</span></span>
+        <span class="li"><span class="pill pill-ca" style="font-size:8px;padding:1px 5px">CA</span></span>
+      </div>
+    </div>
+    <table class="dt"><thead><tr><th>Project</th><th>Principal</th><th>Phase</th><th>Contract Fee</th><th>Billed %</th><th>Billed $</th><th>Remaining</th></tr></thead><tbody id="plTableBody"></tbody></table>
+  </div>
+  <div class="chart-grid">
+    <div class="panel"><div class="panel-header"><span class="panel-title">Pipeline by Phase</span></div><div class="cw" style="height:200px"><canvas id="plPhaseChart" role="img" aria-label="Pipeline by phase">Phase breakdown.</canvas></div></div>
+    <div class="panel"><div class="panel-header"><span class="panel-title">Remaining Fees by Principal</span></div><div class="cw" style="height:200px"><canvas id="plRemainingChart" role="img" aria-label="Remaining fees">Remaining fees.</canvas></div></div>
+  </div>
+</div>
+
+<!-- EXPENSES -->
+<div class="tab-panel" id="tab-expenses">
+  <div class="chart-grid" style="margin-bottom:16px">
+    <div class="panel"><div class="panel-header"><span class="panel-title">Expense Mix — Current Period</span></div><div class="cw" style="height:210px"><canvas id="expDonut" role="img" aria-label="Expense mix">Expense breakdown.</canvas></div></div>
+    <div class="panel"><div class="panel-header"><span class="panel-title">Breakdown</span></div><div id="expBreakList" style="max-height:240px;overflow-y:auto;padding-top:4px"></div></div>
+  </div>
+  <div class="panel" style="margin-bottom:16px">
+    <div class="panel-header"><span class="panel-title">Expense Trend — Trailing 6 mo.</span><div class="legend" id="expTrendLeg"></div></div>
+    <div class="cw" style="height:190px"><canvas id="expTrendChart" role="img" aria-label="Expense trend">Expense trends.</canvas></div>
+  </div>
+  <div class="panel"><div class="panel-header"><span class="panel-title">Technology &amp; Software Audit</span></div><div id="softAudit"></div></div>
+</div>
+
+<!-- CASH & AR -->
+<div class="tab-panel" id="tab-cash">
+  <div class="metric-grid" id="cashMetrics"></div>
+  <div class="chart-grid">
+    <div class="panel"><div class="panel-header"><span class="panel-title">Cash Position — Trailing 6 mo.</span></div><div class="cw" style="height:190px"><canvas id="cashChart" role="img" aria-label="Cash balance">Cash position.</canvas></div></div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">AR Aging — Trailing 6 mo.</span>
+        <div class="legend"><span class="li"><span class="ld" style="background:#1a5c2e"></span>Current</span><span class="li"><span class="ld" style="background:#b07d15"></span>31–60</span><span class="li"><span class="ld" style="background:#74130c"></span>61–90</span><span class="li"><span class="ld" style="background:#3a0a06"></span>&gt;90</span></div>
+      </div>
+      <div class="cw" style="height:190px"><canvas id="arChart" role="img" aria-label="AR aging">AR aging.</canvas></div>
+    </div>
+  </div>
+  <div class="panel"><div class="panel-header"><span class="panel-title">Collections Notes</span></div><div id="arNotes"></div></div>
+</div>
+
+<!-- IMPORT / DATA ENTRY -->
+<div class="tab-panel" id="tab-import">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div>
+      <div class="panel" style="margin-bottom:16px">
+        <div class="is">Import QuickBooks P&amp;L Detail</div>
+        <p style="font-size:12px;color:var(--hair);margin-bottom:16px;line-height:1.6">Export <em>Profit and Loss Detail</em> from QuickBooks as Excel (.xlsx) and upload it here. The dashboard will parse revenue by principal (Scott/Bill class), all expense categories, and monthly breakdowns automatically.</p>
+        <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+          <div class="drop-zone-title">Drop QuickBooks P&L Detail here</div>
+          <div class="drop-zone-sub">or click to browse · .xlsx files only</div>
+          <div id="parseResult"></div>
+        </div>
+        <input type="file" id="fileInput" accept=".xlsx,.xls" style="display:none" onchange="handleFileUpload(this.files[0])">
+        <div style="margin-top:12px;font-size:11px;color:var(--hair);font-style:italic">
+          In QuickBooks: Reports → Profit and Loss Detail → set date range → Export → Export to Excel
+        </div>
+      </div>
+      <div class="panel">
+        <div class="is">Cash &amp; AR — Manual Entry</div>
+        <p style="font-size:11px;color:var(--hair);margin-bottom:12px;font-style:italic">These fields are not in the P&L export — enter monthly from your bank balance and AR report.</p>
+        <div class="fg">
+          <div class="field"><label class="fl">Period (YYYY-MM)</label><input type="text" id="inp_period" placeholder="2025-12"></div>
+          <div class="field"><label class="fl">Opening Cash Balance</label><input type="number" id="inp_cash" placeholder="0"></div>
+          <div class="field"><label class="fl">AR Current (0–30)</label><input type="number" id="inp_ar0" placeholder="0"></div>
+          <div class="field"><label class="fl">AR 31–60 days</label><input type="number" id="inp_ar31" placeholder="0"></div>
+          <div class="field"><label class="fl">AR 61–90 days</label><input type="number" id="inp_ar61" placeholder="0"></div>
+          <div class="field"><label class="fl">AR Over 90 days</label><input type="number" id="inp_ar90" placeholder="0"></div>
+          <div class="field"><label class="fl">AP Current</label><input type="number" id="inp_ap" placeholder="0"></div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:8px" onclick="saveCashEntry()">Save Cash Entry</button>
+      </div>
+    </div>
+    <div>
+      <div class="panel" style="margin-bottom:16px">
+        <div class="is">Pipeline — Manual Entry</div>
+        <div id="pipelineInputsWrap">
+          <p style="font-size:11px;color:var(--hair);margin-bottom:12px;font-style:italic">Add or update active projects. Select the period first (left column).</p>
+          <div id="pipelineInputs"></div>
+          <button class="btn btn-sm" onclick="addPipelineRow()" style="margin-top:8px">+ Add Project</button>
+          <button class="btn btn-primary" style="margin-top:8px;margin-left:8px" onclick="savePipeline()">Save Pipeline</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="is">Tax Settings — Per Principal</div>
+        <div id="taxSettingsWrap"></div>
+        <button class="btn btn-primary" style="margin-top:12px" onclick="saveTaxSettings()">Save Tax Settings</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="tab-panel" id="tab-settings">
+  <div style="max-width:580px">
+    <div class="panel" style="margin-bottom:16px">
+      <div class="is">Firm Setup</div>
+      <div class="fg">
+        <div class="field" style="grid-column:1/-1"><label class="fl">Firm Name</label><input type="text" id="set_name" value="Carlisle Moore Architects"></div>
+        <div class="field"><label class="fl">Staff Count</label><input type="number" id="set_staff"></div>
+      </div>
+      <div style="margin-top:14px"><div class="is">Principals</div><div id="principalEditor"></div><button class="btn btn-sm" style="margin-top:8px" onclick="addPrincipal()">+ Add Principal</button></div>
+      <button class="btn btn-primary" style="margin-top:14px" onclick="saveSettings()">Save</button>
+    </div>
+    <div class="panel">
+      <div class="is">Export / Clear</div>
+      <button class="btn" onclick="exportData()">Export all data as JSON</button>
+      <button class="btn" style="margin-left:8px;color:var(--neg)" onclick="clearData()">Clear all data</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main-content -->
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div style="margin-bottom:16px"><div class="sb-title">Period</div><div class="month-select" id="monthChips"></div></div>
+  <div style="margin-bottom:16px" id="sidebarKPIs"></div>
+  <div style="margin-bottom:16px"><div class="sb-title">Principal Split</div><div id="sidebarSplit"></div></div>
+  <div><div class="sb-title">Data Status</div><div id="inputStatus"></div></div>
+</div>
+</div><!-- /app-body -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="js/tax.js"></script>
+<script src="js/parser.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

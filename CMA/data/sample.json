@@ -1,0 +1,353 @@
+{
+  "company": {
+    "name": "Carlisle Moore Architects",
+    "fiscal_year_start_month": 1,
+    "industry": "architecture",
+    "principals": [
+      { "id": "scott", "name": "Scott Carlisle" },
+      { "id": "bill",  "name": "Bill Moore" }
+    ],
+    "staff_count": 8,
+    "billing_rate": 200
+  },
+  "months": [
+    {
+      "period": "2025-07",
+      "revenue": {
+        "by_principal": [
+          { "principal_id": "scott", "fees": 198000, "reimbursables": 3200 },
+          { "principal_id": "bill",  "fees": 82000,  "reimbursables": 4100 }
+        ]
+      },
+      "direct_costs": {
+        "subconsultants": 8200,
+        "reprographics": 420,
+        "reimbursable_expenses": 3100,
+        "other_direct": 800
+      },
+      "expenses": {
+        "payroll_wages":     29500,
+        "payroll_taxes":     2690,
+        "health_insurance":  1807,
+        "contractors":       5200,
+        "computer_software": 2151,
+        "dues_subscriptions":972,
+        "rent":              2875,
+        "insurance_eo":      173,
+        "insurance_general": 1571,
+        "legal_professional":2650,
+        "meals_entertainment":556,
+        "office_supplies":   1324,
+        "advertising":       0,
+        "car_truck":         232,
+        "phone":             287,
+        "internet":          150,
+        "printing":          278,
+        "gas":               306,
+        "cleaning":          220,
+        "bank_charges":       32,
+        "payroll_processing": 192,
+        "photography":       0,
+        "other":             400
+      },
+      "cash": {
+        "opening_balance": 310000,
+        "ar_current": 185000, "ar_31_60": 42000, "ar_61_90": 18000, "ar_over_90": 6000,
+        "ap_current": 12000, "ap_over_30": 3000
+      },
+      "pipeline": [
+        { "client": "Taylor Residence", "principal": "scott", "phase": "CA",   "fee": 285000, "billed_pct": 92 },
+        { "client": "LePere Residence", "principal": "scott", "phase": "CA",   "fee": 240000, "billed_pct": 88 },
+        { "client": "Ratliff Residence","principal": "bill",  "phase": "CD",   "fee": 195000, "billed_pct": 65 },
+        { "client": "Clegg Rockdell",   "principal": "bill",  "phase": "CA",   "fee": 160000, "billed_pct": 78 },
+        { "client": "Hey Residence",    "principal": "bill",  "phase": "CA",   "fee": 145000, "billed_pct": 72 },
+        { "client": "Sanders Residence","principal": "scott", "phase": "SD/DD","fee": 135000, "billed_pct": 35 },
+        { "client": "Davis Residence",  "principal": "scott", "phase": "SD",   "fee": 210000, "billed_pct": 8 },
+        { "client": "Millsap Residence","principal": "bill",  "phase": "CD",   "fee": 175000, "billed_pct": 55 }
+      ]
+    },
+    {
+      "period": "2025-08",
+      "revenue": {
+        "by_principal": [
+          { "principal_id": "scott", "fees": 142000, "reimbursables": 5100 },
+          { "principal_id": "bill",  "fees": 95000,  "reimbursables": 3800 }
+        ]
+      },
+      "direct_costs": {
+        "subconsultants": 7100,
+        "reprographics": 510,
+        "reimbursable_expenses": 4200,
+        "other_direct": 600
+      },
+      "expenses": {
+        "payroll_wages":     29500,
+        "payroll_taxes":     2690,
+        "health_insurance":  1807,
+        "contractors":       6800,
+        "computer_software": 2151,
+        "dues_subscriptions":972,
+        "rent":              2875,
+        "insurance_eo":      173,
+        "insurance_general": 1571,
+        "legal_professional":0,
+        "meals_entertainment":490,
+        "office_supplies":   2100,
+        "advertising":       0,
+        "car_truck":         1550,
+        "phone":             287,
+        "internet":          150,
+        "printing":          320,
+        "gas":               306,
+        "cleaning":          236,
+        "bank_charges":       32,
+        "payroll_processing": 192,
+        "photography":       517,
+        "other":             350
+      },
+      "cash": {
+        "opening_balance": 298000,
+        "ar_current": 210000, "ar_31_60": 38000, "ar_61_90": 14000, "ar_over_90": 6000,
+        "ap_current": 14000, "ap_over_30": 4000
+      },
+      "pipeline": [
+        { "client": "Taylor Residence", "principal": "scott", "phase": "CA",   "fee": 285000, "billed_pct": 97 },
+        { "client": "LePere Residence", "principal": "scott", "phase": "CA",   "fee": 240000, "billed_pct": 95 },
+        { "client": "Ratliff Residence","principal": "bill",  "phase": "CD",   "fee": 195000, "billed_pct": 72 },
+        { "client": "Clegg Rockdell",   "principal": "bill",  "phase": "CA",   "fee": 160000, "billed_pct": 82 },
+        { "client": "Hey Residence",    "principal": "bill",  "phase": "CA",   "fee": 145000, "billed_pct": 80 },
+        { "client": "Sanders Residence","principal": "scott", "phase": "SD/DD","fee": 135000, "billed_pct": 45 },
+        { "client": "Davis Residence",  "principal": "scott", "phase": "SD",   "fee": 210000, "billed_pct": 15 },
+        { "client": "Borden Residence", "principal": "scott", "phase": "SD",   "fee": 95000,  "billed_pct": 10 },
+        { "client": "Callahan SC",      "principal": "scott", "phase": "CA",   "fee": 80000,  "billed_pct": 88 }
+      ]
+    },
+    {
+      "period": "2025-09",
+      "revenue": {
+        "by_principal": [
+          { "principal_id": "scott", "fees": 28000,  "reimbursables": 1400 },
+          { "principal_id": "bill",  "fees": 23000,  "reimbursables": 2800 }
+        ]
+      },
+      "direct_costs": {
+        "subconsultants": 2100,
+        "reprographics": 210,
+        "reimbursable_expenses": 1600,
+        "other_direct": 300
+      },
+      "expenses": {
+        "payroll_wages":     29500,
+        "payroll_taxes":     2690,
+        "health_insurance":  1807,
+        "contractors":       4800,
+        "computer_software": 2151,
+        "dues_subscriptions":972,
+        "rent":              2875,
+        "insurance_eo":      173,
+        "insurance_general": 1571,
+        "legal_professional":0,
+        "meals_entertainment":620,
+        "office_supplies":   890,
+        "advertising":       0,
+        "car_truck":         0,
+        "phone":             287,
+        "internet":          150,
+        "printing":          208,
+        "gas":               306,
+        "cleaning":          200,
+        "bank_charges":       32,
+        "payroll_processing": 192,
+        "photography":       0,
+        "other":             280
+      },
+      "cash": {
+        "opening_balance": 318000,
+        "ar_current": 145000, "ar_31_60": 52000, "ar_61_90": 22000, "ar_over_90": 8000,
+        "ap_current": 9000, "ap_over_30": 2500
+      },
+      "pipeline": [
+        { "client": "Ratliff Residence","principal": "bill",  "phase": "CD",   "fee": 195000, "billed_pct": 78 },
+        { "client": "Davis Residence",  "principal": "scott", "phase": "SD/DD","fee": 210000, "billed_pct": 22 },
+        { "client": "Borden Residence", "principal": "scott", "phase": "SD",   "fee": 95000,  "billed_pct": 18 },
+        { "client": "James Residence",  "principal": "bill",  "phase": "SD",   "fee": 65000,  "billed_pct": 12 },
+        { "client": "Neighbors Reno",   "principal": "bill",  "phase": "CA",   "fee": 48000,  "billed_pct": 75 },
+        { "client": "White Residence",  "principal": "bill",  "phase": "CA",   "fee": 42000,  "billed_pct": 82 },
+        { "client": "Callahan SC",      "principal": "scott", "phase": "CA",   "fee": 80000,  "billed_pct": 92 }
+      ],
+      "notes": "Slow billing month — September gap between CA completions and new project starts. Davis in late SD, Borden in early design. Ratliff heading into CA. Four new inquiries received this month."
+    },
+    {
+      "period": "2025-10",
+      "revenue": {
+        "by_principal": [
+          { "principal_id": "scott", "fees": 210000, "reimbursables": 2700 },
+          { "principal_id": "bill",  "fees": 72000,  "reimbursables": 3100 }
+        ]
+      },
+      "direct_costs": {
+        "subconsultants": 5400,
+        "reprographics": 340,
+        "reimbursable_expenses": 2900,
+        "other_direct": 500
+      },
+      "expenses": {
+        "payroll_wages":     29500,
+        "payroll_taxes":     2690,
+        "health_insurance":  1807,
+        "contractors":       8200,
+        "computer_software": 2151,
+        "dues_subscriptions":972,
+        "rent":              2875,
+        "insurance_eo":      173,
+        "insurance_general": 1571,
+        "legal_professional":0,
+        "meals_entertainment":710,
+        "office_supplies":   4800,
+        "advertising":       0,
+        "car_truck":         1551,
+        "phone":             287,
+        "internet":          150,
+        "printing":          360,
+        "gas":               306,
+        "cleaning":          200,
+        "bank_charges":      -225,
+        "payroll_processing": 192,
+        "photography":       0,
+        "other":             350
+      },
+      "cash": {
+        "opening_balance": 290000,
+        "ar_current": 220000, "ar_31_60": 48000, "ar_61_90": 18000, "ar_over_90": 8000,
+        "ap_current": 15000, "ap_over_30": 3500
+      },
+      "pipeline": [
+        { "client": "Davis Residence",  "principal": "scott", "phase": "DD",   "fee": 210000, "billed_pct": 38 },
+        { "client": "Waldrum Residence","principal": "bill",  "phase": "CA",   "fee": 210000, "billed_pct": 88 },
+        { "client": "Ratliff Residence","principal": "bill",  "phase": "CA",   "fee": 195000, "billed_pct": 85 },
+        { "client": "Wood Residence",   "principal": "bill",  "phase": "CA",   "fee": 145000, "billed_pct": 82 },
+        { "client": "Borden Residence", "principal": "scott", "phase": "SD/DD","fee": 95000,  "billed_pct": 28 },
+        { "client": "Davenport Reno",   "principal": "bill",  "phase": "CD",   "fee": 88000,  "billed_pct": 55 },
+        { "client": "Murray Residence", "principal": "bill",  "phase": "SD",   "fee": 78000,  "billed_pct": 15 },
+        { "client": "Edwards Reno",     "principal": "bill",  "phase": "CA",   "fee": 62000,  "billed_pct": 95 }
+      ]
+    },
+    {
+      "period": "2025-11",
+      "revenue": {
+        "by_principal": [
+          { "principal_id": "scott", "fees": 185000, "reimbursables": 2100 },
+          { "principal_id": "bill",  "fees": 132000, "reimbursables": 14100 }
+        ]
+      },
+      "direct_costs": {
+        "subconsultants": 13800,
+        "reprographics": 480,
+        "reimbursable_expenses": 2800,
+        "other_direct": 700
+      },
+      "expenses": {
+        "payroll_wages":     29500,
+        "payroll_taxes":     3465,
+        "health_insurance":  1807,
+        "contractors":       15000,
+        "computer_software": 2151,
+        "dues_subscriptions":972,
+        "rent":              2875,
+        "insurance_eo":      173,
+        "insurance_general": 1571,
+        "legal_professional":0,
+        "meals_entertainment":556,
+        "office_supplies":   1680,
+        "advertising":       1673,
+        "car_truck":         0,
+        "phone":             287,
+        "internet":          150,
+        "printing":          340,
+        "gas":               306,
+        "cleaning":          200,
+        "bank_charges":       32,
+        "payroll_processing": 215,
+        "photography":       0,
+        "other":             320
+      },
+      "cash": {
+        "opening_balance": 380000,
+        "ar_current": 265000, "ar_31_60": 58000, "ar_61_90": 24000, "ar_over_90": 9000,
+        "ap_current": 18000, "ap_over_30": 5000
+      },
+      "pipeline": [
+        { "client": "Davis Residence",  "principal": "scott", "phase": "CD",   "fee": 210000, "billed_pct": 58 },
+        { "client": "Ratliff Residence","principal": "bill",  "phase": "CA",   "fee": 195000, "billed_pct": 95 },
+        { "client": "Waldrum Residence","principal": "bill",  "phase": "CA",   "fee": 210000, "billed_pct": 96 },
+        { "client": "Sanders Residence","principal": "scott", "phase": "CD",   "fee": 135000, "billed_pct": 62 },
+        { "client": "Davenport Reno",   "principal": "bill",  "phase": "CA",   "fee": 88000,  "billed_pct": 72 },
+        { "client": "Borden Residence", "principal": "scott", "phase": "DD",   "fee": 95000,  "billed_pct": 42 },
+        { "client": "Fields Residence", "principal": "scott", "phase": "SD/DD","fee": 80000,  "billed_pct": 25 },
+        { "client": "Callahan SC",      "principal": "scott", "phase": "CA",   "fee": 80000,  "billed_pct": 98 },
+        { "client": "Somerville Reno",  "principal": "scott", "phase": "CA",   "fee": 55000,  "billed_pct": 88 },
+        { "client": "Carter Residence", "principal": "bill",  "phase": "CA",   "fee": 52000,  "billed_pct": 92 }
+      ],
+      "notes": "Ryan Casadaban contractor hours high — three concurrent projects. Forbes accolade published this month. Sidney Bragiel creative work for marketing."
+    },
+    {
+      "period": "2025-12",
+      "revenue": {
+        "by_principal": [
+          { "principal_id": "scott", "fees": 196000, "reimbursables": 1800 },
+          { "principal_id": "bill",  "fees": 96000,  "reimbursables": 2200 }
+        ]
+      },
+      "direct_costs": {
+        "subconsultants": 5000,
+        "reprographics": 630,
+        "reimbursable_expenses": 1900,
+        "other_direct": 400
+      },
+      "expenses": {
+        "payroll_wages":     29500,
+        "payroll_taxes":     7249,
+        "health_insurance":  1807,
+        "contractors":       5800,
+        "computer_software": 2151,
+        "dues_subscriptions":972,
+        "rent":              2875,
+        "insurance_eo":      173,
+        "insurance_general": 1571,
+        "legal_professional":0,
+        "meals_entertainment":890,
+        "office_supplies":   1560,
+        "advertising":       2500,
+        "car_truck":         583,
+        "phone":             286,
+        "internet":          150,
+        "printing":          530,
+        "gas":               306,
+        "cleaning":          300,
+        "bank_charges":       32,
+        "payroll_processing": 394,
+        "photography":       0,
+        "other":             500
+      },
+      "cash": {
+        "opening_balance": 420000,
+        "ar_current": 280000, "ar_31_60": 62000, "ar_61_90": 20000, "ar_over_90": 8000,
+        "ap_current": 16000, "ap_over_30": 4000
+      },
+      "pipeline": [
+        { "client": "Davis Residence",  "principal": "scott", "phase": "CA",   "fee": 210000, "billed_pct": 72 },
+        { "client": "Davenport Reno",   "principal": "bill",  "phase": "CA",   "fee": 88000,  "billed_pct": 85 },
+        { "client": "Sanders Residence","principal": "scott", "phase": "CD",   "fee": 135000, "billed_pct": 78 },
+        { "client": "Borden Residence", "principal": "scott", "phase": "CD",   "fee": 95000,  "billed_pct": 55 },
+        { "client": "Fox Residence",    "principal": "scott", "phase": "SD",   "fee": 90000,  "billed_pct": 22 },
+        { "client": "Fields Residence", "principal": "scott", "phase": "DD",   "fee": 80000,  "billed_pct": 38 },
+        { "client": "Grantier Reno",    "principal": "scott", "phase": "SD",   "fee": 48000,  "billed_pct": 10 },
+        { "client": "Dean Residence",   "principal": "scott", "phase": "SD",   "fee": 52000,  "billed_pct": 12 },
+        { "client": "Stewart Reno",     "principal": "bill",  "phase": "CA",   "fee": 58000,  "billed_pct": 90 },
+        { "client": "Briggs Residence", "principal": "bill",  "phase": "CA",   "fee": 72000,  "billed_pct": 96 },
+        { "client": "Moore Residence",  "principal": "bill",  "phase": "SD",   "fee": 65000,  "billed_pct": 18 }
+      ],
+      "notes": "Forbes Accolades award published. Strong December close. Two new SD projects signed. Payroll tax true-up in December."
+    }
+  ]
+}
