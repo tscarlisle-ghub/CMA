@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Davis Residence · Electrical Load Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:              #14110d;
+    --ink-soft:         #4a4640;
+    --ink-faint:        #8a847b;
+    --rule:             #d5cfc3;
+    --rule-soft:        #ede8db;
+    --paper:            #fbfaf6;
+    --paper-2:          #f5f2ea;
+    --paper-3:          #efebd8;
+    --collected:        #1f4d3a;
+    --collected-bright: #2f6b53;
+    --collected-tint:   #e8efe5;
+    --warn:             #8a2a1f;
+    --warn-tint:        #f5eae8;
+    --cma-accent:       #a85c24;
+    --cma-accent-tint:  #f6ece1;
+    --cma-accent-rule:  #d6b59a;
+    --engraved:         #1a1814;
+    --engraved-rule:    #3b352c;
+    --letter-eng:       0.22em;
+    --letter-label:     0.10em;
+    --font-display:     'Bitter', Georgia, serif;
+    --font-body:        'Bitter', Georgia, serif;
+    --font-strap:       'Barlow Condensed', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono:        'Bitter', Georgia, serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--paper);
+    border-bottom: 1.5px solid var(--engraved-rule);
+    padding: 16px 32px 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .masthead-left { display: flex; flex-direction: column; gap: 1px; }
+  .masthead-eyebrow {
+    font-family: var(--font-strap);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cma-accent);
+  }
+  .masthead h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 21px;
+    letter-spacing: 0.08em;
+    color: var(--engraved);
+    line-height: 1;
+  }
+  .masthead-sub {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .masthead-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+  }
+  .masthead-meta {
+    font-family: var(--font-body);
+    font-size: 10px;
+    color: var(--ink-faint);
+    text-align: right;
+    line-height: 1.55;
+  }
+  .save-indicator {
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-style: italic;
+    color: var(--collected);
+    letter-spacing: 0.03em;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .save-indicator.visible { opacity: 1; }
+
+  /* ── LAYOUT ── */
+  .app-shell {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    min-height: calc(100vh - 72px);
+  }
+
+  /* ── LEFT PANEL ── */
+  .controls-panel {
+    background: var(--paper-2);
+    border-right: 1px solid var(--rule);
+    padding: 20px 20px 48px;
+    overflow-y: auto;
+    max-height: calc(100vh - 72px);
+    position: sticky;
+    top: 72px;
+  }
+
+  .panel-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .panel-section:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .panel-heading {
+    font-family: var(--font-strap);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--engraved);
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 0.75px solid var(--rule);
+  }
+
+  .control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 0.5px dotted var(--rule-soft);
+    gap: 10px;
+  }
+  .control-row:last-child { border-bottom: none; }
+
+  .control-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--ink);
+    flex: 1;
+    line-height: 1.3;
+  }
+  .control-label small {
+    display: block;
+    font-style: italic;
+    font-size: 10px;
+    color: var(--ink-faint);
+  }
+
+  /* Number input */
+  .num-input {
+    font-family: var(--font-body);
+    font-size: 12px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    padding: 3px 7px;
+    border-radius: 2px;
+    width: 80px;
+    text-align: right;
+  }
+  .num-input:focus {
+    outline: none;
+    border-color: var(--cma-accent-rule);
+  }
+
+  /* Toggle */
+  .toggle { position: relative; display: inline-block; width: 34px; height: 18px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--rule);
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 12px; height: 12px;
+    left: 3px; top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .toggle input:checked + .toggle-slider { background: var(--collected); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(16px); }
+
+  /* Stepper */
+  .stepper { display: flex; align-items: center; border: 1px solid var(--rule); border-radius: 2px; overflow: hidden; flex-shrink: 0; }
+  .stepper button {
+    background: var(--paper-2);
+    border: none;
+    width: 24px; height: 24px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+    line-height: 1;
+  }
+  .stepper button:hover { background: var(--paper-3); color: var(--ink); }
+  .stepper .stepper-val {
+    font-family: var(--font-body);
+    font-size: 12px;
+    min-width: 26px;
+    text-align: center;
+    background: var(--paper);
+    color: var(--ink);
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    padding: 0 3px;
+    line-height: 24px;
+    height: 24px;
+  }
+
+  /* Select */
+  .ctrl-select {
+    font-family: var(--font-body);
+    font-size: 11px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    padding: 3px 5px;
+    border-radius: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* ── RIGHT PANEL ── */
+  .results-panel { padding: 24px 32px 48px; overflow-y: auto; }
+
+  /* KPI strip */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--rule);
+    margin-bottom: 22px;
+  }
+  .kpi { padding: 12px 14px; border-right: 1px solid var(--rule); }
+  .kpi:last-child { border-right: none; }
+  .kpi-label {
+    font-family: var(--font-strap);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 3px;
+  }
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+  .kpi-value.accent { color: var(--cma-accent); }
+  .kpi-value.warn   { color: var(--warn); }
+  .kpi-value.forest { color: var(--collected); }
+  .kpi-sub { font-family: var(--font-body); font-style: italic; font-size: 10px; color: var(--ink-faint); margin-top: 3px; }
+
+  /* Service banner */
+  .service-banner {
+    padding: 12px 16px;
+    margin-bottom: 22px;
+    border-left: 3px solid var(--cma-accent);
+    background: var(--cma-accent-tint);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .service-banner.green { border-left-color: var(--collected); background: var(--collected-tint); }
+  .service-banner.red   { border-left-color: var(--warn);      background: var(--warn-tint); }
+  .service-banner-label {
+    font-family: var(--font-strap);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cma-accent);
+    margin-bottom: 4px;
+    transition: color 0.3s;
+  }
+  .service-banner.green .service-banner-label { color: var(--collected); }
+  .service-banner.red   .service-banner-label { color: var(--warn); }
+  .service-banner-text { font-family: var(--font-body); font-size: 13px; color: var(--ink); line-height: 1.5; }
+
+  /* Section heading */
+  .results-section-heading {
+    font-family: var(--font-strap);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--engraved);
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--rule);
+    margin-top: 24px;
+  }
+  .results-section-heading:first-of-type { margin-top: 0; }
+
+  /* Load table */
+  table.load-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 6px; }
+  table.load-table thead th {
+    font-family: var(--font-strap);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-bottom: 1.5px solid var(--ink);
+    padding: 0 8px 5px;
+    text-align: left;
+  }
+  table.load-table thead th.r { text-align: right; }
+  table.load-table tbody tr { border-bottom: 0.5px dotted var(--rule-soft); transition: opacity 0.3s; }
+  table.load-table tbody tr.disabled { opacity: 0.3; }
+  table.load-table tbody tr:nth-child(even):not(.disabled) { background: var(--paper-2); }
+  table.load-table tbody td { padding: 5px 8px; font-family: var(--font-body); font-size: 12px; vertical-align: top; }
+  table.load-table tbody td.mono { font-family: var(--font-body); font-size: 11px; text-align: right; color: var(--ink-soft); white-space: nowrap; }
+  table.load-table tbody td.mono.active { color: var(--ink); font-weight: 700; }
+  table.load-table tbody td.tag {
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+  table.load-table tfoot tr:first-child td { border-top: 2px solid var(--ink); padding-top: 7px; }
+  table.load-table tfoot td { padding: 5px 8px; font-family: var(--font-body); font-size: 12px; }
+  table.load-table tfoot td.label {
+    font-family: var(--font-strap);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: right;
+    padding-right: 4px;
+  }
+  table.load-table tfoot td.total-val  { text-align: right; font-weight: 700; font-size: 13px; color: var(--collected); }
+  table.load-table tfoot td.total-amps { text-align: right; font-weight: 700; font-size: 15px; color: var(--warn); }
+
+  .nec-note { font-family: var(--font-body); font-style: italic; font-size: 11px; color: var(--ink-faint); margin-top: 8px; line-height: 1.5; }
+
+  @keyframes flash { 0% { background: var(--cma-accent-tint); } 100% { background: transparent; } }
+  .flash { animation: flash 0.5s ease-out; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--paper-2); }
+  ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+
+  /* ── Print button ── */
+  .print-btn {
+    font-family: var(--font-strap);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    border: none;
+    padding: 6px 14px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  .print-btn:hover { background: var(--cma-accent); }
+
+  /* ── Print stylesheet ── */
+  @media print {
+    @page { size: letter; margin: 0.75in 0.85in; }
+
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    body { background: white; font-size: 11px; }
+
+    .masthead {
+      position: static;
+      border-bottom: 1.5px solid var(--engraved-rule);
+      padding: 0 0 12pt 0;
+      margin-bottom: 16pt;
+    }
+    .masthead-eyebrow { font-size: 8px; }
+    .masthead h1 { font-size: 20px; }
+    .save-indicator,
+    .print-btn { display: none !important; }
+
+    .app-shell {
+      display: block;
+    }
+    .controls-panel { display: none !important; }
+    .results-panel {
+      padding: 0;
+      overflow: visible;
+    }
+
+    .kpi-strip {
+      border: 0.75px solid var(--rule);
+      margin-bottom: 14pt;
+      page-break-inside: avoid;
+    }
+    .kpi { padding: 10pt 12pt; }
+    .kpi-value { font-size: 18px; }
+
+    .service-banner {
+      margin-bottom: 14pt;
+      page-break-inside: avoid;
+    }
+
+    .results-section-heading { margin-top: 16pt; }
+
+    table.load-table { font-size: 9.5px; }
+    table.load-table thead th { font-size: 7.5px; padding-bottom: 4pt; }
+    table.load-table tbody td { padding: 4pt 6pt; }
+    table.load-table tfoot td { padding: 4pt 6pt; }
+    table.load-table tfoot td.total-amps { font-size: 13px; }
+
+    .nec-note { font-size: 9px; margin-top: 10pt; }
+
+    /* Print footer */
+    .print-footer {
+      display: block !important;
+      margin-top: 20pt;
+      padding-top: 6pt;
+      border-top: 0.5px solid var(--rule);
+      font-family: var(--font-body);
+      font-size: 8px;
+      font-style: italic;
+      color: var(--ink-faint);
+    }
+  }
+  /* Hide print footer on screen */
+  .print-footer { display: none; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-left">
+    <div class="masthead-eyebrow">Carlisle Moore Architects, Inc. · Electrical Load Calculator</div>
+    <h1>Davis Residence</h1>
+    <div class="masthead-sub">Preliminary Electrical Load Estimate — Interactive</div>
+  </div>
+  <div class="masthead-right">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+      <div class="masthead-meta">
+        27379 Kings Mountain Road, Vestavia Hills, AL 35242<br>
+        E2.1 / E2.2 / E2.3 — Pricing Set, May 22, 2026<br>
+        NEC Article 220 demand factors applied
+      </div>
+    </div>
+    <div class="save-indicator" id="save-indicator">Saved</div>
+  </div>
+</header>
+
+<div class="app-shell">
+
+  <!-- LEFT: CONTROLS -->
+  <aside class="controls-panel">
+
+    <!-- EV CHARGING — top -->
+    <div class="panel-section">
+      <div class="panel-heading">EV Charging</div>
+      <div class="control-row">
+        <div class="control-label">Level 2 chargers<small>9,600W each · 40A 240V · continuous</small></div>
+        <div class="stepper">
+          <button onclick="step('ev',-1)">−</button>
+          <div class="stepper-val" id="ev-val">3</div>
+          <button onclick="step('ev',1)">+</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Smart load management<small>Limits simultaneous charging to 2 cars</small></div>
+        <label class="toggle"><input type="checkbox" id="ev-mgmt" onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+    </div>
+
+    <!-- GENERAL -->
+    <div class="panel-section">
+      <div class="panel-heading">General</div>
+      <div class="control-row">
+        <div class="control-label">Conditioned SF</div>
+        <input type="number" class="num-input" id="sf-input" value="8800" min="1000" max="30000" step="100" onchange="save()" oninput="save()">
+      </div>
+    </div>
+
+    <!-- KITCHEN -->
+    <div class="panel-section">
+      <div class="panel-heading">Kitchen</div>
+      <div class="control-row">
+        <div class="control-label">Cooktop type</div>
+        <select class="ctrl-select" id="cooktop-type" onchange="save()">
+          <option value="induction">Induction</option>
+          <option value="gas">Gas</option>
+        </select>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Induction size<small>36″ = 7.2 kW · 48″ = 11 kW</small></div>
+        <select class="ctrl-select" id="cooktop-size" onchange="save()">
+          <option value="7200">36″ / 7.2 kW</option>
+          <option value="9000" selected>42″ / 9 kW</option>
+          <option value="11000">48″ / 11 kW</option>
+        </select>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Ovens</div>
+        <div class="stepper">
+          <button onclick="step('ovens',-1)">−</button>
+          <div class="stepper-val" id="ovens-val">2</div>
+          <button onclick="step('ovens',1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAUNDRY -->
+    <div class="panel-section">
+      <div class="panel-heading">Laundry</div>
+      <div class="control-row">
+        <div class="control-label">Dryers<small>5,500W each · dedicated 30A 240V</small></div>
+        <div class="stepper">
+          <button onclick="step('dryers',-1)">−</button>
+          <div class="stepper-val" id="dryers-val">4</div>
+          <button onclick="step('dryers',1)">+</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Dryer fuel</div>
+        <select class="ctrl-select" id="dryer-type" onchange="save()">
+          <option value="electric" selected>Electric</option>
+          <option value="gas">Gas (motor only)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- HVAC -->
+    <div class="panel-section">
+      <div class="panel-heading">HVAC</div>
+      <div class="control-row">
+        <div class="control-label">Main house units<small>Est. 5T / 4T / 3T / 2.5T</small></div>
+        <div class="stepper">
+          <button onclick="step('hvac',-1)">−</button>
+          <div class="stepper-val" id="hvac-val">4</div>
+          <button onclick="step('hvac',1)">+</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Guest suite mini-split<small>~2T over garage</small></div>
+        <label class="toggle"><input type="checkbox" id="hvac-guest" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Potting shed mini-split<small>~1T</small></div>
+        <label class="toggle"><input type="checkbox" id="hvac-shed" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+    </div>
+
+    <!-- WATER HEATING -->
+    <div class="panel-section">
+      <div class="panel-heading">Water Heating</div>
+      <div class="control-row">
+        <div class="control-label">Guest suite — heat pump WH<small>30A 240V · ~800W avg demand</small></div>
+        <label class="toggle"><input type="checkbox" id="wh-guest" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Main house — electric WH<small>Gas assumed by default</small></div>
+        <label class="toggle"><input type="checkbox" id="wh-main" onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+    </div>
+
+    <!-- SPA & COMFORT -->
+    <div class="panel-section">
+      <div class="panel-heading">Spa &amp; Comfort</div>
+      <div class="control-row">
+        <div class="control-label">Steam shower generator<small>12 kW · dedicated 50A 240V</small></div>
+        <label class="toggle"><input type="checkbox" id="steam" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Heated floor baths<small>~1,333W each</small></div>
+        <div class="stepper">
+          <button onclick="step('hfloor',-1)">−</button>
+          <div class="stepper-val" id="hfloor-val">3</div>
+          <button onclick="step('hfloor',1)">+</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Bromic porch heaters<small>2,300W · continuous load</small></div>
+        <div class="stepper">
+          <button onclick="step('bromic',-1)">−</button>
+          <div class="stepper-val" id="bromic-val">8</div>
+          <button onclick="step('bromic',1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ELEVATOR & POOL -->
+    <div class="panel-section">
+      <div class="panel-heading">Elevator &amp; Pool</div>
+      <div class="control-row">
+        <div class="control-label">Elevator<small>~6,000W · 30A 240V</small></div>
+        <label class="toggle"><input type="checkbox" id="elevator" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Pool equipment</div>
+        <label class="toggle"><input type="checkbox" id="pool" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Pool heater type</div>
+        <select class="ctrl-select" id="pool-heater" onchange="save()">
+          <option value="gas" selected>Gas</option>
+          <option value="heatpump">Electric Heat Pump</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- SITE -->
+    <div class="panel-section">
+      <div class="panel-heading">Site &amp; Outbuildings</div>
+      <div class="control-row">
+        <div class="control-label">Gate operators × 2</div>
+        <label class="toggle"><input type="checkbox" id="gates" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Irrigation booster pump</div>
+        <label class="toggle"><input type="checkbox" id="irrigation" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="control-row">
+        <div class="control-label">Landscape lighting<small>LV transformers + line voltage</small></div>
+        <label class="toggle"><input type="checkbox" id="landscape" checked onchange="save()"><span class="toggle-slider"></span></label>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- RIGHT: RESULTS -->
+  <main class="results-panel">
+
+    <div class="kpi-strip">
+      <div class="kpi">
+        <div class="kpi-label">Conditioned SF</div>
+        <div class="kpi-value" id="kpi-sf">8,800</div>
+        <div class="kpi-sub">square feet</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Base Demand</div>
+        <div class="kpi-value accent" id="kpi-base">—</div>
+        <div class="kpi-sub">kVA without EV</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total w/ EV</div>
+        <div class="kpi-value warn" id="kpi-total">—</div>
+        <div class="kpi-sub">kVA calculated</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Amps at 240V</div>
+        <div class="kpi-value warn" id="kpi-amps">—</div>
+        <div class="kpi-sub">service requirement</div>
+      </div>
+    </div>
+
+    <div class="service-banner" id="service-banner">
+      <div class="service-banner-label" id="service-banner-label">Service Recommendation</div>
+      <div class="service-banner-text" id="service-banner-text">Calculating…</div>
+    </div>
+
+    <div class="results-section-heading">NEC Article 220 Demand Calculation</div>
+    <table class="load-table">
+      <thead>
+        <tr>
+          <th style="width:42%">Load Category</th>
+          <th style="width:13%">NEC Ref.</th>
+          <th class="r" style="width:22%">Connected W</th>
+          <th class="r" style="width:23%">Calculated VA</th>
+        </tr>
+      </thead>
+      <tbody id="load-tbody"></tbody>
+      <tfoot id="load-tfoot"></tfoot>
+    </table>
+    <p class="nec-note">Demand factors per NEC 220.42 (lighting), 220.52 (small appliance/laundry), 220.53 (fixed appliances 75%), 220.54 (dryers), 220.55 (cooking), 220.60 (HVAC largest load), 210.19(A) (continuous loads ×125%). Planning-level estimate only — not a sealed engineering calculation.</p>
+
+  </main>
+</div>
+
+<script>
+// ── Default state ──────────────────────────────────────────────────────────
+const DEFAULTS = {
+  sf: 8800,
+  cooktopType: 'induction',
+  cooktopSize: '9000',
+  ovens: 2,
+  dryers: 4,
+  dryerType: 'electric',
+  hvac: 4,
+  hvacGuest: true,
+  hvacShed: true,
+  whGuest: true,
+  whMain: false,
+  steam: true,
+  hfloor: 3,
+  bromic: 8,
+  elevator: true,
+  pool: true,
+  poolHeater: 'gas',
+  gates: true,
+  irrigation: true,
+  landscape: true,
+  ev: 3,
+  evMgmt: false,
+};
+
+let state = { ...DEFAULTS };
+
+// ── Persistence ────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'davis-elec-calc-v1';
+
+function loadFromStorage() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      state = { ...DEFAULTS, ...parsed };
+    }
+  } catch(e) { /* use defaults */ }
+}
+
+let saveTimer = null;
+function save() {
+  // Read all controls into state immediately
+  readControls();
+  calc();
+  // Debounce the actual localStorage write
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      const ind = document.getElementById('save-indicator');
+      ind.classList.add('visible');
+      setTimeout(() => ind.classList.remove('visible'), 1800);
+    } catch(e) {}
+  }, 400);
+}
+
+function readControls() {
+  state.sf          = parseInt(document.getElementById('sf-input').value) || 8800;
+  state.cooktopType = document.getElementById('cooktop-type').value;
+  state.cooktopSize = document.getElementById('cooktop-size').value;
+  state.ovens       = parseInt(document.getElementById('ovens-val').textContent);
+  state.dryers      = parseInt(document.getElementById('dryers-val').textContent);
+  state.dryerType   = document.getElementById('dryer-type').value;
+  state.hvac        = parseInt(document.getElementById('hvac-val').textContent);
+  state.hvacGuest   = document.getElementById('hvac-guest').checked;
+  state.hvacShed    = document.getElementById('hvac-shed').checked;
+  state.whGuest     = document.getElementById('wh-guest').checked;
+  state.whMain      = document.getElementById('wh-main').checked;
+  state.steam       = document.getElementById('steam').checked;
+  state.hfloor      = parseInt(document.getElementById('hfloor-val').textContent);
+  state.bromic      = parseInt(document.getElementById('bromic-val').textContent);
+  state.elevator    = document.getElementById('elevator').checked;
+  state.pool        = document.getElementById('pool').checked;
+  state.poolHeater  = document.getElementById('pool-heater').value;
+  state.gates       = document.getElementById('gates').checked;
+  state.irrigation  = document.getElementById('irrigation').checked;
+  state.landscape   = document.getElementById('landscape').checked;
+  state.ev          = parseInt(document.getElementById('ev-val').textContent);
+  state.evMgmt      = document.getElementById('ev-mgmt').checked;
+}
+
+function applyStateToControls() {
+  document.getElementById('sf-input').value        = state.sf;
+  document.getElementById('cooktop-type').value    = state.cooktopType;
+  document.getElementById('cooktop-size').value    = state.cooktopSize;
+  document.getElementById('ovens-val').textContent = state.ovens;
+  document.getElementById('dryers-val').textContent= state.dryers;
+  document.getElementById('dryer-type').value      = state.dryerType;
+  document.getElementById('hvac-val').textContent  = state.hvac;
+  document.getElementById('hvac-guest').checked    = state.hvacGuest;
+  document.getElementById('hvac-shed').checked     = state.hvacShed;
+  document.getElementById('wh-guest').checked      = state.whGuest;
+  document.getElementById('wh-main').checked       = state.whMain;
+  document.getElementById('steam').checked         = state.steam;
+  document.getElementById('hfloor-val').textContent= state.hfloor;
+  document.getElementById('bromic-val').textContent= state.bromic;
+  document.getElementById('elevator').checked      = state.elevator;
+  document.getElementById('pool').checked          = state.pool;
+  document.getElementById('pool-heater').value     = state.poolHeater;
+  document.getElementById('gates').checked         = state.gates;
+  document.getElementById('irrigation').checked    = state.irrigation;
+  document.getElementById('landscape').checked     = state.landscape;
+  document.getElementById('ev-val').textContent    = state.ev;
+  document.getElementById('ev-mgmt').checked       = state.evMgmt;
+}
+
+// ── Steppers ───────────────────────────────────────────────────────────────
+const stepConfig = {
+  ovens:  { min:0, max:4,  key:'ovens'  },
+  dryers: { min:0, max:6,  key:'dryers' },
+  hvac:   { min:0, max:8,  key:'hvac'   },
+  hfloor: { min:0, max:8,  key:'hfloor' },
+  bromic: { min:0, max:16, key:'bromic' },
+  ev:     { min:0, max:6,  key:'ev'     },
+};
+function step(id, delta) {
+  const cfg = stepConfig[id];
+  state[cfg.key] = Math.max(cfg.min, Math.min(cfg.max, state[cfg.key] + delta));
+  document.getElementById(id + '-val').textContent = state[cfg.key];
+  save();
+}
+
+// ── Calculation ────────────────────────────────────────────────────────────
+function fmt(n)   { return n === 0 ? '—' : n.toLocaleString(); }
+
+function calcLighting(sf) {
+  const connected = sf * 3;
+  const calc = 3000 + Math.max(0, connected - 3000) * 0.35;
+  return { connected, calculated: Math.round(calc) };
+}
+
+function calcCooking(type, sizeW, ovens) {
+  const cooktopW = type === 'gas' ? 0 : parseInt(sizeW);
+  const ovenW    = ovens * 3500;
+  const totalW   = cooktopW + ovenW;
+  const calc     = Math.round(totalW * 0.82);
+  return { connected: totalW, calculated: Math.max(0, calc) };
+}
+
+function calcDryers(count, type) {
+  if (type === 'gas')     return { connected: count * 400,  calculated: count * 400 };
+  // NEC 220.54: 1-4 = 100%, 5+ = 85%
+  const w = count * 5500;
+  const c = count <= 4 ? w : Math.round(w * 0.85);
+  return { connected: w, calculated: c };
+}
+
+function calcHVAC(units) {
+  const tons = [5, 4, 3, 2.5, 2, 1.5, 1.5, 1.5];
+  const wpt  = 1300;
+  let total  = 0;
+  for (let i = 0; i < Math.min(units, tons.length); i++) total += tons[i] * wpt;
+  return total;
+}
+
+function calc() {
+  const sf = state.sf || 8800;
+  const rows = [];
+
+  // Lighting
+  const lt = calcLighting(sf);
+  rows.push({ label:'General lighting & receptacles', tag:'220.42', conn:lt.connected, calc:lt.calculated,
+    note:`${sf.toLocaleString()} SF × 3 VA; first 3,000 @ 100%, balance @ 35%`, on:true });
+
+  // Small appliance + laundry
+  const lc = 3 + (state.hvacGuest ? 1 : 0);
+  rows.push({ label:`Small appliance & laundry circuits ×${lc}`, tag:'220.52', conn:lc*1500, calc:lc*1500,
+    note:`2 small-appliance + ${lc-2} laundry @ 1,500 VA each`, on:true });
+
+  // Dryers
+  const dr = calcDryers(state.dryers, state.dryerType);
+  rows.push({ label:`${state.dryerType==='electric'?'Electric':'Gas'} dryers ×${state.dryers}`, tag:'220.54',
+    conn:dr.connected, calc:dr.calculated,
+    note:`NEC 220.54: ${state.dryers<=4?'100%':'85%'} demand; ${state.dryers} × ${state.dryerType==='electric'?'5,500':'400'}W`, on:state.dryers>0 });
+
+  // Cooking
+  const ck = calcCooking(state.cooktopType, state.cooktopSize, state.ovens);
+  rows.push({ label:`Cooking — ${state.cooktopType==='induction'?`Induction ${parseInt(state.cooktopSize)/1000}kW`:'Gas cooktop'} + ${state.ovens} ovens`,
+    tag:'220.55', conn:ck.connected, calc:ck.calculated,
+    note:'Table 220.55 demand factor ~82%', on:ck.connected>0 });
+
+  // Fixed appliances
+  const steamW  = state.steam    ? 12000 : 0;
+  const floorsW = state.hfloor  * 1333;
+  const elevW   = state.elevator ? 6000  : 0;
+  const whGW    = state.whGuest  ? 800   : 0;
+  const whMW    = state.whMain   ? 4500  : 0;
+  const fixConn = steamW + floorsW + elevW + 3600 + 3000 + 3000 + 1200 + 1500 + whGW + whMW;
+  rows.push({ label:'Fixed appliances (≥4 units — 75% demand)', tag:'220.53',
+    conn:fixConn, calc:Math.round(fixConn*0.75),
+    note:`Steam ${steamW/1000}kW · floors ${(floorsW/1000).toFixed(1)}kW · elevator ${elevW/1000}kW · DW/micro/REF/disp/warm${whGW?' · HP WH':''}${whMW?' · elec WH main':''}`,
+    on:fixConn>0 });
+
+  // HVAC main
+  const hmW = calcHVAC(state.hvac);
+  rows.push({ label:`HVAC — main house ×${state.hvac} units`, tag:'220.60', conn:hmW, calc:hmW,
+    note:`Est. tonnage 5+4+3+2.5T… = ${(hmW/1000).toFixed(1)}kW; cooling governs in AL`, on:state.hvac>0 });
+
+  // HVAC guest
+  if (state.hvacGuest) rows.push({ label:'HVAC — guest suite mini-split (~2T)', tag:'220.60',
+    conn:2600, calc:2600, note:'Over-garage suite; 20A 240V dedicated', on:true });
+
+  // HVAC shed
+  if (state.hvacShed) rows.push({ label:'HVAC — potting shed mini-split (~1T)', tag:'220.60',
+    conn:1500, calc:1500, note:'Confirm feeder distance for sizing', on:true });
+
+  // Bromic
+  if (state.bromic > 0) {
+    const bW = state.bromic * 2300;
+    rows.push({ label:`Bromic porch heaters ×${state.bromic} — continuous`, tag:'210.19(A)',
+      conn:bW, calc:Math.round(bW*1.25),
+      note:`${state.bromic} × 2,300W × 125% continuous factor`, on:true });
+  }
+
+  // Pool
+  if (state.pool) {
+    const pW = 3000 + (state.poolHeater==='heatpump' ? 6000 : 0);
+    rows.push({ label:`Pool equipment${state.poolHeater==='heatpump'?' + electric heat pump':'(gas heater)'}`, tag:'680.25',
+      conn:pW, calc:pW, note:'VS pump · heater · salt cell · light · automation', on:true });
+  }
+
+  // Site
+  if (state.gates)      rows.push({ label:'Gate operators ×2',          tag:'220.14', conn:1500, calc:1500, note:'Low duty cycle; subpanel at gate', on:true });
+  if (state.irrigation) rows.push({ label:'Irrigation booster pump',     tag:'220.14', conn:1500, calc:1500, note:'City water assumed; 20A circuit',   on:true });
+  if (state.landscape)  rows.push({ label:'Landscape lighting',          tag:'220.14', conn:3000, calc:3000, note:'LV transformers + line-voltage accents', on:true });
+
+  const baseTotal = rows.filter(r=>r.on).reduce((s,r)=>s+r.calc, 0);
+
+  // EV
+  let evCalc = 0;
+  if (state.ev > 0) {
+    const simul = state.evMgmt ? Math.min(state.ev, 2) : state.ev;
+    evCalc = Math.round(simul * 9600 * 1.25);
+  }
+  const grandTotal = baseTotal + evCalc;
+  const baseAmps   = Math.round(baseTotal  / 240);
+  const totalAmps  = Math.round(grandTotal / 240);
+
+  // ── Render table ──
+  const tbody = document.getElementById('load-tbody');
+  tbody.innerHTML = rows.map(r => `
+    <tr class="${r.on?'':'disabled'}">
+      <td>${r.label}<br><span style="font-style:italic;font-size:10px;color:var(--ink-faint);">${r.note}</span></td>
+      <td class="tag">${r.tag}</td>
+      <td class="mono ${r.on?'active':''}">${r.on?fmt(r.conn):'—'}</td>
+      <td class="mono ${r.on?'active':''}">${r.on?fmt(r.calc):'—'}</td>
+    </tr>`).join('');
+
+  if (state.ev > 0) {
+    const simul = state.evMgmt ? Math.min(state.ev, 2) : state.ev;
+    tbody.innerHTML += `
+      <tr>
+        <td>EV charging ×${state.ev} Level 2${state.evMgmt?' — load managed':''}
+          <br><span style="font-style:italic;font-size:10px;color:var(--ink-faint);">
+          ${state.evMgmt
+            ? `Load mgmt: ${simul} simultaneous × 9,600W × 125%`
+            : `${state.ev} × 9,600W × 125% continuous`}
+          </span></td>
+        <td class="tag">210.19(A)</td>
+        <td class="mono active">${fmt(state.ev*9600)}</td>
+        <td class="mono active">${fmt(evCalc)}</td>
+      </tr>`;
+  }
+
+  document.getElementById('load-tfoot').innerHTML = `
+    <tr>
+      <td class="label" colspan="2">Base demand — without EV</td>
+      <td class="mono">—</td>
+      <td class="mono" style="text-align:right;font-weight:700;color:var(--ink);">${fmt(baseTotal)}</td>
+    </tr>
+    <tr>
+      <td class="label" colspan="2">Total calculated demand</td>
+      <td class="mono">—</td>
+      <td class="mono total-val">${fmt(grandTotal)}</td>
+    </tr>
+    <tr>
+      <td class="label" colspan="2">Service amperage at 240V</td>
+      <td class="mono">—</td>
+      <td class="mono total-amps">${totalAmps.toLocaleString()} A</td>
+    </tr>`;
+
+  // ── KPI ──
+  animateVal('kpi-sf',    sf.toLocaleString());
+  animateVal('kpi-base',  (baseTotal/1000).toFixed(0)+' kVA');
+  animateVal('kpi-total', (grandTotal/1000).toFixed(0)+' kVA');
+  animateVal('kpi-amps',  totalAmps.toLocaleString()+' A');
+
+  // ── Banner ──
+  const banner = document.getElementById('service-banner');
+  const bLabel = document.getElementById('service-banner-label');
+  const bText  = document.getElementById('service-banner-text');
+  banner.className = 'service-banner';
+  if (totalAmps <= 320) {
+    banner.classList.add('green');
+    bLabel.textContent = 'Service Recommendation — 200A or 320A';
+    bText.textContent  = `Calculated demand of ${totalAmps}A fits within a 320A service with headroom. Verify with electrician.`;
+  } else if (totalAmps <= 400) {
+    banner.classList.add('green');
+    bLabel.textContent = 'Service Recommendation — 400A';
+    bText.textContent  = `Calculated demand of ${totalAmps}A fits within a single 400A service with moderate headroom.`;
+  } else if (totalAmps <= 500) {
+    bLabel.textContent = 'Service Recommendation — 400A Tight · Consider 600A';
+    bText.textContent  = `Calculated demand of ${totalAmps}A is at or above a 400A service. A 600A service is recommended. Contact Alabama Power early regarding transformer sizing.`;
+  } else if (totalAmps <= 650) {
+    banner.classList.add('red');
+    bLabel.textContent = 'Service Recommendation — 600A Required';
+    bText.textContent  = `Calculated demand of ${totalAmps}A exceeds a 400A service. 600A is required.${state.evMgmt?' Smart load management is active — ensure it is engineered, not bolted on later.':' Consider enabling smart EV load management.'}`;
+  } else {
+    banner.classList.add('red');
+    bLabel.textContent = 'Service Recommendation — Dual 400A Services Required';
+    bText.textContent  = `Calculated demand of ${totalAmps}A exceeds a single 600A service. Dual 400A meter bases (800A total) are required. Coordinate with Alabama Power immediately.${!state.evMgmt?' Enabling smart EV load management may bring this within 600A range.':''}`;
+  }
+}
+
+function animateVal(id, val) {
+  const el = document.getElementById(id);
+  if (el.textContent !== val) {
+    el.textContent = val;
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+  }
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+loadFromStorage();
+applyStateToControls();
+calc();
+</script>
+</body>
+</html>
