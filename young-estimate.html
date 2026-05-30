@@ -41,10 +41,10 @@
   /* Table-specific aliases */
   --v3-bg:    #F0E8DC;   /* warm rust-wash tint for current estimate column */
   --v3-hdr:   #3A2A1E;
-  --up-bg:    #EAF4EA;
-  --up-tx:    #1A5C1A;
-  --dn-bg:    #FAE8E8;
-  --dn-tx:    #8B1A1A;
+  --up-bg:    #FAE8E8;
+  --up-tx:    #8B1A1A;
+  --dn-bg:    #EAF4EA;
+  --dn-tx:    #1A5C1A;
   --d12-hdr:  #241E1A;
   --d23-hdr:  #3A1208;
   --d13-hdr:  #141E10;
@@ -141,7 +141,7 @@ body {
 /* ── Table ─────────────────────────────────────────────────── */
 .wrap { overflow-x:auto; padding:0 48px }
 table { width:100%; border-collapse:collapse; min-width:1160px }
-col.c-label { width:300px } col.c-v { width:130px } col.c-d { width:115px }
+col.c-label { width:300px; min-width:300px } col.c-v { width:130px } col.c-d { width:115px }
 
 /* Column header rows — FF Meta Pro Cond for UI chrome */
 thead tr.r-hdr th {
@@ -194,10 +194,10 @@ thead tr.r-sub th.d13 { background:var(--dn-bg); color:var(--ink-mute); border-r
 
 /* Bid totals row — Franklin Gothic Compressed, large numerals aligned to each column */
 thead tr.r-bid th {
-  padding: 8px 10px 5px;
+  padding: 12px 10px 8px;
   font-family: var(--sans-comp);
-  font-size: 28px;
-  font-weight: 400;
+  font-size: 36px;
+  font-weight: 700;
   letter-spacing: .01em;
   color: var(--ink);
   background: var(--paper-deep);
@@ -236,7 +236,7 @@ tr.dr:nth-child(even) td { background:var(--paper-edge) }
 tr.dr:nth-child(odd)  td { background:var(--paper) }
 
 /* Warnock Pro for labels and all numerals — Tufte uses serif throughout */
-td.c-label { position:relative; font-family:var(--meta); font-size:19.8px; color:var(--ink-soft); text-align:left; padding-left:20px; border-right:1px solid var(--hairline); white-space:nowrap }
+td.c-label { position:relative; font-family:var(--meta); font-size:19.8px; color:var(--ink-soft); text-align:left; padding-left:20px; border-right:1px solid var(--hairline) }
 td.money   { font-family:var(--meta); font-size:19.8px; font-weight:400; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
 td.v3      { font-weight:400; border-right:1px solid var(--hairline) }
 td.delta   { font-family:var(--meta); font-size:18.5px; text-align:right; font-variant-numeric:tabular-nums; border-right:1px solid var(--hairline-ink) }
@@ -519,15 +519,6 @@ footer {
     <em>V1 Preliminary &nbsp;·&nbsp; V2 Revised &nbsp;·&nbsp; V3 Permit Set</em>
   </div>
   <div class="mh-sub">15% markup applied to bid totals &nbsp;·&nbsp; Negative Δ = cost reduction</div>
-  <hr class="mh-rule">
-  <div class="mh-stats">
-    <div class="mh-stat"><span class="mh-stat-lbl">V1 — 9/10/25</span><span class="mh-stat-val">$2,484,134</span></div>
-    <div class="mh-stat"><span class="mh-stat-lbl">V2 — 9/23/25</span><span class="mh-stat-val">$2,261,557</span></div>
-    <div class="mh-stat"><span class="mh-stat-lbl">V3 — 5/19/26 Permit Set</span><span class="mh-stat-val hi">$3,015,184</span></div>
-    <div class="mh-stat"><span class="mh-stat-lbl">Δ V1→V2</span><span class="mh-stat-val dn">($222,577)</span></div>
-    <div class="mh-stat"><span class="mh-stat-lbl">Δ V2→V3</span><span class="mh-stat-val hi">+$753,627</span></div>
-    <div class="mh-stat"><span class="mh-stat-lbl">Δ V1→V3</span><span class="mh-stat-val hi">+$531,050</span></div>
-  </div>
 </div>
 
 <div class="wrap">
