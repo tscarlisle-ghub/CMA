@@ -1080,8 +1080,6 @@ const COMPS = [
    fromBid:V1_BID,toBid:V2_BID,fromPsf:V1_PSF,toPsf:V2_PSF},
   {key:'d23',cls:'d23',from:2,to:3,label:'V2 → V3',span:'9/23/25 to 5/19/26',
    fromBid:V2_BID,toBid:V3_BID,fromPsf:V2_PSF,toPsf:V3_PSF},
-  {key:'d13',cls:'d13',from:1,to:3,label:'V1 → V3',span:'9/10/25 to 5/19/26',
-   fromBid:V1_BID,toBid:V3_BID,fromPsf:V1_PSF,toPsf:V3_PSF},
 ];
 
 const VERSIONS = [
@@ -1131,47 +1129,42 @@ function attachInputListeners() {} // no-op — inputs removed
 
 const s = document.getElementById('summary');
 
-// Version totals strip
+// Version totals — delta folded in under V2 and V3
+const d12 = V2_BID - V1_BID, dp12 = V2_PSF - V1_PSF;
+const d23 = V3_BID - V2_BID, dp23 = V3_PSF - V2_PSF;
+const deltas = [null, {d:d12,dp:dp12,label:'V1 → V2'}, {d:d23,dp:dp23,label:'V2 → V3'}];
+
 let vhtml = '<div class="sum-totals">';
-VERSIONS.forEach(v => {
-  vhtml += `<div class="sum-ver${v.current?' v3-panel':''}">
+VERSIONS.forEach((v, i) => {
+  const delta = deltas[i];
+  const dBlock = delta ? `
+    <hr class="sum-ver-rule">
+    <div class="sum-delta-eye" style="margin-top:6px">${delta.label} &nbsp;·&nbsp; Delta</div>
+    <div class="sum-delta-val ${delta.d>=0?'pos':'neg'}" style="font-size:36px;line-height:.85">${delta.d>=0?'+'+fmtM(delta.d):'('+fmtM(delta.d)+')'}</div>
+    <div class="sum-delta-psf">${delta.dp>=0?'+ $'+Math.abs(delta.dp).toFixed(2):'($'+Math.abs(delta.dp).toFixed(2)+')'} &nbsp;per SF</div>` : '';
+  vhtml += `<div class="sum-ver">
     <div class="sum-ver-eye">${v.label} &nbsp;·&nbsp; Bid Total ×1.15</div>
     <div class="sum-ver-name">${v.date}</div>
     <div class="sum-ver-total">${fmtM(v.bid)}</div>
-    <hr class="sum-ver-rule">
-    <div class="sum-ver-sub">${v.sub} &nbsp;·&nbsp; Subtotal ${fmtM(v.sub2)}</div>
+    <div class="sum-ver-sub" style="margin-top:6px">${v.sub} &nbsp;·&nbsp; Subtotal ${fmtM(v.sub2)}</div>
     <div class="sum-ver-psf">${v.psf.toFixed(2)} per square foot</div>
+    ${dBlock}
   </div>`;
 });
 vhtml += '</div>';
 s.insertAdjacentHTML('beforeend', vhtml);
 
-// Delta cards
-let dhtml = '<div class="sum-deltas">';
-COMPS.forEach(c => {
-  const d = c.toBid - c.fromBid;
-  const dp = c.toPsf - c.fromPsf;
-  dhtml += `<div class="sum-delta ${c.cls}">
-    <div class="sum-delta-eye">Bid Total Delta</div>
-    <div class="sum-delta-span">${c.label} &nbsp;·&nbsp; ${c.span}</div>
-    <div class="sum-delta-val ${d>=0?'pos':'neg'}">${d>=0?'+'+fmtM(d):'('+fmtM(d)+')'}</div>
-    <hr class="sum-delta-rule">
-    <div class="sum-delta-psf">${dp>=0?'+ $'+Math.abs(dp).toFixed(2):'($'+Math.abs(dp).toFixed(2)+')'} &nbsp;per SF</div>
-  </div>`;
-});
-dhtml += '</div>';
-s.insertAdjacentHTML('beforeend', dhtml);
-
-// Movers header
-let mhtml = `<div class="sum-movers-hdr">`;
-COMPS.forEach(c => {
-  mhtml += `<div class="sum-movers-col-hdr"><div class="sum-movers-col-hdr-title">Largest Movers (${N_MOVERS}) &nbsp;·&nbsp; ${c.label}</div><div class="sum-movers-col-hdr-sub">Ranked by absolute dollar change</div></div>`;
-});
-mhtml += '</div><div class="sum-movers-body">';
-COMPS.forEach(c => {
-  mhtml += `<div class="sum-movers-list" id="movers-${c.key}"></div>`;
-});
-mhtml += '</div>';
+// Movers — V1→V2 under V2 column, V2→V3 under V3 column, blank under V1
+let mhtml = `<div class="sum-movers-hdr" style="grid-template-columns:1fr 1fr 1fr">
+  <div class="sum-movers-col-hdr" style="background:var(--paper)"></div>
+  <div class="sum-movers-col-hdr"><div class="sum-movers-col-hdr-title">Largest Movers (${N_MOVERS}) &nbsp;·&nbsp; V1 → V2</div><div class="sum-movers-col-hdr-sub">Changes from preliminary to revised</div></div>
+  <div class="sum-movers-col-hdr"><div class="sum-movers-col-hdr-title">Largest Movers (${N_MOVERS}) &nbsp;·&nbsp; V2 → V3</div><div class="sum-movers-col-hdr-sub">Changes from revised to permit set</div></div>
+</div>
+<div class="sum-movers-body" style="grid-template-columns:1fr 1fr 1fr">
+  <div class="sum-movers-list" style="background:var(--paper); border-right:1px solid var(--hairline)"></div>
+  <div class="sum-movers-list" id="movers-d12"></div>
+  <div class="sum-movers-list" id="movers-d23"></div>
+</div>`;
 s.insertAdjacentHTML('beforeend', mhtml);
 
 // Render all mover lists
