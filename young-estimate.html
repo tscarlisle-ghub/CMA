@@ -41,10 +41,10 @@
   /* Table-specific aliases */
   --v3-bg:    #F0E8DC;   /* warm rust-wash tint for current estimate column */
   --v3-hdr:   #3A2A1E;
-  --up-bg:    #F5EAE5;
-  --up-tx:    #7A2010;
-  --dn-bg:    #EAF0E4;
-  --dn-tx:    #244810;
+  --up-bg:    #EAF4EA;
+  --up-tx:    #1A5C1A;
+  --dn-bg:    #FAE8E8;
+  --dn-tx:    #8B1A1A;
   --d12-hdr:  #241E1A;
   --d23-hdr:  #3A1208;
   --d13-hdr:  #141E10;
@@ -135,7 +135,8 @@ body {
   line-height: .9;
   font-variant-numeric: tabular-nums;
 }
-.mh-stat-val.hi { color: var(--rust) }
+.mh-stat-val.hi { color: var(--up-tx) }
+.mh-stat-val.dn { color: var(--dn-tx) }
 
 /* ── Table ─────────────────────────────────────────────────── */
 .wrap { overflow-x:auto; padding:0 48px }
@@ -523,7 +524,7 @@ footer {
     <div class="mh-stat"><span class="mh-stat-lbl">V1 — 9/10/25</span><span class="mh-stat-val">$2,484,134</span></div>
     <div class="mh-stat"><span class="mh-stat-lbl">V2 — 9/23/25</span><span class="mh-stat-val">$2,261,557</span></div>
     <div class="mh-stat"><span class="mh-stat-lbl">V3 — 5/19/26 Permit Set</span><span class="mh-stat-val hi">$3,015,184</span></div>
-    <div class="mh-stat"><span class="mh-stat-lbl">Δ V1→V2</span><span class="mh-stat-val">−$222,577</span></div>
+    <div class="mh-stat"><span class="mh-stat-lbl">Δ V1→V2</span><span class="mh-stat-val dn">($222,577)</span></div>
     <div class="mh-stat"><span class="mh-stat-lbl">Δ V2→V3</span><span class="mh-stat-val hi">+$753,627</span></div>
     <div class="mh-stat"><span class="mh-stat-lbl">Δ V1→V3</span><span class="mh-stat-val hi">+$531,050</span></div>
   </div>
@@ -545,7 +546,7 @@ footer {
   <tr class="r-bid">
     <th class="c-label"></th>
     <th>$2,484,134</th><th>$2,261,557</th><th>$3,015,184</th>
-    <th class="d12">−$222,577</th><th class="d23">+$753,627</th><th class="d13">+$531,050</th>
+    <th class="d12">($222,577)</th><th class="d23">+$753,627</th><th class="d13">+$531,050</th>
   </tr>
   <tr class="r-sub">
     <th class="c-label"></th>
@@ -903,20 +904,21 @@ const V1_PSF=314.77,  V2_PSF=286.22,  V3_PSF=343.39;
 // ─── Helpers ────────────────────────────────────────────────────────────────
 const $ = v => v==null ? 0 : v;
 const fmtM = v => '$'+Math.round(Math.abs(v)).toLocaleString();
-const fmtD = v => (v>=0?'+':'−')+'$'+Math.round(Math.abs(v)).toLocaleString();
+const fmtD = v => { const a='$'+Math.round(Math.abs(v)).toLocaleString(); return v>=0?'+'+a:'('+a+')'; };
 const sign  = d => d>0?'+':'−';
 
 function dCell(b,a){
   if(a==null && b==null) return {cls:'na',txt:'n/a'};
   const d=$(b)-$(a);
   if(d===0) return {cls:'flat',txt:'—'};
-  return {cls:d>0?'up':'dn',txt:sign(d)+'$'+Math.round(Math.abs(d)).toLocaleString()+(d>0?' ▲':' ▼')};
+  const amt='$'+Math.round(Math.abs(d)).toLocaleString();
+  return {cls:d>0?'up':'dn',txt:d>0?'+'+amt:'('+amt+')'};
 }
 const mTd=(v,xc='')=>v==null
   ?`<td class="money delta ${xc}"><span style="color:var(--ink-faint);font-size:15.9px">—</span></td>`
   :`<td class="money ${xc}">${fmtM(v)}</td>`;
 const dTd=(b,a,xc='')=>{ const {cls,txt}=dCell(b,a); return `<td class="delta ${cls} ${xc}">${txt}</td>`; };
-const totDTd=(vt,vf,xc='')=>{ const d=vt-vf; const c=d>0?'up':d<0?'dn':'flat'; return `<td class="delta ${c} ${xc}">${d===0?'—':sign(d)+'$'+Math.round(Math.abs(d)).toLocaleString()}</td>`; };
+const totDTd=(vt,vf,xc='')=>{ const d=vt-vf; const c=d>0?'up':d<0?'dn':'flat'; const amt='$'+Math.round(Math.abs(d)).toLocaleString(); return `<td class="delta ${c} ${xc}">${d===0?'—':d>0?'+'+amt:'('+amt+')'}</td>`; };
 
 const tb=document.getElementById('tb');
 function sec(lbl){ tb.insertAdjacentHTML('beforeend',`<tr class="sec"><td colspan="7">${lbl}</td></tr>`); }
@@ -946,7 +948,7 @@ function grandRow(cls,lbl,v1,v2,v3,isPsf){
   const fmt=isPsf?v=>'$'+v.toFixed(2):v=>'$'+Math.round(v).toLocaleString();
   const d12=v2-v1,d23=v3-v2,d13=v3-v1;
   const dc=d=>d>0?'up':d<0?'dn':'flat';
-  const dt=(d,psf)=>{ if(d===0)return'—'; const a=psf?Math.abs(d).toFixed(2):Math.round(Math.abs(d)).toLocaleString(); return sign(d)+'$'+a; };
+  const dt=(d,psf)=>{ if(d===0)return'—'; const a=(psf?Math.abs(d).toFixed(2):Math.round(Math.abs(d)).toLocaleString()); return d>0?'+$'+a:'($'+a+')'; };
   tb.insertAdjacentHTML('beforeend',`<tr class="${cls}">
     <td class="c-label">${lbl}</td>
     <td class="money">${fmt(v1)}</td><td class="money">${fmt(v2)}</td><td class="money v3">${fmt(v3)}</td>
@@ -1157,9 +1159,9 @@ COMPS.forEach(c => {
   dhtml += `<div class="sum-delta ${c.cls}">
     <div class="sum-delta-eye">Bid Total Delta</div>
     <div class="sum-delta-span">${c.label} &nbsp;·&nbsp; ${c.span}</div>
-    <div class="sum-delta-val ${d>=0?'pos':'neg'}">${d>=0?'+':'−'}${fmtM(d)}</div>
+    <div class="sum-delta-val ${d>=0?'pos':'neg'}">${d>=0?'+'+fmtM(d):'('+fmtM(d)+')'}</div>
     <hr class="sum-delta-rule">
-    <div class="sum-delta-psf">${dp>=0?'+':'−'} $${Math.abs(dp).toFixed(2)} &nbsp;per SF</div>
+    <div class="sum-delta-psf">${dp>=0?'+ $'+Math.abs(dp).toFixed(2):'($'+Math.abs(dp).toFixed(2)+')'} &nbsp;per SF</div>
   </div>`;
 });
 dhtml += '</div>';
