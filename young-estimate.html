@@ -129,7 +129,7 @@ body {
 /* ── Table ─────────────────────────────────────────────────── */
 .wrap { overflow-x:auto; padding:0 48px }
 table { width:100%; border-collapse:collapse; min-width:1160px }
-col.c-label { width:420px } col.c-v { width:100px } col.c-d { width:90px }
+col.c-label { } col.c-v { width:108px } col.c-d { width:96px }
 
 /* Column header rows — FF Meta Pro Cond for UI chrome */
 thead tr.r-hdr th {
@@ -160,24 +160,43 @@ thead tr.r-hdr th.d12 { background:var(--paper-edge); color:var(--up-tx); border
 thead tr.r-hdr th.d23 { background:var(--rust-wash); color:var(--rust); border-right:1px solid var(--hairline) }
 thead tr.r-hdr th.d13 { background:var(--dn-bg); color:var(--dn-tx); border-right:none }
 
-/* Sub-row — Warnock italic for dates/descriptors */
+/* Sub-row — Columbia Titling for dates/descriptors */
 thead tr.r-sub th {
   padding: 3px 10px 10px;
-  font-family: var(--serif);
-  font-size: 13px;
-  font-style: italic;
+  font-family: var(--titling);
+  font-size: 12px;
+  font-style: normal;
   font-weight: 400;
+  letter-spacing: .22em;
+  text-transform: uppercase;
   color: var(--ink-mute);
   background: var(--paper-edge);
   border-right: 1px solid var(--hairline);
   border-bottom: 1px solid var(--hairline-strong);
   text-align: right;
 }
-thead tr.r-sub th.c-label { font-style:normal; text-align:left; padding-left:16px; border-right:1px solid var(--hairline) }
-thead tr.r-sub th.v3  { background:var(--paper-edge); color:var(--ink-mute); border-right:1px solid var(--hairline) }
+thead tr.r-sub th.c-label { text-align:left; padding-left:16px; border-right:1px solid var(--hairline) }
 thead tr.r-sub th.d12 { background:var(--paper-edge); color:var(--ink-mute) }
 thead tr.r-sub th.d23 { background:var(--rust-wash); color:var(--ink-mute) }
 thead tr.r-sub th.d13 { background:var(--dn-bg); color:var(--ink-mute); border-right:none }
+
+/* Bid totals row — Franklin Gothic Compressed, large numerals aligned to each column */
+thead tr.r-bid th {
+  padding: 8px 10px 5px;
+  font-family: var(--sans-comp);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: .01em;
+  color: var(--ink);
+  background: var(--paper-deep);
+  border-right: 1px solid var(--hairline);
+  text-align: right;
+  line-height: 1;
+}
+thead tr.r-bid th.c-label { text-align:left; padding-left:16px; border-right:1px solid var(--hairline); font-family:var(--titling); font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mute) }
+thead tr.r-bid th.d12 { background:var(--paper-edge); color:var(--up-tx) }
+thead tr.r-bid th.d23 { background:var(--rust-wash); color:var(--rust) }
+thead tr.r-bid th.d13 { background:var(--dn-bg); color:var(--dn-tx); border-right:none }
 
 /* ── Section header rows ───────────────────────────────────── */
 /* Tufte: structure through type and rules, not fills */
@@ -205,7 +224,7 @@ tr.dr:nth-child(even) td { background:var(--paper-edge) }
 tr.dr:nth-child(odd)  td { background:var(--paper) }
 
 /* Warnock Pro for labels and all numerals — Tufte uses serif throughout */
-td.c-label { position:relative; font-family:var(--meta); font-size:19.8px; color:var(--ink-soft); text-align:left; padding-left:20px; border-right:1px solid var(--hairline) }
+td.c-label { position:relative; font-family:var(--meta); font-size:19.8px; color:var(--ink-soft); text-align:left; padding-left:20px; border-right:1px solid var(--hairline); white-space:nowrap }
 td.money   { font-family:var(--meta); font-size:19.8px; font-weight:400; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
 td.v3      { font-weight:400; border-right:1px solid var(--hairline) }
 td.delta   { font-family:var(--meta); font-size:18.5px; text-align:right; font-variant-numeric:tabular-nums; border-right:1px solid var(--hairline-ink) }
@@ -219,7 +238,7 @@ td.na  { color:var(--ink-mute); font-size:15.9px }
 tr.tot td { padding:6px 10px; border-top:1px solid var(--hairline-strong); border-bottom:1px solid var(--hairline-strong); background:var(--paper-deep)!important; border-right:1px solid var(--hairline) }
 tr.tot td:last-child { border-right:none }
 /* Interstate for the "SECTION TOTAL" label — structural, not prose */
-tr.tot td.c-label { font-family:var(--titling); font-size:13.2px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--ink); text-align:left; padding-left:20px; border-right:1px solid var(--hairline-strong) }
+tr.tot td.c-label { font-family:var(--meta); font-size:14.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); text-align:left; padding-left:20px; border-right:1px solid var(--hairline-strong) }
 /* Warnock for amounts — numerals stay in serif */
 tr.tot td.money { font-family:var(--meta); font-size:21.2px; font-weight:700; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
 tr.tot td.v3    { border-right:1px solid var(--hairline-strong) }
@@ -421,17 +440,17 @@ tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:18.5px; color:var
 /* ── Row annotations ───────────────────────────────────────── */
 .ann-tag {
   display: inline-block;
-  font-family: var(--titling);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: .30em;
+  font-family: var(--meta);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--rust);
   margin-left: 10px;
   vertical-align: middle;
   cursor: default;
   flex-shrink: 0;
-  line-height: 1;
+  line-height: normal;
 }
 .ann-tip {
   display: none;
@@ -508,12 +527,17 @@ footer {
 <thead>
   <tr class="r-hdr">
     <th class="c-label">Line Item</th>
-    <th>V1 — 9/10/25</th><th>V2 — 9/23/25</th><th class="v3">V3 — 5/19/26<br>Permit Set</th>
+    <th>V1 — 9/10/25</th><th>V2 — 9/23/25</th><th>V3 — 5/19/26<br>Permit Set</th>
     <th class="d12">Δ V1→V2</th><th class="d23">Δ V2→V3</th><th class="d13">Δ V1→V3</th>
+  </tr>
+  <tr class="r-bid">
+    <th class="c-label"></th>
+    <th>$2,484,134</th><th>$2,261,557</th><th>$3,015,184</th>
+    <th class="d12">−$222,577</th><th class="d23">+$753,627</th><th class="d13">+$531,050</th>
   </tr>
   <tr class="r-sub">
     <th class="c-label"></th>
-    <th>Preliminary</th><th>Revised</th><th class="v3">Current</th>
+    <th>Preliminary</th><th>Revised</th><th>Current</th>
     <th class="d12">Change</th><th class="d23">Change</th><th class="d13">Change</th>
   </tr>
 </thead>
