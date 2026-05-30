@@ -168,9 +168,9 @@ thead tr.r-hdr th.c-label {
   border-right: 1px solid var(--hairline);
 }
 thead tr.r-hdr th.v3  { background:var(--paper-deep); color:var(--ink); border-right:1px solid var(--hairline) }
-thead tr.r-hdr th.d12 { background:var(--paper-edge); color:var(--up-tx); border-right:1px solid var(--hairline) }
-thead tr.r-hdr th.d23 { background:var(--rust-wash); color:var(--rust); border-right:1px solid var(--hairline) }
-thead tr.r-hdr th.d13 { background:var(--dn-bg); color:var(--dn-tx); border-right:none }
+thead tr.r-hdr th.d12 { background:var(--dn-bg); color:var(--dn-tx); border-right:1px solid var(--hairline) }
+thead tr.r-hdr th.d23 { background:var(--up-bg); color:var(--up-tx); border-right:1px solid var(--hairline) }
+thead tr.r-hdr th.d13 { background:var(--up-bg); color:var(--up-tx); border-right:none }
 
 /* Sub-row — Columbia Titling for dates/descriptors */
 thead tr.r-sub th {
@@ -206,9 +206,9 @@ thead tr.r-bid th {
   line-height: 1;
 }
 thead tr.r-bid th.c-label { text-align:left; padding-left:16px; border-right:1px solid var(--hairline); font-family:var(--titling); font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mute) }
-thead tr.r-bid th.d12 { background:var(--paper-edge); color:var(--up-tx) }
-thead tr.r-bid th.d23 { background:var(--rust-wash); color:var(--rust) }
-thead tr.r-bid th.d13 { background:var(--dn-bg); color:var(--dn-tx); border-right:none }
+thead tr.r-bid th.d12 { background:var(--dn-bg); color:var(--dn-tx) }
+thead tr.r-bid th.d23 { background:var(--up-bg); color:var(--up-tx) }
+thead tr.r-bid th.d13 { background:var(--up-bg); color:var(--up-tx); border-right:none }
 
 /* ── Section header rows ───────────────────────────────────── */
 /* Tufte: structure through type and rules, not fills */
@@ -346,11 +346,15 @@ tr.g-sub td.delta, tr.g-tot td.delta, tr.g-psf td.delta {
   font-variant-numeric: tabular-nums;
   background: transparent!important;
 }
-tr.g-sub td.delta { font-family:var(--sans-comp); font-size:23.8px; color:var(--rust); letter-spacing:.01em }
+tr.g-sub td.delta { font-family:var(--sans-comp); font-size:23.8px; color:var(--ink-mute); letter-spacing:.01em }
+tr.g-sub td.delta.up { color:var(--up-tx) }
+tr.g-sub td.delta.dn { color:var(--dn-tx) }
 tr.g-tot td.delta { font-family:var(--sans-comp); font-size:31.7px; color:var(--ink); letter-spacing:.01em }
 tr.g-tot td.delta.up { color:var(--up-tx) }
 tr.g-tot td.delta.dn { color:var(--dn-tx) }
-tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:18.5px; color:var(--rust); letter-spacing:.01em }
+tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:18.5px; color:var(--ink-mute); letter-spacing:.01em }
+tr.g-psf td.delta.up { color:var(--up-tx) }
+tr.g-psf td.delta.dn { color:var(--dn-tx) }
 
 /* ── Summary panel ─────────────────────────────────────────── */
 /* Tufte: thin rules, paper ground, type does the work */
