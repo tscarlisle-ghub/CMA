@@ -203,25 +203,25 @@ tr.dr:nth-child(even) td { background:var(--paper-edge) }
 tr.dr:nth-child(odd)  td { background:var(--paper) }
 
 /* Warnock Pro for labels and all numerals — Tufte uses serif throughout */
-td.c-label { position:relative; font-family:var(--serif); font-size:15px; color:var(--ink-soft); text-align:left; padding-left:20px; border-right:1px solid var(--hairline) }
-td.money   { font-family:var(--serif); font-size:15px; font-weight:400; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
+td.c-label { position:relative; font-family:var(--serif); font-size:19.8px; color:var(--ink-soft); text-align:left; padding-left:20px; border-right:1px solid var(--hairline) }
+td.money   { font-family:var(--serif); font-size:19.8px; font-weight:400; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
 td.v3      { font-weight:400; border-right:1px solid var(--hairline) }
-td.delta   { font-family:var(--serif); font-size:14px; text-align:right; font-variant-numeric:tabular-nums; border-right:1px solid var(--hairline-ink) }
+td.delta   { font-family:var(--serif); font-size:18.5px; text-align:right; font-variant-numeric:tabular-nums; border-right:1px solid var(--hairline-ink) }
 td.delta:last-child { border-right:none }
 td.up  { color:var(--up-tx) }
 td.dn  { color:var(--dn-tx) }
 td.flat{ color:var(--ink-mute) }
-td.na  { color:var(--ink-mute); font-size:12px }
+td.na  { color:var(--ink-mute); font-size:15.9px }
 
 /* ── Section totals ────────────────────────────────────────── */
 tr.tot td { padding:6px 10px; border-top:1px solid var(--hairline-strong); border-bottom:1px solid var(--hairline-strong); background:var(--paper-deep)!important; border-right:1px solid var(--hairline) }
 tr.tot td:last-child { border-right:none }
 /* Interstate for the "SECTION TOTAL" label — structural, not prose */
-tr.tot td.c-label { font-family:var(--display); font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink); text-align:left; padding-left:20px; border-right:1px solid var(--hairline-strong) }
+tr.tot td.c-label { font-family:var(--titling); font-size:13.2px; font-weight:400; letter-spacing:.28em; text-transform:uppercase; color:var(--ink); text-align:left; padding-left:20px; border-right:1px solid var(--hairline-strong) }
 /* Warnock for amounts — numerals stay in serif */
-tr.tot td.money { font-family:var(--serif); font-size:16px; font-weight:600; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
+tr.tot td.money { font-family:var(--serif); font-size:21.2px; font-weight:600; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
 tr.tot td.v3    { border-right:1px solid var(--hairline-strong) }
-tr.tot td.delta { font-family:var(--serif); font-size:15px; font-weight:600; text-align:right }
+tr.tot td.delta { font-family:var(--serif); font-size:19.8px; font-weight:600; text-align:right }
 tr.tot td.up { color:var(--up-tx) }
 tr.tot td.dn { color:var(--dn-tx) }
 
@@ -279,16 +279,16 @@ tr.g-sub td:last-child, tr.g-tot td:last-child, tr.g-psf td:last-child { border-
 
 /* Label cells — Interstate, structural */
 tr.g-sub td.c-label, tr.g-tot td.c-label, tr.g-psf td.c-label {
-  font-family: var(--display);
+  font-family: var(--titling);
   text-transform: uppercase;
   text-align: left;
   padding-left: 16px;
   border-right: 1px solid var(--hairline-strong);
   background: transparent!important;
 }
-tr.g-sub td.c-label { font-size:12px; letter-spacing:.16em; color:var(--ink-mute) }
-tr.g-tot td.c-label { font-size:14px; letter-spacing:.16em; color:var(--ink) }
-tr.g-psf td.c-label { font-size:11px; letter-spacing:.14em; color:var(--ink-mute) }
+tr.g-sub td.c-label { font-size:13.2px; letter-spacing:.28em; color:var(--ink-mute) }
+tr.g-tot td.c-label { font-size:14.5px; letter-spacing:.28em; color:var(--ink) }
+tr.g-psf td.c-label { font-size:12.6px; letter-spacing:.28em; color:var(--ink-mute) }
 
 /* Money cells — Warnock, serif numerals */
 tr.g-sub td.money, tr.g-tot td.money, tr.g-psf td.money {
@@ -297,9 +297,9 @@ tr.g-sub td.money, tr.g-tot td.money, tr.g-psf td.money {
   font-variant-numeric: tabular-nums;
   background: transparent!important;
 }
-tr.g-sub td.money { font-family:var(--sans-comp); font-size:20px; color:var(--ink-soft); letter-spacing:.01em }
-tr.g-tot td.money { font-family:var(--sans-comp); font-size:32px; color:var(--ink); line-height:.82; letter-spacing:.01em }
-tr.g-psf td.money { font-family:var(--sans-comp); font-size:16px; color:var(--ink-mute); letter-spacing:.01em }
+tr.g-sub td.money { font-family:var(--sans-comp); font-size:26.4px; color:var(--ink-soft); letter-spacing:.01em }
+tr.g-tot td.money { font-family:var(--sans-comp); font-size:42.3px; color:var(--ink); line-height:.82; letter-spacing:.01em }
+tr.g-psf td.money { font-family:var(--sans-comp); font-size:21.2px; color:var(--ink-mute); letter-spacing:.01em }
 
 /* V3 column — rust tint makes it read as current */
 tr.g-sub td.v3 { color:var(--ink-soft); border-right:1px solid var(--hairline) }
@@ -313,11 +313,11 @@ tr.g-sub td.delta, tr.g-tot td.delta, tr.g-psf td.delta {
   font-variant-numeric: tabular-nums;
   background: transparent!important;
 }
-tr.g-sub td.delta { font-family:var(--sans-comp); font-size:18px; color:var(--rust); letter-spacing:.01em }
-tr.g-tot td.delta { font-family:var(--sans-comp); font-size:24px; color:var(--ink); letter-spacing:.01em }
+tr.g-sub td.delta { font-family:var(--sans-comp); font-size:23.8px; color:var(--rust); letter-spacing:.01em }
+tr.g-tot td.delta { font-family:var(--sans-comp); font-size:31.7px; color:var(--ink); letter-spacing:.01em }
 tr.g-tot td.delta.up { color:var(--up-tx) }
 tr.g-tot td.delta.dn { color:var(--dn-tx) }
-tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:14px; color:var(--rust); letter-spacing:.01em }
+tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:18.5px; color:var(--rust); letter-spacing:.01em }
 
 /* ── Summary panel ─────────────────────────────────────────── */
 /* Tufte: thin rules, paper ground, type does the work */
@@ -332,14 +332,14 @@ tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:14px; color:var(-
 .sum-ver { padding:28px 28px 22px; border-right:1px solid var(--hairline); display:flex; flex-direction:column; gap:4px }
 .sum-ver:last-child { border-right:none }
 .sum-ver.v3-panel { background:var(--paper) }
-.sum-ver-eye  { font-family:var(--display); font-size:14px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
-.sum-ver-name { font-family:var(--serif); font-size:13px; font-style:italic; color:var(--ink-soft); margin-bottom:6px }
+.sum-ver-eye  { font-family:var(--display); font-size:18.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
+.sum-ver-name { font-family:var(--serif); font-size:17.1px; font-style:italic; color:var(--ink-soft); margin-bottom:6px }
 /* Warnock for the big dollar figure */
-.sum-ver-total { font-family:var(--sans-comp); font-size:56px; color:var(--ink); line-height:.82; letter-spacing:.01em }
+.sum-ver-total { font-family:var(--sans-comp); font-size:74.1px; color:var(--ink); line-height:.82; letter-spacing:.01em }
 .sum-ver.v3-panel .sum-ver-total { color:var(--ink) }
 .sum-ver-rule { width:40px; height:1px; background:var(--rust); border:none; margin:10px 0 8px }
-.sum-ver-sub  { font-family:var(--titling); font-size:10px; font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-mute) }
-.sum-ver-psf  { font-family:var(--serif); font-size:15px; font-style:italic; color:var(--ink-soft); margin-top:4px }
+.sum-ver-sub  { font-family:var(--titling); font-size:13.2px; font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-mute) }
+.sum-ver-psf  { font-family:var(--serif); font-size:19.8px; font-style:italic; color:var(--ink-soft); margin-top:4px }
 
 /* Delta cards — warm paper grounds, no dark backgrounds */
 .sum-deltas { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--hairline) }
@@ -349,14 +349,14 @@ tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:14px; color:var(-
 .sum-delta.d23 { background:var(--rust-wash) }
 .sum-delta.d13 { background:var(--paper-deep) }
 
-.sum-delta-eye  { font-family:var(--display); font-size:14px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
-.sum-delta-span { font-family:var(--serif); font-size:14px; font-style:italic; color:var(--ink-soft) }
+.sum-delta-eye  { font-family:var(--display); font-size:18.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
+.sum-delta-span { font-family:var(--serif); font-size:18.5px; font-style:italic; color:var(--ink-soft) }
 /* Warnock for delta numbers too */
-.sum-delta-val  { font-family:var(--sans-comp); font-size:44px; color:var(--ink); line-height:.82; letter-spacing:.01em }
+.sum-delta-val  { font-family:var(--sans-comp); font-size:58.2px; color:var(--ink); line-height:.82; letter-spacing:.01em }
 .sum-delta-val.pos { color:var(--up-tx) }
 .sum-delta-val.neg { color:var(--dn-tx) }
 .sum-delta-rule { width:32px; height:1px; background:var(--rust); border:none; margin:8px 0 6px }
-.sum-delta-psf  { font-family:var(--titling); font-size:10px; font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-mute) }
+.sum-delta-psf  { font-family:var(--titling); font-size:13.2px; font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-mute) }
 
 /* Movers */
 .sum-movers-hdr { display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid var(--hairline-strong); border-bottom:1px solid var(--hairline); margin-top:32px }
@@ -397,9 +397,9 @@ tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:14px; color:var(-
 .mover-row:nth-child(even) { background:var(--paper-edge) }
 .mover-row:hover { background:var(--rust-wash) }
 
-.mover-rank  { font-family:var(--sans-cond); font-size:13px; font-weight:700; letter-spacing:.04em; color:var(--rust); line-height:1.3; flex-shrink:0; width:22px }
-.mover-label { font-family:var(--serif); font-size:15px; color:var(--ink-soft); line-height:1.3; flex:1 }
-.mover-amt   { font-family:var(--serif); font-size:15px; font-weight:600; font-variant-numeric:tabular-nums; flex-shrink:0; white-space:nowrap }
+.mover-rank  { font-family:var(--sans-cond); font-size:17.1px; font-weight:700; letter-spacing:.04em; color:var(--rust); line-height:1.3; flex-shrink:0; width:22px }
+.mover-label { font-family:var(--serif); font-size:19.8px; color:var(--ink-soft); line-height:1.3; flex:1 }
+.mover-amt   { font-family:var(--serif); font-size:19.8px; font-weight:600; font-variant-numeric:tabular-nums; flex-shrink:0; white-space:nowrap }
 .mover-amt.up { color:var(--up-tx) } .mover-amt.dn { color:var(--dn-tx) }
 
 .mover-total-row {
@@ -411,9 +411,9 @@ tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:14px; color:var(-
   border-top: 1px solid var(--hairline-strong);
   gap: 14px;
 }
-.mover-total-lbl { font-family:var(--display); font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-mute); flex:1; line-height:1 }
+.mover-total-lbl { font-family:var(--display); font-size:15.9px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-mute); flex:1; line-height:1 }
 /* Warnock for the mover total amount */
-.mover-total-amt { font-family:var(--sans-comp); font-size:26px; line-height:.82; letter-spacing:.01em }
+.mover-total-amt { font-family:var(--sans-comp); font-size:34.4px; line-height:.82; letter-spacing:.01em }
 .mover-total-amt.up { color:var(--up-tx) } .mover-total-amt.dn { color:var(--dn-tx) }
 
 /* ── Row annotations ───────────────────────────────────────── */
@@ -473,8 +473,8 @@ footer {
   gap: 10px;
   align-items: baseline;
 }
-.ft-firm { font-family:var(--display); font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
-.ft-note { font-family:var(--serif); font-size:14px; font-style:italic; color:var(--ink-mute) }
+.ft-firm { font-family:var(--display); font-size:14.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
+.ft-note { font-family:var(--serif); font-size:18.5px; font-style:italic; color:var(--ink-mute) }
 </style>
 </head>
 <body>
@@ -875,7 +875,7 @@ function dCell(b,a){
   return {cls:d>0?'up':'dn',txt:sign(d)+'$'+Math.round(Math.abs(d)).toLocaleString()+(d>0?' ▲':' ▼')};
 }
 const mTd=(v,xc='')=>v==null
-  ?`<td class="money delta ${xc}"><span style="color:var(--ink-faint);font-size:12px">—</span></td>`
+  ?`<td class="money delta ${xc}"><span style="color:var(--ink-faint);font-size:15.9px">—</span></td>`
   :`<td class="money ${xc}">${fmtM(v)}</td>`;
 const dTd=(b,a,xc='')=>{ const {cls,txt}=dCell(b,a); return `<td class="delta ${cls} ${xc}">${txt}</td>`; };
 const totDTd=(vt,vf,xc='')=>{ const d=vt-vf; const c=d>0?'up':d<0?'dn':'flat'; return `<td class="delta ${c} ${xc}">${d===0?'—':sign(d)+'$'+Math.round(Math.abs(d)).toLocaleString()}</td>`; };
