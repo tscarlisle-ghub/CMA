@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Young Residence — Estimate Comparison</title>
-<!-- Adobe Fonts — TSC kit (Warnock Pro · FF Meta Pro · Interstate) -->
-<link rel="stylesheet" href="https://use.typekit.net/ikf0hkb.css">
+<!-- Adobe Fonts — CMA Design System kit wup0iix -->
+<link rel="stylesheet" href="https://use.typekit.net/wup0iix.css">
 <style>
 /* ── CMA Design Tokens ─────────────────────────────────────── */
 :root {
@@ -24,17 +24,17 @@
   --hairline-strong: rgba(162,81,45,0.65);
   --hairline-ink:    rgba(42,37,32,0.14);
 
-  /* TSC Tufte type system — kit ikf0hkb
+  /* CMA Design System — kit wup0iix
      --serif:     Warnock Pro         body text, row labels, italic headlines, all numerals
      --display:   Interstate Condensed masthead title, section headers, display labels
      --titling:   FF Meta Pro Cond    column headers, eyebrows, micro-labels (all-caps chrome)
      --sans-cond: Interstate Condensed data labels, grand total labels
      --sans-comp: FF Meta Pro Cond    compressed UI chrome, movers rank */
-  --serif:     "warnock-pro",             "Georgia",     serif;
-  --display:   "interstate-condensed",    "Arial Narrow",sans-serif;
-  --titling:   "ff-meta-web-pro",         "Arial",       sans-serif;
-  --sans-cond: "interstate-condensed",    "Arial Narrow",sans-serif;
-  --sans-comp: "ff-meta-web-pro",         "Arial",       sans-serif;
+  --serif:     "urw-antiqua", "Iowan Old Style", Georgia, serif;
+  --display:   "franklin-gothic-condensed", "Franklin Gothic", sans-serif;
+  --titling:   "franklin-gothic-compressed", "franklin-gothic-condensed", sans-serif;
+  --sans-cond: "franklin-gothic-condensed", "Franklin Gothic", sans-serif;
+  --sans-comp: "franklin-gothic-compressed", "franklin-gothic-condensed", sans-serif;
 
   /* Table-specific aliases */
   --v3-bg:    #F0E8DC;   /* warm rust-wash tint for current estimate column */
@@ -77,9 +77,9 @@ body {
 .mh-title {
   font-family: var(--display);
   font-size: 38px;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--ink);
-  letter-spacing: .04em;
+  letter-spacing: .07em;
   text-transform: uppercase;
   line-height: 1.0;
 }
@@ -185,11 +185,10 @@ tr.sec td {
   font-family: var(--display);
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: .20em;
+  letter-spacing: .07em;
   text-transform: uppercase;
   padding: 11px 16px 9px;
   border-top: none;
-  border-left: 3px solid var(--rust);
   border-bottom: 1px solid var(--hairline-strong);
   line-height: 1;
 }
@@ -218,7 +217,7 @@ td.na  { color:var(--ink-mute); font-size:12px }
 tr.tot td { padding:6px 10px; border-top:1px solid var(--hairline-strong); border-bottom:1px solid var(--hairline-strong); background:var(--paper-deep)!important; border-right:1px solid var(--hairline) }
 tr.tot td:last-child { border-right:none }
 /* Interstate for the "SECTION TOTAL" label — structural, not prose */
-tr.tot td.c-label { font-family:var(--display); font-size:12px; font-weight:400; letter-spacing:.18em; text-transform:uppercase; color:var(--ink); text-align:left; padding-left:20px; border-right:1px solid var(--hairline-strong) }
+tr.tot td.c-label { font-family:var(--display); font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink); text-align:left; padding-left:20px; border-right:1px solid var(--hairline-strong) }
 /* Warnock for amounts — numerals stay in serif */
 tr.tot td.money { font-family:var(--serif); font-size:16px; font-weight:600; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
 tr.tot td.v3    { border-right:1px solid var(--hairline-strong) }
@@ -298,9 +297,9 @@ tr.g-sub td.money, tr.g-tot td.money, tr.g-psf td.money {
   font-variant-numeric: tabular-nums;
   background: transparent!important;
 }
-tr.g-sub td.money { font-size:20px; color:var(--ink-soft) }
-tr.g-tot td.money { font-size:32px; color:var(--ink); line-height:.9 }
-tr.g-psf td.money { font-size:16px; color:var(--ink-mute) }
+tr.g-sub td.money { font-family:var(--sans-comp); font-size:20px; color:var(--ink-soft); letter-spacing:.01em }
+tr.g-tot td.money { font-family:var(--sans-comp); font-size:32px; color:var(--ink); line-height:.82; letter-spacing:.01em }
+tr.g-psf td.money { font-family:var(--sans-comp); font-size:16px; color:var(--ink-mute); letter-spacing:.01em }
 
 /* V3 column — rust tint makes it read as current */
 tr.g-sub td.v3 { color:var(--ink-soft); border-right:1px solid var(--hairline) }
@@ -314,11 +313,11 @@ tr.g-sub td.delta, tr.g-tot td.delta, tr.g-psf td.delta {
   font-variant-numeric: tabular-nums;
   background: transparent!important;
 }
-tr.g-sub td.delta { font-size:18px; color:var(--rust) }
-tr.g-tot td.delta { font-size:24px; color:var(--ink) }
+tr.g-sub td.delta { font-family:var(--sans-comp); font-size:18px; color:var(--rust); letter-spacing:.01em }
+tr.g-tot td.delta { font-family:var(--sans-comp); font-size:24px; color:var(--ink); letter-spacing:.01em }
 tr.g-tot td.delta.up { color:var(--up-tx) }
 tr.g-tot td.delta.dn { color:var(--dn-tx) }
-tr.g-psf td.delta    { font-size:14px; color:var(--rust) }
+tr.g-psf td.delta    { font-family:var(--sans-comp); font-size:14px; color:var(--rust); letter-spacing:.01em }
 
 /* ── Summary panel ─────────────────────────────────────────── */
 /* Tufte: thin rules, paper ground, type does the work */
@@ -333,13 +332,13 @@ tr.g-psf td.delta    { font-size:14px; color:var(--rust) }
 .sum-ver { padding:28px 28px 22px; border-right:1px solid var(--hairline); display:flex; flex-direction:column; gap:4px }
 .sum-ver:last-child { border-right:none }
 .sum-ver.v3-panel { background:var(--paper) }
-.sum-ver-eye  { font-family:var(--display); font-size:18px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:var(--rust) }
+.sum-ver-eye  { font-family:var(--display); font-size:14px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
 .sum-ver-name { font-family:var(--serif); font-size:13px; font-style:italic; color:var(--ink-soft); margin-bottom:6px }
 /* Warnock for the big dollar figure */
-.sum-ver-total { font-family:var(--serif); font-size:56px; font-weight:400; color:var(--ink); line-height:.85; font-variant-numeric:tabular-nums }
+.sum-ver-total { font-family:var(--sans-comp); font-size:56px; color:var(--ink); line-height:.82; letter-spacing:.01em }
 .sum-ver.v3-panel .sum-ver-total { color:var(--ink) }
 .sum-ver-rule { width:40px; height:1px; background:var(--rust); border:none; margin:10px 0 8px }
-.sum-ver-sub  { font-family:var(--display); font-size:11px; font-weight:400; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-mute) }
+.sum-ver-sub  { font-family:var(--titling); font-size:10px; font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-mute) }
 .sum-ver-psf  { font-family:var(--serif); font-size:15px; font-style:italic; color:var(--ink-soft); margin-top:4px }
 
 /* Delta cards — warm paper grounds, no dark backgrounds */
@@ -350,14 +349,14 @@ tr.g-psf td.delta    { font-size:14px; color:var(--rust) }
 .sum-delta.d23 { background:var(--rust-wash) }
 .sum-delta.d13 { background:var(--paper-deep) }
 
-.sum-delta-eye  { font-family:var(--display); font-size:18px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:var(--rust) }
+.sum-delta-eye  { font-family:var(--display); font-size:14px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
 .sum-delta-span { font-family:var(--serif); font-size:14px; font-style:italic; color:var(--ink-soft) }
 /* Warnock for delta numbers too */
-.sum-delta-val  { font-family:var(--serif); font-size:44px; font-weight:400; color:var(--ink); line-height:.85; font-variant-numeric:tabular-nums }
+.sum-delta-val  { font-family:var(--sans-comp); font-size:44px; color:var(--ink); line-height:.82; letter-spacing:.01em }
 .sum-delta-val.pos { color:var(--up-tx) }
 .sum-delta-val.neg { color:var(--dn-tx) }
 .sum-delta-rule { width:32px; height:1px; background:var(--rust); border:none; margin:8px 0 6px }
-.sum-delta-psf  { font-family:var(--display); font-size:11px; font-weight:400; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute) }
+.sum-delta-psf  { font-family:var(--titling); font-size:10px; font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-mute) }
 
 /* Movers */
 .sum-movers-hdr { display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid var(--hairline-strong); border-bottom:1px solid var(--hairline); margin-top:32px }
@@ -370,9 +369,9 @@ tr.g-psf td.delta    { font-size:14px; color:var(--rust) }
 .sum-movers-col-hdr:last-child { border-right:none }
 .sum-movers-col-hdr-title {
   font-family: var(--display);
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: .10em;
+  letter-spacing: .07em;
   text-transform: uppercase;
   color: var(--rust);
 }
@@ -398,7 +397,7 @@ tr.g-psf td.delta    { font-size:14px; color:var(--rust) }
 .mover-row:nth-child(even) { background:var(--paper-edge) }
 .mover-row:hover { background:var(--rust-wash) }
 
-.mover-rank  { font-family:var(--display); font-size:14px; font-weight:400; letter-spacing:.06em; color:var(--rust); line-height:1.3; flex-shrink:0; width:22px }
+.mover-rank  { font-family:var(--sans-cond); font-size:13px; font-weight:700; letter-spacing:.04em; color:var(--rust); line-height:1.3; flex-shrink:0; width:22px }
 .mover-label { font-family:var(--serif); font-size:15px; color:var(--ink-soft); line-height:1.3; flex:1 }
 .mover-amt   { font-family:var(--serif); font-size:15px; font-weight:600; font-variant-numeric:tabular-nums; flex-shrink:0; white-space:nowrap }
 .mover-amt.up { color:var(--up-tx) } .mover-amt.dn { color:var(--dn-tx) }
@@ -412,18 +411,18 @@ tr.g-psf td.delta    { font-size:14px; color:var(--rust) }
   border-top: 1px solid var(--hairline-strong);
   gap: 14px;
 }
-.mover-total-lbl { font-family:var(--display); font-size:13px; font-weight:400; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); flex:1; line-height:1 }
+.mover-total-lbl { font-family:var(--display); font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-mute); flex:1; line-height:1 }
 /* Warnock for the mover total amount */
-.mover-total-amt { font-family:var(--serif); font-size:26px; font-weight:400; font-variant-numeric:tabular-nums; line-height:.9 }
+.mover-total-amt { font-family:var(--sans-comp); font-size:26px; line-height:.82; letter-spacing:.01em }
 .mover-total-amt.up { color:var(--up-tx) } .mover-total-amt.dn { color:var(--dn-tx) }
 
 /* ── Row annotations ───────────────────────────────────────── */
 .ann-tag {
   display: inline-block;
-  font-family: var(--sans-comp);
+  font-family: var(--titling);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .14em;
+  font-weight: 400;
+  letter-spacing: .30em;
   text-transform: uppercase;
   color: var(--rust);
   margin-left: 10px;
@@ -446,10 +445,10 @@ tr.g-psf td.delta    { font-size:14px; color:var(--rust) }
   box-shadow: 0 3px 12px rgba(42,37,32,.10);
 }
 .ann-tip-eye {
-  font-family: var(--display);
-  font-size: 11px;
+  font-family: var(--titling);
+  font-size: 10px;
   font-weight: 400;
-  letter-spacing: .20em;
+  letter-spacing: .32em;
   text-transform: uppercase;
   color: var(--rust);
   margin-bottom: 8px;
@@ -474,7 +473,7 @@ footer {
   gap: 10px;
   align-items: baseline;
 }
-.ft-firm { font-family:var(--display); font-size:11px; font-weight:400; letter-spacing:.20em; text-transform:uppercase; color:var(--rust) }
+.ft-firm { font-family:var(--display); font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
 .ft-note { font-family:var(--serif); font-size:14px; font-style:italic; color:var(--ink-mute) }
 </style>
 </head>
