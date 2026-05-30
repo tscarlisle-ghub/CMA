@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Young Residence — Estimate Comparison</title>
-<!-- Bebas Neue + Source Serif 4 + Source Sans 3 via Google Fonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400;1,8..60,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap">
+<!-- Adobe Fonts — TSC kit (Warnock Pro · FF Meta Pro · Interstate) -->
+<link rel="stylesheet" href="https://use.typekit.net/ikf0hkb.css">
 <style>
-/* ── CMA Design Tokens (from colors_and_type.css) ──────────── */
+/* ── CMA Design Tokens ─────────────────────────────────────── */
 :root {
   --rust:            #A2512D;
   --rust-mid:        #B57340;
@@ -24,11 +24,17 @@
   --hairline-strong: rgba(162,81,45,0.65);
   --hairline-ink:    rgba(42,37,32,0.14);
 
-  --display:   "Bebas Neue", sans-serif;
-  --titling:   "Bebas Neue", sans-serif;
-  --serif:     "Source Serif 4", Georgia, serif;
-  --sans-cond: "Source Sans 3", sans-serif;
-  --sans-comp: "Source Sans 3", sans-serif;
+  /* TSC Tufte type system — kit ikf0hkb
+     --serif:     Warnock Pro         body text, row labels, italic headlines, all numerals
+     --display:   Interstate Condensed masthead title, section headers, display labels
+     --titling:   FF Meta Pro Cond    column headers, eyebrows, micro-labels (all-caps chrome)
+     --sans-cond: Interstate Condensed data labels, grand total labels
+     --sans-comp: FF Meta Pro Cond    compressed UI chrome, movers rank */
+  --serif:     "warnock-pro",             "Georgia",     serif;
+  --display:   "interstate-condensed",    "Arial Narrow",sans-serif;
+  --titling:   "ff-meta-web-pro",         "Arial",       sans-serif;
+  --sans-cond: "interstate-condensed",    "Arial Narrow",sans-serif;
+  --sans-comp: "ff-meta-web-pro",         "Arial",       sans-serif;
 
   /* Table-specific aliases */
   --v3-bg:    #F0E8DC;   /* warm rust-wash tint for current estimate column */
@@ -55,256 +61,270 @@ body {
 
 /* ── Masthead ──────────────────────────────────────────────── */
 .masthead {
-  background: var(--ink);
-  padding: 40px 48px 32px;
+  background: var(--paper);
+  padding: 40px 48px 28px;
   border-bottom: 2px solid var(--rust);
 }
 .mh-eye {
-  font-family: var(--titling);
-  font-size: 13px;
-  letter-spacing: .20em;
+  font-family: var(--sans-comp);
+  font-size: 11px;
+  letter-spacing: .28em;
   text-transform: uppercase;
-  color: var(--rust-soft);
+  color: var(--rust);
   margin-bottom: 12px;
+  font-weight: 700;
 }
 .mh-title {
   font-family: var(--display);
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--paper);
-  letter-spacing: .07em;
+  font-size: 38px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: .04em;
   text-transform: uppercase;
   line-height: 1.0;
 }
 .mh-title em {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 400;
   letter-spacing: .01em;
   text-transform: none;
-  color: var(--rust-soft);
+  color: var(--ink-soft);
   display: block;
   margin-top: 6px;
 }
-/* "15% markup applied…" — large, serif, readable */
 .mh-sub {
   font-family: var(--serif);
   font-size: 16px;
   font-style: italic;
-  color: rgba(251,246,238,.65);
-  margin-top: 14px;
+  color: var(--ink-mute);
+  margin-top: 12px;
   letter-spacing: 0;
 }
 .mh-rule { border:none; border-top:1px solid rgba(162,81,45,.25); margin:22px 0 18px }
 .mh-stats { display:flex; gap:44px; flex-wrap:wrap }
 .mh-stat  { display:flex; flex-direction:column; gap:4px }
 .mh-stat-lbl {
-  font-family: var(--titling);
+  font-family: var(--sans-comp);
   font-size: 11px;
-  letter-spacing: .28em;
+  letter-spacing: .22em;
   text-transform: uppercase;
-  color: var(--rust-soft);
+  color: var(--ink-mute);
+  font-weight: 700;
 }
+/* Warnock Pro for numerals — tabular oldstyle figures, not condensed */
 .mh-stat-val {
-  font-family: var(--sans-cond);
+  font-family: var(--serif);
   font-size: 30px;
-  color: var(--paper);
+  font-weight: 400;
+  color: var(--ink);
   line-height: .9;
-  letter-spacing: .01em;
+  font-variant-numeric: tabular-nums;
 }
-.mh-stat-val.hi { color: var(--rust-soft) }
+.mh-stat-val.hi { color: var(--rust) }
 
 /* ── Table ─────────────────────────────────────────────────── */
 .wrap { overflow-x:auto; padding:0 48px }
 table { width:100%; border-collapse:collapse; min-width:1160px }
 col.c-label { width:320px } col.c-v { width:120px } col.c-d { width:112px }
 
-/* Column header rows — ink (warm brown) not black */
+/* Column header rows — FF Meta Pro Cond for UI chrome */
 thead tr.r-hdr th {
   padding: 16px 10px 12px;
-  font-family: var(--titling);
-  font-size: 17px;
-  font-weight: 600;
+  font-family: var(--sans-comp);
+  font-size: 18px;
+  font-weight: 700;
   letter-spacing: .10em;
   text-transform: uppercase;
-  color: var(--paper);
-  background: var(--ink);
-  border-right: 1px solid rgba(162,81,45,.20);
+  color: var(--ink);
+  background: var(--paper-deep);
+  border-right: 1px solid var(--hairline);
   vertical-align: bottom;
-  line-height: 1.25;
+  line-height: 1.2;
   text-align: right;
 }
 thead tr.r-hdr th.c-label {
-  font-family: var(--titling);
-  font-size: 16px;
+  font-family: var(--sans-comp);
+  font-size: 18px;
+  font-weight: 700;
   letter-spacing: .10em;
   text-align: left;
   padding-left: 16px;
   border-right: 1px solid var(--hairline);
 }
-thead tr.r-hdr th.v3  { background:#3A2A1E; border-right:1px solid var(--hairline) }
-thead tr.r-hdr th.d12 { background:#2E2018; color:var(--rust-soft); border-right:1px solid rgba(162,81,45,.18) }
-thead tr.r-hdr th.d23 { background:#3A1A0A; color:var(--rust-soft); border-right:1px solid rgba(162,81,45,.25) }
-thead tr.r-hdr th.d13 { background:#1A2A14; color:#C0D8A8; border-right:none }
+thead tr.r-hdr th.v3  { background:var(--paper-deep); color:var(--ink); border-right:1px solid var(--hairline) }
+thead tr.r-hdr th.d12 { background:var(--paper-edge); color:var(--up-tx); border-right:1px solid var(--hairline) }
+thead tr.r-hdr th.d23 { background:var(--rust-wash); color:var(--rust); border-right:1px solid var(--hairline) }
+thead tr.r-hdr th.d13 { background:var(--dn-bg); color:var(--dn-tx); border-right:none }
 
+/* Sub-row — Warnock italic for dates/descriptors */
 thead tr.r-sub th {
-  padding: 5px 10px 11px;
+  padding: 3px 10px 10px;
   font-family: var(--serif);
-  font-size: 14px;
+  font-size: 13px;
   font-style: italic;
-  color: rgba(251,246,238,.5);
-  background: var(--ink);
-  border-right: 1px solid rgba(162,81,45,.20);
+  font-weight: 400;
+  color: var(--ink-mute);
+  background: var(--paper-edge);
+  border-right: 1px solid var(--hairline);
   border-bottom: 1px solid var(--hairline-strong);
   text-align: right;
 }
 thead tr.r-sub th.c-label { font-style:normal; text-align:left; padding-left:16px; border-right:1px solid var(--hairline) }
-thead tr.r-sub th.v3  { background:#3A2A1E; border-right:1px solid var(--hairline) }
-thead tr.r-sub th.d12 { background:#2E2018; color:rgba(162,81,45,.5) }
-thead tr.r-sub th.d23 { background:#3A1A0A; color:rgba(162,81,45,.5) }
-thead tr.r-sub th.d13 { background:#1A2A14; color:rgba(168,200,144,.5); border-right:none }
+thead tr.r-sub th.v3  { background:var(--paper-edge); color:var(--ink-mute); border-right:1px solid var(--hairline) }
+thead tr.r-sub th.d12 { background:var(--paper-edge); color:var(--ink-mute) }
+thead tr.r-sub th.d23 { background:var(--rust-wash); color:var(--ink-mute) }
+thead tr.r-sub th.d13 { background:var(--dn-bg); color:var(--ink-mute); border-right:none }
 
-/* Section header rows — rust tint, ink text */
+/* ── Section header rows ───────────────────────────────────── */
+/* Tufte: structure through type and rules, not fills */
 tr.sec td {
-  background: #DDD0BA;
+  background: var(--paper-deep);
   color: var(--ink);
-  font-family: var(--titling);
-  font-size: 15px;
-  letter-spacing: .14em;
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .20em;
   text-transform: uppercase;
-  padding: 10px 16px 8px;
+  padding: 11px 16px 9px;
   border-top: none;
-  border-left: 4px solid var(--rust);
+  border-left: 3px solid var(--rust);
+  border-bottom: 1px solid var(--hairline-strong);
   line-height: 1;
 }
 
-/* Data rows */
-tr.dr td { padding:6px 10px; border-bottom:1px solid var(--hairline-ink); border-right:1px solid var(--hairline-ink); vertical-align:middle; line-height:1.35 }
+/* ── Spacer between sections ───────────────────────────────── */
+tr.sp td { height:22px; background:var(--paper)!important; border:none }
+
+/* ── Data rows ─────────────────────────────────────────────── */
+tr.dr td { padding:5px 10px; border-bottom:1px solid var(--hairline-ink); border-right:1px solid var(--hairline-ink); vertical-align:middle; line-height:1.4 }
 tr.dr td:last-child { border-right:none }
 tr.dr:nth-child(even) td { background:var(--paper-edge) }
 tr.dr:nth-child(odd)  td { background:var(--paper) }
 
-td.c-label { position:relative; font-family:var(--serif); font-size:16.8px; color:var(--ink-soft); text-align:left; padding-left:22px; border-right:1px solid var(--hairline) }
-td.money   { font-family:var(--serif); font-size:16.8px; font-weight:400; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
-td.v3      { background:var(--v3-bg)!important; font-weight:600; border-right:1px solid var(--hairline) }
-td.delta   { font-family:var(--serif); font-size:16.2px; text-align:right; font-variant-numeric:tabular-nums; border-right:1px solid var(--hairline-ink) }
+/* Warnock Pro for labels and all numerals — Tufte uses serif throughout */
+td.c-label { position:relative; font-family:var(--serif); font-size:15px; color:var(--ink-soft); text-align:left; padding-left:20px; border-right:1px solid var(--hairline) }
+td.money   { font-family:var(--serif); font-size:15px; font-weight:400; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
+td.v3      { font-weight:400; border-right:1px solid var(--hairline) }
+td.delta   { font-family:var(--serif); font-size:14px; text-align:right; font-variant-numeric:tabular-nums; border-right:1px solid var(--hairline-ink) }
 td.delta:last-child { border-right:none }
-td.up   { background:var(--up-bg)!important; color:var(--up-tx) }
-td.dn   { background:var(--dn-bg)!important; color:var(--dn-tx) }
-td.flat { color:var(--ink-mute) }
-td.na   { color:var(--ink-mute); font-size:13.2px }
+td.up  { color:var(--up-tx) }
+td.dn  { color:var(--dn-tx) }
+td.flat{ color:var(--ink-mute) }
+td.na  { color:var(--ink-mute); font-size:12px }
 
-/* Section totals */
-tr.tot td { padding:7px 10px; border-top:1px solid var(--hairline-strong); border-bottom:1px solid var(--hairline-strong); background:var(--paper-deep)!important; border-right:1px solid var(--hairline) }
+/* ── Section totals ────────────────────────────────────────── */
+tr.tot td { padding:6px 10px; border-top:1px solid var(--hairline-strong); border-bottom:1px solid var(--hairline-strong); background:var(--paper-deep)!important; border-right:1px solid var(--hairline) }
 tr.tot td:last-child { border-right:none }
-tr.tot td.c-label { font-family:var(--titling); font-size:15.6px; font-weight:400; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); text-align:left; padding-left:22px; border-right:1px solid var(--hairline-strong) }
-tr.tot td.money { font-family:var(--titling); font-size:18px; font-weight:400; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums; letter-spacing:.04em }
-tr.tot td.v3    { background:#E8D8C4!important; border-right:1px solid var(--hairline-strong) }
-tr.tot td.delta { font-family:var(--titling); font-size:16.8px; font-weight:400; text-align:right; letter-spacing:.04em }
-tr.tot td.up    { background:#EDD4CC!important; color:var(--up-tx) }
-tr.tot td.dn    { background:#C8DCC0!important; color:var(--dn-tx) }
+/* Interstate for the "SECTION TOTAL" label — structural, not prose */
+tr.tot td.c-label { font-family:var(--display); font-size:12px; font-weight:400; letter-spacing:.18em; text-transform:uppercase; color:var(--ink); text-align:left; padding-left:20px; border-right:1px solid var(--hairline-strong) }
+/* Warnock for amounts — numerals stay in serif */
+tr.tot td.money { font-family:var(--serif); font-size:16px; font-weight:600; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums }
+tr.tot td.v3    { border-right:1px solid var(--hairline-strong) }
+tr.tot td.delta { font-family:var(--serif); font-size:15px; font-weight:600; text-align:right }
+tr.tot td.up { color:var(--up-tx) }
+tr.tot td.dn { color:var(--dn-tx) }
 
-tr.sp td { height:14px; background:var(--paper-deep)!important; border:none }
 
-/* ── Grand totals ──────────────────────────────────────────── */
-/* Version label row — sits just above subtotal */
+
+/* ── Grand totals — all on paper ground ───────────────────── */
+/* Version label row */
 tr.g-ver td {
   background: var(--paper-deep)!important;
-  padding: 14px 16px 6px;
+  padding: 16px 16px 8px;
   border-top: 2px solid var(--rust);
   border-right: 1px solid var(--hairline);
 }
 tr.g-ver td:last-child { border-right:none }
 tr.g-ver td.ver-lbl {
-  font-family: var(--titling);
-  font-size: 13px;
-  letter-spacing: .20em;
+  font-family: var(--display);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--rust);
   text-align: center;
   border-right: 1px solid var(--hairline);
 }
-tr.g-ver td.ver-lbl.v3-col { background: #E8D8C4!important; border-right:1px solid var(--hairline-strong) }
-tr.g-ver td.ver-lbl.d12-col { background: var(--paper-deep)!important; color: var(--ink-mute) }
-tr.g-ver td.ver-lbl.d23-col { background: var(--paper-deep)!important; color: var(--ink-mute) }
-tr.g-ver td.ver-lbl.d13-col { background: var(--paper-deep)!important; color: var(--ink-mute); border-right:none }
+tr.g-ver td.ver-lbl.v3-col  { background:var(--paper-deep)!important; color:var(--ink-mute); border-right:1px solid var(--hairline) }
+tr.g-ver td.ver-lbl.d12-col { color:var(--ink-mute) }
+tr.g-ver td.ver-lbl.d23-col { color:var(--ink-mute) }
+tr.g-ver td.ver-lbl.d13-col { color:var(--ink-mute); border-right:none }
 
-/* Subtotal row */
+/* Subtotal — muted, on paper-deep */
 tr.g-sub td {
   background: var(--paper-deep)!important;
-  padding: 10px 10px 12px;
-  border-top: none;
-  border-right: 1px solid var(--hairline);
-  color: var(--ink);
-}
-/* Bid total row — feature row, ink ground, fully bright text */
-tr.g-tot td {
-  background: var(--ink)!important;
-  padding: 22px 10px;
-  border-top: 2px solid var(--rust);
-  border-right: 1px solid rgba(162,81,45,.25);
-  color: var(--paper);
-}
-/* PSF row */
-tr.g-psf td {
-  background: var(--paper-edge)!important;
   padding: 10px 10px;
-  border-top: none;
-  border-bottom: 2px solid var(--rust);
   border-right: 1px solid var(--hairline);
   color: var(--ink-soft);
 }
+/* Bid total — the one prominent row: rust top rule, slightly deeper fill, full ink text */
+tr.g-tot td {
+  background: var(--paper-edge)!important;
+  padding: 18px 10px;
+  border-top: 2px solid var(--rust);
+  border-bottom: 1px solid var(--hairline-strong);
+  border-right: 1px solid var(--hairline);
+  color: var(--ink);
+}
+/* PSF — quiet, recessive */
+tr.g-psf td {
+  background: var(--paper-deep)!important;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--hairline-strong);
+  border-right: 1px solid var(--hairline);
+  color: var(--ink-mute);
+}
 tr.g-sub td:last-child, tr.g-tot td:last-child, tr.g-psf td:last-child { border-right:none }
 
-/* Label cells */
+/* Label cells — Interstate, structural */
 tr.g-sub td.c-label, tr.g-tot td.c-label, tr.g-psf td.c-label {
-  font-family: var(--titling);
+  font-family: var(--display);
   text-transform: uppercase;
   text-align: left;
   padding-left: 16px;
   border-right: 1px solid var(--hairline-strong);
   background: transparent!important;
 }
-tr.g-sub td.c-label { font-size:15.6px; letter-spacing:.18em; color:var(--ink-soft) }
-tr.g-tot td.c-label { font-size:18px; letter-spacing:.18em; color:var(--paper) }
-tr.g-psf td.c-label { font-size:14.4px; letter-spacing:.16em; color:var(--ink-mute) }
+tr.g-sub td.c-label { font-size:12px; letter-spacing:.16em; color:var(--ink-mute) }
+tr.g-tot td.c-label { font-size:14px; letter-spacing:.16em; color:var(--ink) }
+tr.g-psf td.c-label { font-size:11px; letter-spacing:.14em; color:var(--ink-mute) }
 
-/* Money cells */
+/* Money cells — Warnock, serif numerals */
 tr.g-sub td.money, tr.g-tot td.money, tr.g-psf td.money {
-  font-family: var(--sans-cond);
+  font-family: var(--serif);
   text-align: right;
   font-variant-numeric: tabular-nums;
   background: transparent!important;
-  letter-spacing: .01em;
 }
-tr.g-sub td.money { font-size:24px; color:var(--ink) }
-tr.g-tot td.money { font-size:36px; color:#FBF6EE; line-height:.9 }
-tr.g-psf td.money { font-size:19.2px; color:var(--ink-soft) }
+tr.g-sub td.money { font-size:20px; color:var(--ink-soft) }
+tr.g-tot td.money { font-size:32px; color:var(--ink); line-height:.9 }
+tr.g-psf td.money { font-size:16px; color:var(--ink-mute) }
 
-/* V3 highlights */
-tr.g-sub td.v3 { color:var(--rust); border-right:1px solid var(--hairline-strong) }
-tr.g-tot td.v3 { color:#FFD0A8; border-right:1px solid rgba(162,81,45,.4) }
-tr.g-psf td.v3 { color:var(--rust); border-right:1px solid var(--hairline) }
+/* V3 column — rust tint makes it read as current */
+tr.g-sub td.v3 { color:var(--ink-soft); border-right:1px solid var(--hairline) }
+tr.g-tot td.v3 { color:var(--ink); border-right:1px solid var(--hairline) }
+tr.g-psf td.v3 { color:var(--ink-mute); border-right:1px solid var(--hairline) }
 
-/* Delta cells */
+/* Delta cells — Warnock */
 tr.g-sub td.delta, tr.g-tot td.delta, tr.g-psf td.delta {
-  font-family: var(--sans-cond);
+  font-family: var(--serif);
   text-align: right;
   font-variant-numeric: tabular-nums;
   background: transparent!important;
 }
-tr.g-sub td.delta { font-size:21.6px; color:var(--rust) }
-tr.g-tot td.delta { font-size:28.8px; color:var(--paper) }
-tr.g-tot td.delta.up { color:#FFB898 }
-tr.g-tot td.delta.dn { color:#A8E870 }
-tr.g-psf td.delta    { font-size:16.8px; color:var(--rust) }
+tr.g-sub td.delta { font-size:18px; color:var(--rust) }
+tr.g-tot td.delta { font-size:24px; color:var(--ink) }
+tr.g-tot td.delta.up { color:var(--up-tx) }
+tr.g-tot td.delta.dn { color:var(--dn-tx) }
+tr.g-psf td.delta    { font-size:14px; color:var(--rust) }
 
 /* ── Summary panel ─────────────────────────────────────────── */
+/* Tufte: thin rules, paper ground, type does the work */
 .summary {
   margin: 0 48px;
-  border: 1px solid var(--hairline);
-  border-top: 2px solid var(--rust);
+  border-top: 1px solid var(--hairline-strong);
   background: var(--paper);
 }
 
@@ -312,61 +332,63 @@ tr.g-psf td.delta    { font-size:16.8px; color:var(--rust) }
 .sum-totals { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--hairline) }
 .sum-ver { padding:28px 28px 22px; border-right:1px solid var(--hairline); display:flex; flex-direction:column; gap:4px }
 .sum-ver:last-child { border-right:none }
-.sum-ver.v3-panel { background:var(--rust-wash) }
-.sum-ver-eye  { font-family:var(--titling); font-size:15.6px; letter-spacing:.20em; text-transform:uppercase; color:var(--ink-mute) }
-.sum-ver-name { font-family:var(--titling); font-size:15.6px; letter-spacing:.20em; text-transform:uppercase; color:var(--rust); margin-bottom:6px }
-.sum-ver-total { font-family:var(--sans-cond); font-size:62.4px; color:var(--ink); line-height:.85; letter-spacing:.01em }
-.sum-ver.v3-panel .sum-ver-total { color:var(--rust) }
-.sum-ver-rule { width:40px; height:2px; background:var(--rust); border:none; margin:10px 0 8px }
-.sum-ver-sub  { font-family:var(--titling); font-size:15.6px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-mute) }
-.sum-ver-psf  { font-family:var(--serif); font-size:16.8px; font-style:italic; color:var(--ink-soft); margin-top:4px }
+.sum-ver.v3-panel { background:var(--paper) }
+.sum-ver-eye  { font-family:var(--display); font-size:18px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:var(--rust) }
+.sum-ver-name { font-family:var(--serif); font-size:13px; font-style:italic; color:var(--ink-soft); margin-bottom:6px }
+/* Warnock for the big dollar figure */
+.sum-ver-total { font-family:var(--serif); font-size:56px; font-weight:400; color:var(--ink); line-height:.85; font-variant-numeric:tabular-nums }
+.sum-ver.v3-panel .sum-ver-total { color:var(--ink) }
+.sum-ver-rule { width:40px; height:1px; background:var(--rust); border:none; margin:10px 0 8px }
+.sum-ver-sub  { font-family:var(--display); font-size:11px; font-weight:400; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-mute) }
+.sum-ver-psf  { font-family:var(--serif); font-size:15px; font-style:italic; color:var(--ink-soft); margin-top:4px }
 
-/* Delta cards — warm ink ground, not black */
+/* Delta cards — warm paper grounds, no dark backgrounds */
 .sum-deltas { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--hairline) }
-.sum-delta  { padding:20px 28px; border-right:1px solid var(--hairline); display:flex; flex-direction:column; gap:4px }
+.sum-delta  { padding:22px 28px; border-right:1px solid var(--hairline); display:flex; flex-direction:column; gap:4px }
 .sum-delta:last-child { border-right:none }
-.sum-delta.d12 { background:#2E2418 }
-.sum-delta.d23 { background:#3A1C0C }
-.sum-delta.d13 { background:#1E2E14 }
+.sum-delta.d12 { background:var(--paper-edge) }
+.sum-delta.d23 { background:var(--rust-wash) }
+.sum-delta.d13 { background:var(--paper-deep) }
 
-.sum-delta-eye  { font-family:var(--titling); font-size:15.6px; letter-spacing:.16em; text-transform:uppercase; color:rgba(226,191,167,.7) }
-.sum-delta-span { font-family:var(--serif); font-size:16.8px; font-style:italic; color:rgba(251,246,238,.6) }
-.sum-delta-val  { font-family:var(--sans-cond); font-size:48px; line-height:.85; letter-spacing:.01em }
-.sum-delta-val.pos { color:var(--rust-soft) }
-.sum-delta-val.neg { color:#A0D870 }
-.sum-delta-rule { width:32px; height:2px; background:var(--rust); opacity:.5; border:none; margin:8px 0 6px }
-.sum-delta-psf  { font-family:var(--titling); font-size:15.6px; letter-spacing:.14em; text-transform:uppercase; color:rgba(226,191,167,.55) }
+.sum-delta-eye  { font-family:var(--display); font-size:18px; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:var(--rust) }
+.sum-delta-span { font-family:var(--serif); font-size:14px; font-style:italic; color:var(--ink-soft) }
+/* Warnock for delta numbers too */
+.sum-delta-val  { font-family:var(--serif); font-size:44px; font-weight:400; color:var(--ink); line-height:.85; font-variant-numeric:tabular-nums }
+.sum-delta-val.pos { color:var(--up-tx) }
+.sum-delta-val.neg { color:var(--dn-tx) }
+.sum-delta-rule { width:32px; height:1px; background:var(--rust); border:none; margin:8px 0 6px }
+.sum-delta-psf  { font-family:var(--display); font-size:11px; font-weight:400; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute) }
 
 /* Movers */
-.sum-movers-hdr { display:grid; grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--hairline) }
+.sum-movers-hdr { display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid var(--hairline-strong); border-bottom:1px solid var(--hairline); margin-top:32px }
 .sum-movers-col-hdr {
-  padding: 14px 28px 11px;
+  padding: 16px 28px 12px;
   border-right: 1px solid var(--hairline);
-  font-family: var(--titling);
-  font-size: 20px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--rust);
   background: var(--paper-deep);
   line-height: 1;
 }
 .sum-movers-col-hdr:last-child { border-right:none }
-.sum-movers-col-hdr span {
+.sum-movers-col-hdr-title {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+.sum-movers-col-hdr-sub {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 12px;
-  letter-spacing: 0;
-  text-transform: none;
+  font-size: 13px;
   color: var(--ink-mute);
-  display: block;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 .sum-movers-body { display:grid; grid-template-columns:repeat(3,1fr) }
 .sum-movers-list { border-right:1px solid var(--hairline) }
 .sum-movers-list:last-child { border-right:none }
 
 .mover-row {
-  padding: 7px 20px 7px 28px;
+  padding: 6px 20px 6px 28px;
   border-bottom: 1px solid var(--hairline-ink);
   display: flex;
   align-items: baseline;
@@ -376,28 +398,29 @@ tr.g-psf td.delta    { font-size:16.8px; color:var(--rust) }
 .mover-row:nth-child(even) { background:var(--paper-edge) }
 .mover-row:hover { background:var(--rust-wash) }
 
-.mover-rank  { font-family:var(--titling); font-size:16.8px; letter-spacing:.06em; color:var(--rust); line-height:1.3; flex-shrink:0; width:22px }
-.mover-label { font-family:var(--serif); font-size:16.8px; color:var(--ink-soft); line-height:1.3; flex:1 }
-.mover-amt   { font-family:var(--serif); font-size:16.8px; font-weight:600; font-variant-numeric:tabular-nums; flex-shrink:0; white-space:nowrap }
+.mover-rank  { font-family:var(--display); font-size:14px; font-weight:400; letter-spacing:.06em; color:var(--rust); line-height:1.3; flex-shrink:0; width:22px }
+.mover-label { font-family:var(--serif); font-size:15px; color:var(--ink-soft); line-height:1.3; flex:1 }
+.mover-amt   { font-family:var(--serif); font-size:15px; font-weight:600; font-variant-numeric:tabular-nums; flex-shrink:0; white-space:nowrap }
 .mover-amt.up { color:var(--up-tx) } .mover-amt.dn { color:var(--dn-tx) }
 
 .mover-total-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  padding: 9px 28px;
+  padding: 8px 28px;
   background: var(--paper-deep);
   border-top: 1px solid var(--hairline-strong);
   gap: 14px;
 }
-.mover-total-lbl { font-family:var(--titling); font-size:21.6px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mute); flex:1; line-height:1 }
-.mover-total-amt { font-family:var(--sans-cond); font-size:33.6px; font-variant-numeric:tabular-nums; line-height:.9 }
-.mover-total-amt.up { color:var(--rust) } .mover-total-amt.dn { color:var(--dn-tx) }
+.mover-total-lbl { font-family:var(--display); font-size:13px; font-weight:400; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); flex:1; line-height:1 }
+/* Warnock for the mover total amount */
+.mover-total-amt { font-family:var(--serif); font-size:26px; font-weight:400; font-variant-numeric:tabular-nums; line-height:.9 }
+.mover-total-amt.up { color:var(--up-tx) } .mover-total-amt.dn { color:var(--dn-tx) }
 
-/* ── Row annotations — warm paper tooltip ─────────────────── */
+/* ── Row annotations ───────────────────────────────────────── */
 .ann-tag {
   display: inline-block;
-  font-family: var(--titling);
+  font-family: var(--sans-comp);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .14em;
@@ -409,42 +432,41 @@ tr.g-psf td.delta    { font-size:16.8px; color:var(--rust) }
   flex-shrink: 0;
   line-height: 1;
 }
-
 .ann-tip {
   display: none;
   position: absolute;
-  left: 22px; top: calc(100% + 4px);
+  left: 20px; top: calc(100% + 4px);
   z-index: 200;
-  width: 360px;
+  width: 380px;
   background: var(--paper);
   border: 1px solid var(--hairline-strong);
   border-top: 2px solid var(--rust);
   padding: 14px 18px 16px;
   pointer-events: none;
-  box-shadow: 0 4px 16px rgba(42,37,32,.12);
+  box-shadow: 0 3px 12px rgba(42,37,32,.10);
 }
 .ann-tip-eye {
-  font-family: var(--titling);
-  font-size: 13px;
-  letter-spacing: .18em;
+  font-family: var(--display);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .20em;
   text-transform: uppercase;
   color: var(--rust);
   margin-bottom: 8px;
 }
 .ann-tip-body {
   font-family: var(--serif);
-  font-size: 14px;
+  font-size: 15px;
   font-style: italic;
   color: var(--ink-soft);
   line-height: 1.55;
 }
-
 tr.dr:hover .ann-tip { display: block }
 
 /* ── Footer ────────────────────────────────────────────────── */
 footer {
-  margin-top: 32px;
-  padding: 18px 48px;
+  margin-top: 36px;
+  padding: 16px 48px;
   border-top: 1px solid var(--hairline);
   display: flex;
   justify-content: space-between;
@@ -452,8 +474,8 @@ footer {
   gap: 10px;
   align-items: baseline;
 }
-.ft-firm { font-family:var(--titling); font-size:15.6px; letter-spacing:.18em; text-transform:uppercase; color:var(--rust) }
-.ft-note { font-family:var(--serif); font-size:15.6px; font-style:italic; color:var(--ink-mute) }
+.ft-firm { font-family:var(--display); font-size:11px; font-weight:400; letter-spacing:.20em; text-transform:uppercase; color:var(--rust) }
+.ft-note { font-family:var(--serif); font-size:14px; font-style:italic; color:var(--ink-mute) }
 </style>
 </head>
 <body>
@@ -1109,7 +1131,7 @@ s.insertAdjacentHTML('beforeend', dhtml);
 // Movers header
 let mhtml = `<div class="sum-movers-hdr">`;
 COMPS.forEach(c => {
-  mhtml += `<div class="sum-movers-col-hdr">Largest Movers (${N_MOVERS}) &nbsp;·&nbsp; ${c.label}<span>Ranked by absolute dollar change</span></div>`;
+  mhtml += `<div class="sum-movers-col-hdr"><div class="sum-movers-col-hdr-title">Largest Movers (${N_MOVERS}) &nbsp;·&nbsp; ${c.label}</div><div class="sum-movers-col-hdr-sub">Ranked by absolute dollar change</div></div>`;
 });
 mhtml += '</div><div class="sum-movers-body">';
 COMPS.forEach(c => {
