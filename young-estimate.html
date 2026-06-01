@@ -46,7 +46,6 @@
   --dn-bg:    #EAF4EA;
   --dn-tx:    #1A5C1A;
   --d12-hdr:  #241E1A;
-  --d23-hdr:  #3A1208;
   --d13-hdr:  #141E10;
 }
 
@@ -169,7 +168,6 @@ thead tr.r-hdr th.c-label {
 }
 thead tr.r-hdr th.v3  { background:var(--paper-deep); color:var(--ink); border-right:1px solid var(--hairline) }
 thead tr.r-hdr th.d12 { background:var(--dn-bg); color:var(--dn-tx); border-right:1px solid var(--hairline) }
-thead tr.r-hdr th.d23 { background:var(--up-bg); color:var(--up-tx); border-right:1px solid var(--hairline) }
 thead tr.r-hdr th.d13 { background:var(--up-bg); color:var(--up-tx); border-right:none }
 
 /* Sub-row — Columbia Titling for dates/descriptors */
@@ -189,7 +187,6 @@ thead tr.r-sub th {
 }
 thead tr.r-sub th.c-label { text-align:left; padding-left:16px; border-right:1px solid var(--hairline) }
 thead tr.r-sub th.d12 { background:var(--paper-edge); color:var(--ink-mute) }
-thead tr.r-sub th.d23 { background:var(--rust-wash); color:var(--ink-mute) }
 thead tr.r-sub th.d13 { background:var(--dn-bg); color:var(--ink-mute); border-right:none }
 
 /* Bid totals row — Proxima Nova Condensed, large numerals aligned to each column */
@@ -207,7 +204,6 @@ thead tr.r-bid th {
 }
 thead tr.r-bid th.c-label { text-align:left; padding-left:16px; border-right:1px solid var(--hairline); font-family:var(--titling); font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mute) }
 thead tr.r-bid th.d12 { background:var(--dn-bg); color:var(--dn-tx) }
-thead tr.r-bid th.d23 { background:var(--up-bg); color:var(--up-tx) }
 thead tr.r-bid th.d13 { background:var(--up-bg); color:var(--up-tx); border-right:none }
 
 /* ── Section header rows ───────────────────────────────────── */
@@ -281,7 +277,6 @@ tr.g-ver td.ver-lbl {
 }
 tr.g-ver td.ver-lbl.v3-col  { background:var(--paper-deep)!important; color:var(--ink-mute); border-right:1px solid var(--hairline) }
 tr.g-ver td.ver-lbl.d12-col { color:var(--ink-mute) }
-tr.g-ver td.ver-lbl.d23-col { color:var(--ink-mute) }
 tr.g-ver td.ver-lbl.d13-col { color:var(--ink-mute); border-right:none }
 
 /* Subtotal — muted, on paper-deep */
@@ -383,7 +378,6 @@ tr.g-psf td.delta.dn { color:var(--dn-tx) }
 .sum-delta  { padding:22px 28px; border-right:1px solid var(--hairline); display:flex; flex-direction:column; gap:4px }
 .sum-delta:last-child { border-right:none }
 .sum-delta.d12 { background:var(--paper-edge) }
-.sum-delta.d23 { background:var(--rust-wash) }
 .sum-delta.d13 { background:var(--paper-deep) }
 
 .sum-delta-eye  { font-family:var(--display); font-size:18.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--rust) }
@@ -530,23 +524,23 @@ footer {
 <colgroup>
   <col class="c-label">
   <col class="c-v"><col class="c-v"><col class="c-v">
-  <col class="c-d"><col class="c-d"><col class="c-d">
+  <col class="c-d"><col class="c-d">
 </colgroup>
 <thead>
   <tr class="r-hdr">
     <th class="c-label">Line Item</th>
     <th>V1 — 9/10/25</th><th>V2 — 9/23/25</th><th>V3 — 5/19/26</th>
-    <th class="d12">Δ V1→V2</th><th class="d23">Δ V2→V3</th><th class="d13">Δ V1→V3</th>
+    <th class="d12">Δ V1→V2</th><th class="d13">Δ V1→V3</th>
   </tr>
   <tr class="r-bid">
     <th class="c-label"></th>
     <th>$2,484,134</th><th>$2,261,557</th><th>$3,015,184</th>
-    <th class="d12">($222,577)</th><th class="d23">+$753,627</th><th class="d13">+$531,050</th>
+    <th class="d12">($222,577)</th><th class="d13">+$531,050</th>
   </tr>
   <tr class="r-sub">
     <th class="c-label"></th>
     <th>Preliminary</th><th>Revised</th><th>Current</th>
-    <th class="d12">Change</th><th class="d23">Change</th><th class="d13">Change</th>
+    <th class="d12">Change</th><th class="d13">Change</th>
   </tr>
 </thead>
 <tbody id="tb"></tbody>
@@ -925,27 +919,26 @@ function row(lbl, v1, v2, v3, note) {
   tb.insertAdjacentHTML('beforeend', `<tr class="dr">
     <td class="c-label">${lbl}${annHtml}</td>
     ${mTd(v1)}${mTd(v2)}${mTd(v3,'v3')}
-    ${dTd(v2,v1,'d12')}${dTd(v3,v2,'d23')}${dTd(v3,v1,'d13')}
+    ${dTd(v2,v1,'d12')}${dTd(v3,v1,'d13')}
   </tr>`);
 }
 function tot(lbl,v1,v2,v3){
   tb.insertAdjacentHTML('beforeend',`<tr class="tot">
     <td class="c-label">${lbl}</td>
     <td class="money">${fmtM(v1)}</td><td class="money">${fmtM(v2)}</td><td class="money v3">${fmtM(v3)}</td>
-    ${totDTd(v2,v1,'d12')}${totDTd(v3,v2,'d23')}${totDTd(v3,v1,'d13')}
+    ${totDTd(v2,v1,'d12')}${totDTd(v3,v1,'d13')}
   </tr>`);
 }
 function sp(){ tb.insertAdjacentHTML('beforeend','<tr class="sp"><td colspan="7"></td></tr>'); }
 function grandRow(cls,lbl,v1,v2,v3,isPsf){
   const fmt=isPsf?v=>'$'+v.toFixed(2):v=>'$'+Math.round(v).toLocaleString();
-  const d12=v2-v1,d23=v3-v2,d13=v3-v1;
+  const d12=v2-v1,d13=v3-v1;
   const dc=d=>d>0?'up':d<0?'dn':'flat';
   const dt=(d,psf)=>{ if(d===0)return'—'; const a=(psf?Math.abs(d).toFixed(2):Math.round(Math.abs(d)).toLocaleString()); return d>0?'+$'+a:'($'+a+')'; };
   tb.insertAdjacentHTML('beforeend',`<tr class="${cls}">
     <td class="c-label">${lbl}</td>
     <td class="money">${fmt(v1)}</td><td class="money">${fmt(v2)}</td><td class="money v3">${fmt(v3)}</td>
     <td class="delta ${dc(d12)} d12">${dt(d12,isPsf)}</td>
-    <td class="delta ${dc(d23)} d23">${dt(d23,isPsf)}</td>
     <td class="delta ${dc(d13)} d13">${dt(d13,isPsf)}</td>
   </tr>`);
 }
@@ -964,7 +957,6 @@ tb.insertAdjacentHTML('beforeend', `<tr class="g-ver">
   <td class="ver-lbl" style="border-right:1px solid var(--hairline)">V2 &nbsp;·&nbsp; 9/23/25</td>
   <td class="ver-lbl v3-col">V3 &nbsp;·&nbsp; 5/19/26 &nbsp;·&nbsp; Current</td>
   <td class="ver-lbl d12-col">Δ V1→V2</td>
-  <td class="ver-lbl d23-col">Δ V2→V3</td>
   <td class="ver-lbl d13-col">Δ V1→V3</td>
 </tr>`);
 grandRow('g-sub','Job Bid Subtotal (before 15% markup)', V1_SUB, V2_SUB, V3_SUB, false);
@@ -978,8 +970,6 @@ grandRow('g-psf','Cost per SF — Under Roof, Excl. Driveway', V1_PSF, V2_PSF, V
 const COMPS = [
   {key:'d12',cls:'d12',from:1,to:2,label:'V1 → V2',span:'9/10/25 to 9/23/25',
    fromBid:V1_BID,toBid:V2_BID,fromPsf:V1_PSF,toPsf:V2_PSF},
-  {key:'d23',cls:'d23',from:2,to:3,label:'V2 → V3',span:'9/23/25 to 5/19/26',
-   fromBid:V2_BID,toBid:V3_BID,fromPsf:V2_PSF,toPsf:V3_PSF},
 ];
 
 const VERSIONS = [
@@ -1001,8 +991,7 @@ const s = document.getElementById('summary');
 
 // Version totals — delta folded in under V2 and V3
 const d12 = V2_BID - V1_BID, dp12 = V2_PSF - V1_PSF;
-const d23 = V3_BID - V2_BID, dp23 = V3_PSF - V2_PSF;
-const deltas = [null, {d:d12,dp:dp12,label:'V1 → V2'}, {d:d23,dp:dp23,label:'V2 → V3'}];
+const deltas = [null, {d:d12,dp:dp12,label:'V1 → V2'}, null];
 
 let vhtml = '<div class="sum-totals">';
 VERSIONS.forEach((v, i) => {
