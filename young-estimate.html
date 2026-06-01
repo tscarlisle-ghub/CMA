@@ -396,7 +396,7 @@ tr.g-psf td.delta.dn { color:var(--dn-tx) }
 .sum-delta-psf  { font-family:var(--titling); font-size:13.2px; font-weight:400; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-mute) }
 
 /* Movers */
-.sum-movers-hdr { display:grid; grid-template-columns:1fr 1fr; border-top:2px solid var(--hairline-strong); border-bottom:1px solid var(--hairline); margin-top:32px }
+.sum-movers-hdr { display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid var(--hairline-strong); border-bottom:1px solid var(--hairline); margin-top:32px }
 .sum-movers-col-hdr {
   padding: 16px 28px 12px;
   border-right: 1px solid var(--hairline);
@@ -438,10 +438,8 @@ tr.g-psf td.delta.dn { color:var(--dn-tx) }
 .mover-label { font-family:var(--meta); font-size:19.8px; color:var(--ink-soft); line-height:1.3; flex:1 }
 .mover-amt   { font-family:var(--meta); font-size:19.8px; font-weight:600; font-variant-numeric:tabular-nums; flex-shrink:0; white-space:nowrap }
 .mover-amt.up { color:var(--up-tx) } .mover-amt.dn { color:var(--dn-tx) }
-.mover-ghost { color:var(--ink-mute) !important }
 
-/* ── Aligned movers — two columns, shared rows ─────────────── */
-
+.mover-total-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -975,104 +973,7 @@ grandRow('g-psf','Cost per SF — Under Roof, Excl. Driveway', V1_PSF, V2_PSF, V
 
 // ─── SUMMARY PANEL ──────────────────────────────────────────────────────────
 // All line items as [label, v1, v2, v3] for mover calculation
-const ALL_ROWS = [
-  ['Erosion Control',1800,1800,1800],
-  ['Remove Trees & Brush',null,null,7500],
-  ['Dirt Haul',3000,null,3000],
-  ['Excavation',7000,7000,7000],
-  ['Rough Grade / Backfill Labor',2000,2000,2000],
-  ['Demo Existing Driveway',3640,3640,3640],
-  ['Demo Existing House & Haul',14200,14200,14200],
-  ['Footing Labor',19700,19700,18745],
-  ['Concrete — Footings',12240,8804,11700],
-  ['Foundation Wall Labor',42480,39730,49910],
-  ['Concrete — Foundation Walls',12240,9656,13320],
-  ['Encapsulation / Vapor Barrier',9000,4048,9450],
-  ['Foundation Waterproofing & Drain',10375,7500,12000],
-  ['Interior Perimeter Drain',2340,null,2340],
-  ['Gravel — Slab (6 loads vs 3)',3200,3200,6000],
-  ['Framing Labor',85000,85000,90000],
-  ['Framing Materials',139218,125296,139218],
-  ['Exterior Doors (multi-slide)',45420,45420,63987],
-  ['Garage Doors — Cloplay 2401 (3)',4845,4845,45000],
-  ['Front Door — White Oak',9130,9624,10000],
-  ['Front Door Install & Hardware',1050,1050,2300],
-  ['Windows — WeatherShield Clad',89160,89160,103122],
-  ['Shutters (10)',9500,7900,9500],
-  ['18" Western Red Cedar Shake',156700,139417,155500],
-  ['Gutters & Downspouts',38500,19250,45000],
-  ['Siding & Cornice Labor',12000,12000,13000],
-  ['Siding & Cornice Materials',30000,26000,30000],
-  ['Flashing Materials',2500,500,2500],
-  ['Brick Veneer Labor',24600,24600,33000],
-  ['Rowlock & Soldier Course Labor',6000,6000,12000],
-  ['Specialty Brick',9800,null,4500],
-  ['Limestone Surrounds — Front Entry',54804,38200,54804],
-  ['Henry Cedar Creek Brick',18450,18450,24750],
-  ['Exterior Painting / Staining',16700,16700,18000],
-  ['Plumbing Labor',52050,48350,52050],
-  ['Septic System',11000,11000,33000],
-  ['Plumbing Fixtures Allowance',40000,40000,40000],
-  ['Electrical Bid',31570,31570,31570],
-  ['Generator — 26KW Briggs',14944,14944,14944],
-  ['Audio Visual Allowance',null,null,50000],
-  ['Decorative Lighting Allowance',60000,60000,60000],
-  ['Appliances Allowance',50000,50000,60000],
-  ['HVAC Labor & Materials',78610,74110,82100],
-  ['ERV, Filters & Duct Cleaning',null,null,4000],
-  ['Decorative Return Grills (3)',null,null,3150],
-  ['Custom Stainless Range Hood',1600,null,8800],
-  ['Open Cell / Closed Cell Foam',27260,21132,27261],
-  ['Rockwool Upgrade',null,null,4521],
-  ['Drywall Labor & Materials',37800,37800,37800],
-  ['Plaster — Hood & Fireplaces',null,null,7200],
-  ['Wallpaper — 4 Rooms',5100,null,17100],
-  ['Isokern Install Labor (3)',9000,9000,9000],
-  ['Chimney Caps (3)',7500,5000,7500],
-  ['Fireplace Surrounds & Hearths (3)',17100,12000,12000],
-  ['Fireballs (2)',3200,null,3200],
-  ['Main Floor Labor',19296,19296,20628],
-  ['Main Floor White Oak Materials',20743,17286,24216],
-  ['Upper Level Labor',20160,20160,18828],
-  ['Upper Level White Oak Materials',21672,18060,22103],
-  ['Tile Labor — All Baths',28400,28400,30700],
-  ['Tile Materials — All Baths',16236,14760,16236],
-  ['Install Jambs / Bench / Niches',null,null,1500],
-  ['Trim Install Labor',39809,34809,32800],
-  ['Ceiling Beams & Special Millwork',null,null,12540],
-  ['Interior Trim Materials',23534,23534,68546],
-  ['Interior Door Locksets (34)',11900,6800,13600],
-  ['Hinges — Unlacquered Brass (47)',null,null,2867],
-  ['Interior Doors & Frames',22807,15000,23280],
-  ['Interior Painting Labor & Mat.',63200,63200,64500],
-  ['Specialty Finishes (beams, door, planking)',null,null,18770],
-  ['Kitchen Cabinets',36700,35450,35500],
-  ['Pantry & Wall Planking',12300,11950,22500],
-  ["Butler's Pantry",11700,11400,11400],
-  ['Mudroom / Laundry',28700,27700,27700],
-  ['Great Room / Study',13600,12800,12800],
-  ['Primary Bed / Bath / Closet',16600,15750,15750],
-  ['Playroom & Bedroom Bookcases',11900,10000,10000],
-  ['Bath Vanities (#2, #3, #4)',15100,14700,14650],
-  ['LED Lighting Allowance',null,null,5000],
-  ['Cabinet Hardware',4000,4000,7000],
-  ['Countertops — Kitchen',9275,9275,34715],
-  ['Countertops — Support Spaces',17119,17119,30525],
-  ['Countertops — All Baths',9990,9990,55200],
-  ['Bath Hardware Allowance',4000,2000,4000],
-  ['Shower Glass — 3 Enclosures',3600,3600,5100],
-  ['Closet System / Shelving',20348,18000,18000],
-  ['Bluestone — Rear Porches & Stoop',15982,12019,19520],
-  ['Porch Framing Labor',8000,8000,10000],
-  ['Screening (bronze vs fiberglass)',2300,2300,5000],
-  ['Driveway — 275 SF Asphalt',20000,20000,6500],
-  ['Brick Curbing, Bands & Apron',null,null,14360],
-  ['Impervious Concrete Surfaces',null,null,6760],
-  ['Gate & Hardware',3000,3000,6000],
-  ['Engineer / Surveyor',5000,5000,7000],
-  ['Building Permit',22365,20358,27144],
-  ['General Liability',12425,11310,15080],
-];
+
 
 const COMPS = [
   {key:'d12',cls:'d12',from:1,to:2,label:'V1 → V2',span:'9/10/25 to 9/23/25',
@@ -1090,70 +991,11 @@ const VERSIONS = [
    bid:V3_BID,sub2:V3_SUB,psf:V3_PSF,current:true},
 ];
 
-const N_MOVERS = 15;
 
-function getMovers(comp) {
-  return ALL_ROWS
-    .map(r => ({ label: r[0], base: $(r[comp.from]), to: $(r[comp.to]), d: $(r[comp.to]) - $(r[comp.from]) }))
-    .filter(r => r.d !== 0)
-    .sort((a, b) => Math.abs(b.d) - Math.abs(a.d))
-    .slice(0, N_MOVERS);
-}
 
-function attachInputListeners() {} // no-op
 
-function renderMoversAligned() {
-  const list12 = getMovers(COMPS[0]);
-  const list23 = getMovers(COMPS[1]);
 
-  const map12 = Object.fromEntries(list12.map(r => [r.label, r.d]));
-  const map23 = Object.fromEntries(list23.map(r => [r.label, r.d]));
 
-  // Shared row order: d12 items first (in their ranked order),
-  // then any d23-only items appended after
-  const placed = new Set();
-  const rows = [];
-  list12.forEach(r => { rows.push(r.label); placed.add(r.label); });
-  list23.forEach(r => { if (!placed.has(r.label)) { rows.push(r.label); placed.add(r.label); } });
-
-  const tot12 = list12.reduce((a, r) => a + r.d, 0);
-  const tot23 = list23.reduce((a, r) => a + r.d, 0);
-
-  let html12 = '', html23 = '';
-  rows.forEach((lbl, i) => {
-    const d12 = map12[lbl];
-    const d23 = map23[lbl];
-    const rank12 = list12.findIndex(r => r.label === lbl) + 1;
-    const rank23 = list23.findIndex(r => r.label === lbl) + 1;
-
-    html12 += `<div class="mover-row">
-      <span class="mover-rank">${rank12 > 0 ? rank12 : ''}</span>
-      <span class="mover-label${d12 === undefined ? ' mover-ghost' : ''}">${lbl}</span>
-      ${d12 !== undefined
-        ? `<span class="mover-amt ${d12>0?'up':'dn'}">${fmtD(d12)}</span>`
-        : `<span class="mover-amt" style="color:var(--ink-mute)">—</span>`}
-    </div>`;
-
-    html23 += `<div class="mover-row">
-      <span class="mover-rank">${rank23 > 0 ? rank23 : ''}</span>
-      <span class="mover-label${d23 === undefined ? ' mover-ghost' : ''}">${lbl}</span>
-      ${d23 !== undefined
-        ? `<span class="mover-amt ${d23>0?'up':'dn'}">${fmtD(d23)}</span>`
-        : `<span class="mover-amt" style="color:var(--ink-mute)">—</span>`}
-    </div>`;
-  });
-
-  const totRow = (tot, cls) => `<div class="mover-total-row">
-    <span class="mover-total-lbl">Top ${N_MOVERS} Movers Total</span>
-    <span class="mover-total-amt ${cls}">${fmtD(tot)}</span>
-  </div>`;
-
-  html12 += totRow(tot12, tot12>0?'up':'dn');
-  html23 += totRow(tot23, tot23>0?'up':'dn');
-
-  document.getElementById('movers-d12').innerHTML = html12;
-  document.getElementById('movers-d23').innerHTML = html23;
-}
 
 const s = document.getElementById('summary');
 
@@ -1182,23 +1024,7 @@ VERSIONS.forEach((v, i) => {
 vhtml += '</div>';
 s.insertAdjacentHTML('beforeend', vhtml);
 
-// Movers header + body — aligned by name
-s.insertAdjacentHTML('beforeend', `
-  <div class="sum-movers-hdr">
-    <div class="sum-movers-col-hdr">
-      <div class="sum-movers-col-hdr-title">Largest Movers (${N_MOVERS}) · V1 → V2</div>
-      <div class="sum-movers-col-hdr-sub">Preliminary to revised · rows aligned by item name</div>
-    </div>
-    <div class="sum-movers-col-hdr">
-      <div class="sum-movers-col-hdr-title">Largest Movers (${N_MOVERS}) · V2 → V3</div>
-      <div class="sum-movers-col-hdr-sub">Revised to permit set</div>
-    </div>
-  </div>
-  <div class="sum-movers-body" style="grid-template-columns:1fr 1fr">
-    <div class="sum-movers-list" id="movers-d12"></div>
-    <div class="sum-movers-list" id="movers-d23"></div>
-  </div>`);
-renderMoversAligned();
+
 </script>
 </body>
 </html>
