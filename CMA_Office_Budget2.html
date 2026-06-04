@@ -267,9 +267,9 @@ tr.grp td{
 
 td{padding:6px 6px;vertical-align:middle;text-align:right;color:var(--ink-1);}
 td:first-child{text-align:left;padding-left:18px;}
-td.m{min-width:88px;
+td.m{min-width:115px;
   font-family:var(--ff-mono);
-  font-weight:400;
+  font-weight:700;
   font-size:0.83rem;
   white-space:nowrap;
   font-variant-numeric:tabular-nums lining-nums;
@@ -292,16 +292,16 @@ td.ex{
   text-align:right;
 }
 td.ng{color:var(--alert);}
-td.rv{min-width:88px;
+td.rv{min-width:115px;
   font-family:var(--ff-mono);
-  font-weight:300;
+  font-weight:700;
   font-size:0.83rem;
   white-space:nowrap;
-  color:var(--ink-3);
+  color:var(--ink-4);
   font-variant-numeric:tabular-nums lining-nums;
   padding-left:14px;
 }
-td.rv.ch{color:var(--cma-accent);font-weight:700;}
+td.rv.ch{color:var(--cma-accent);}
 
 /* Revision input cell */
 td.rc{padding:0 4px;vertical-align:middle;}
@@ -345,7 +345,11 @@ td.rc{padding:0 4px;vertical-align:middle;}
   height:1.6em;
   box-sizing:content-box;
   vertical-align:middle;
+  -moz-appearance:textfield;
+  appearance:textfield;
 }
+.ri::-webkit-outer-spin-button,
+.ri::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 .ri:focus{background:#ffffff;border-color:var(--cma-accent);box-shadow:0 0 0 2px rgba(168,92,36,0.18);}
 .ri::placeholder{color:var(--ink-4);font-size:0.56rem;letter-spacing:0.14em;font-weight:400;text-transform:uppercase;}
 
@@ -386,7 +390,7 @@ tr.tot td.m{
   font-size:0.89rem;
   font-variant-numeric:tabular-nums lining-nums;
 }
-tr.tot td.rv.ch{color:var(--cma-accent);font-weight:700;}
+tr.tot td.rv.ch{color:var(--cma-accent);}
 
 /* ── GRAND TOTAL ───────────────────────────────────────── */
 .grand{margin-top:56px;border-top:2px solid var(--engraved);}
@@ -461,11 +465,12 @@ tr.tot td.rv.ch{color:var(--cma-accent);font-weight:700;}
 #sec-er  tr.grp td{--grp-bg:#e4d4cc;}
 td.line-total{
   font-family:var(--ff-mono);
-  font-weight:400;
+  font-weight:700;
   font-size:0.83rem;
   text-align:right;
   font-variant-numeric:tabular-nums lining-nums;
 }
+td.line-total.ch{color:var(--cma-accent);}
 /* ── EXCLUDE TOGGLE ────────────────────────────────────── */
 td.xc{padding:3px 5px;text-align:right;}
 .excl-btn{
@@ -587,11 +592,11 @@ tr.grp-sub td.gsbase .gs-num{
 <div class="ch"><h2>TCC General Contractors — Construction</h2>
 <div class="ch-right">Signed 5.26.26 · Cost-plus 15% · Schematic 3.7.26<span class="ch-total" id="tcc-h">$580,302.64</span></div></div>
 <table>
-<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:90px"><col style="width:140px"><col style="width:90px"><col></colgroup>
+<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:115px"><col style="width:140px"><col style="width:115px"><col></colgroup>
 <thead><tr>
 <th>Item</th><th style="width:38px">Qty</th><th style="width:42px">Unit</th>
-<th style="width:90px">Base</th>
-<th style="width:140px" class="thr">Revision</th><th style="width:90px">Revised</th>
+<th style="width:115px">Base</th>
+<th style="width:140px" class="thr">Revision</th><th style="width:115px">Revised</th>
 <th class="thn">Notes</th></tr></thead>
 <tbody>
 <tr class="grp"><td colspan="7">General Conditions</td></tr>
@@ -691,11 +696,11 @@ tr.grp-sub td.gsbase .gs-num{
 <div class="ch"><h2>GHT Group — Pre-Wire</h2>
 <div class="ch-right">Proposal 32509 · Prepared 6.3.2026 · Valid 15 days<span class="ch-total">$7,374.57</span></div></div>
 <table>
-<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:90px"><col style="width:140px"><col style="width:90px"><col></colgroup>
+<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:115px"><col style="width:140px"><col style="width:115px"><col></colgroup>
 <thead><tr>
 <th>Item</th><th style="width:38px">Qty</th><th style="width:42px">Unit</th>
-<th style="width:80px">Unit $</th><th style="width:90px">Total</th>
-<th style="width:140px" class="thr">Revision</th><th style="width:90px">Revised</th><th class="thn">Notes</th></tr></thead>
+<th style="width:80px">Unit $</th><th style="width:115px">Total</th>
+<th style="width:140px" class="thr">Revision</th><th style="width:115px">Revised</th><th class="thn">Notes</th></tr></thead>
 <tbody>
 <tr class="grp"><td colspan="9">Data</td></tr>
 <tr data-base="3584.00" data-qty="32.0" data-unitprice="112.0000"><td>CAT6 Data Locations</td><td><input class="qi" type="text" inputmode="decimal" value="32" placeholder="qty"></td><td>ea</td><td class="m">$112.00</td><td class="m line-total">$3,584.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,584.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="0" data-grpbase="3584.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$3,584.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$3,584.00</span></td><td></td></tr>
@@ -719,11 +724,11 @@ tr.grp-sub td.gsbase .gs-num{
 <div class="ch"><h2>GHT Group — Audio &amp; Video</h2>
 <div class="ch-right">Proposal 32513 · Prepared 6.3.2026 · Valid 15 days<span class="ch-total">$30,055.01</span></div></div>
 <table>
-<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:90px"><col style="width:140px"><col style="width:90px"><col></colgroup>
+<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:115px"><col style="width:140px"><col style="width:115px"><col></colgroup>
 <thead><tr>
 <th>Item / SKU</th><th style="width:38px">Qty</th><th style="width:42px">Unit</th>
-<th style="width:80px">Unit $</th><th style="width:90px">Total</th>
-<th style="width:140px" class="thr">Revision</th><th style="width:90px">Revised</th><th class="thn">Notes</th></tr></thead>
+<th style="width:80px">Unit $</th><th style="width:115px">Total</th>
+<th style="width:140px" class="thr">Revision</th><th style="width:115px">Revised</th><th class="thn">Notes</th></tr></thead>
 <tbody>
 <tr class="grp"><td colspan="9">Work Room</td></tr>
 <tr data-base="1340.00" data-qty="2.0" data-unitprice="670.0000"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td><input class="qi" type="text" inputmode="decimal" value="2" placeholder="qty"></td><td>pair</td><td class="m">$670.00</td><td class="m line-total">$1,340.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,340.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="0" data-grpbase="1340.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,340.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,340.00</span></td><td></td></tr>
@@ -778,11 +783,11 @@ tr.grp-sub td.gsbase .gs-num{
 <div class="ch"><h2>Emory Ratliff Interiors — Lighting &amp; Furnishings</h2>
 <div class="ch-right">Proposal 100018 · Dated 4.27.2026 · Bill Moore &amp; Scott Carlisle<span class="ch-total">$89,633.17</span></div></div>
 <table>
-<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:90px"><col style="width:140px"><col style="width:90px"><col></colgroup>
+<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:115px"><col style="width:140px"><col style="width:115px"><col></colgroup>
 <thead><tr>
 <th>Item</th><th style="width:38px">Qty</th><th style="width:42px">Unit</th>
-<th style="width:80px">Unit $</th><th style="width:90px">Total</th>
-<th style="width:140px" class="thr">Revision</th><th style="width:90px">Revised</th><th class="thn">Notes</th></tr></thead>
+<th style="width:80px">Unit $</th><th style="width:115px">Total</th>
+<th style="width:140px" class="thr">Revision</th><th style="width:115px">Revised</th><th class="thn">Notes</th></tr></thead>
 <tbody>
 <tr class="grp"><td colspan="9">Bath-1</td></tr>
 <tr data-base="2726.00" data-qty="2.0" data-unitprice="1363.0000"><td>The Hand Sconce — Polished Unlacquered Brass (1L + 1R)</td><td><input class="qi" type="text" inputmode="decimal" value="2" placeholder="qty"></td><td>ea</td><td class="m">$1,363.00</td><td class="m line-total">$2,726.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$2,726.00</td><td class="nt">5.25”W × 10”H · shade clip needed</td></tr><tr class="grp-sub" data-grp="0" data-grpbase="2726.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$2,726.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$2,726.00</span></td><td></td></tr>
@@ -864,7 +869,6 @@ tr.grp-sub td.gsbase .gs-num{
 <script>
 const BASE = {tcc:580302.64, pw:7374.57, av:30055.01, er:89633.17};
 const GRAND_BASE = 707365.39;
-
 const SECS = [
   {key:'tcc', sel:'#sec-tcc', tid:'tcc-tot', gtid:'gt-tcc', gdid:'gd-tcc'},
   {key:'pw',  sel:'#sec-pw',  tid:'pw-tot',  gtid:'gt-pw',  gdid:'gd-pw'},
@@ -873,398 +877,351 @@ const SECS = [
 ];
 
 function f(n){
-  const a=Math.abs(n),s=a.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  var a=Math.abs(n), s=a.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
   return (n<0?'\u2212$':'$')+s;
 }
 function fd(d){
-  if(Math.abs(d)<0.005)return '\u2014';
-  const s=Math.abs(d).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(Math.abs(d)<0.005) return '\u2014';
+  var s=Math.abs(d).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
   return (d>0?'+$':'\u2212$')+s;
 }
-
-function allInputs(){return document.querySelectorAll('.ri');}
+function allInputs(){ return document.querySelectorAll('.ri'); }
 
 function rowKey(inp){
-  const sec=inp.closest('.contract');
-  if(!sec)return null;
-  const rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
-  const idx=rows.indexOf(inp.closest('tr'));
+  var sec=inp.closest('.contract');
+  if(!sec) return null;
+  var rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
+  var idx=rows.indexOf(inp.closest('tr'));
   return sec.id+'::'+idx;
 }
-
 function parseDelta(v){
-  const s=v.trim();
-  if(s===''||isNaN(parseFloat(s)))return 0;
+  var s=v.trim();
+  if(s===''||isNaN(parseFloat(s))) return 0;
   return parseFloat(s);
 }
 
-function recalc(){
-  // Helper: sum all non-excluded data rows in a container, optionally stopping before a sentinel row
-  function sumRows(container, stopBefore){
-    let tot=0;
-    const rows=container.querySelectorAll('tbody tr[data-base]');
-    rows.forEach(row=>{
-      if(stopBefore && row===stopBefore) return;
-      if(row.classList.contains('excluded-row')) return;
-      const origBase=parseFloat(row.dataset.base)||0;
-      const unitPrice=(row.dataset.unitprice!==undefined)?parseFloat(row.dataset.unitprice):null;
-      const qiEl=row.querySelector('.qi');
-      let effectiveBase=origBase;
-      if(unitPrice!==null && qiEl){
-        const newQty=parseFloat(qiEl.value.replace(/[^0-9.]/g,""))||0;
-        effectiveBase=unitPrice*newQty;
-      }
-      const inp=row.querySelector('.ri');
-      tot+=effectiveBase+(inp?parseDelta(inp.value):0);
-    });
-    return tot;
+/* Effective base for a row: unit price * current qty, or raw base */
+function rowEffBase(row){
+  var origBase = parseFloat(row.getAttribute('data-base')) || 0;
+  var upAttr   = row.getAttribute('data-unitprice');
+  var qiEl     = row.querySelector('.qi');
+  if(upAttr !== null && qiEl){
+    var qty = parseFloat(qiEl.value);
+    if(!isNaN(qty)) return parseFloat(upAttr) * qty;
   }
+  return origBase;
+}
 
-  // ── Per-row revised cells ──────────────────────────────────────────────
-  document.querySelectorAll('tbody tr[data-base]').forEach(row=>{
-    const origBase=parseFloat(row.dataset.base)||0;
-    const unitPrice=(row.dataset.unitprice!==undefined)?parseFloat(row.dataset.unitprice):null;
-    const qiEl=row.querySelector('.qi');
-    const inp=row.querySelector('.ri');
-    const cell=row.querySelector('.rv');
-    const totalCell=row.querySelector('.line-total');
+function recalc(){
+
+  /* 1. Per-row revised + line-total cells */
+  document.querySelectorAll('tbody tr[data-base]').forEach(function(row){
+    var effBase   = rowEffBase(row);
+    var origBase  = parseFloat(row.getAttribute('data-base')) || 0;
+    var upAttr    = row.getAttribute('data-unitprice');
+    var qtyAttr   = row.getAttribute('data-qty');
+    var origQty   = qtyAttr !== null ? parseFloat(qtyAttr) : null;
+    var qiEl      = row.querySelector('.qi');
+    var inp       = row.querySelector('.ri');
+    var cell      = row.querySelector('.rv');
+    var totalCell = row.querySelector('.line-total');
+
     if(!cell) return;
 
-    // Effective base: unit price × new qty
-    let effectiveBase=origBase;
-    if(unitPrice!==null && qiEl){
-      const newQty=parseFloat(qiEl.value.replace(/[^0-9.]/g,""))||0;
-      effectiveBase=unitPrice*newQty;
+    /* Update Total column (unit$ * new qty) */
+    if(totalCell && upAttr !== null && qiEl){
+      var newQty = parseFloat(qiEl.value);
+      if(!isNaN(newQty)){
+        totalCell.textContent = f(parseFloat(upAttr) * newQty);
+        totalCell.classList.toggle('ch', origQty !== null && Math.abs(newQty - origQty) > 0.0001);
+      }
     }
 
-    // Update the line total cell (col4 on GHT/Emory)
-    if(totalCell && unitPrice!==null && qiEl){
-      const newQty=parseFloat(qiEl.value.replace(/[^0-9.]/g,""))||0;
-      const lineTotal=unitPrice*newQty;
-      totalCell.textContent=lineTotal<0?('−$'+Math.abs(lineTotal).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})):
-                                        ('$'+lineTotal.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}));
-      totalCell.classList.toggle('ch',Math.abs((parseFloat(qiEl.value)||0)-(parseFloat(row.dataset.qty)||0))>0.0001);
-    }
-
-    const delta=inp?parseDelta(inp.value):0;
-    const revised=effectiveBase+delta;
-    const origQty=parseFloat(row.dataset.qty)||null;
-    const qtyChanged=qiEl&&origQty!==null&&Math.abs((parseFloat(qiEl.value)||0)-origQty)>0.0001;
-    const changed=Math.abs(delta)>0.005||qtyChanged;
-    const isExcl=cell.dataset.excl==='1';
-    if(isExcl&&!changed) return;
-    cell.textContent=revised<0?('−$'+Math.abs(revised).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})):
-                               ('$'+revised.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}));
-    cell.classList.toggle('ch',changed);
+    /* Update Revised column */
+    var delta      = inp ? parseDelta(inp.value) : 0;
+    var revised    = effBase + delta;
+    var qtyChanged = qiEl && origQty !== null && !isNaN(parseFloat(qiEl.value)) && Math.abs(parseFloat(qiEl.value) - origQty) > 0.0001;
+    var changed    = Math.abs(delta) > 0.005 || qtyChanged;
+    var isExcl     = cell.getAttribute('data-excl') === '1';
+    if(isExcl && !changed) return;
+    cell.textContent = f(revised);
+    cell.classList.toggle('ch', changed);
   });
 
-  // ── grp-sub section totals ─────────────────────────────────────────────
-  document.querySelectorAll('tr.grp-sub').forEach(sub=>{
-    const sec=sub.closest('.contract');
+  /* 2. grp-sub section totals */
+  document.querySelectorAll('tr.grp-sub').forEach(function(sub){
+    var sec = sub.closest('.contract');
     if(!sec) return;
-    const grpIdx=parseInt(sub.dataset.grp);
-    const grpRows=Array.from(sec.querySelectorAll('tbody tr.grp'));
-    const startGrp=grpRows[grpIdx];
-    let subTot=0;
-    let node=startGrp?startGrp.nextElementSibling:null;
-    while(node && node!==sub){
-      if(node.dataset&&node.dataset.base!==undefined&&!node.classList.contains('excluded-row')){
-        const base=parseFloat(node.dataset.base)||0;
-        const inp=node.querySelector('.ri');
-        subTot+=base+(inp?parseDelta(inp.value):0);
+    var grpIdx  = parseInt(sub.getAttribute('data-grp'));
+    var grpRows = Array.from(sec.querySelectorAll('tbody tr.grp'));
+    var startGrp = grpRows[grpIdx];
+    var tot = 0;
+    var node = startGrp ? startGrp.nextElementSibling : null;
+    while(node && node !== sub){
+      if(node.getAttribute('data-base') !== null && !node.classList.contains('excluded-row')){
+        tot += rowEffBase(node) + (node.querySelector('.ri') ? parseDelta(node.querySelector('.ri').value) : 0);
       }
-      node=node.nextElementSibling;
+      node = node.nextElementSibling;
     }
-    const gsbase=sub.querySelector('.gsbase');
-    const gsrv=sub.querySelector('.gsrv');
+    var gsrv = sub.querySelector('.gsrv');
     if(gsrv){
-      const gsnum=gsrv.querySelector('.gs-num');
-      if(gsnum) gsnum.textContent=f(subTot);
-      gsrv.classList.toggle('ch',Math.abs(subTot-(parseFloat(sub.dataset.grpbase||0)))>0.005);
+      var gsnum = gsrv.querySelector('.gs-num');
+      if(gsnum) gsnum.textContent = f(tot);
+      gsrv.classList.toggle('ch', Math.abs(tot - parseFloat(sub.getAttribute('data-grpbase')||'0')) > 0.005);
     }
   });
 
-  // ── Sub rows (walk siblings above each sub row) ────────────────────────
-  document.querySelectorAll('tr.sub').forEach(subRow=>{
-    const rvCell=subRow.querySelector('.rv');
-    const baseCell=subRow.querySelector('.m[id$="-base"]');
+  /* 3. Sub rows */
+  document.querySelectorAll('tr.sub').forEach(function(subRow){
+    var rvCell = subRow.querySelector('.rv');
     if(!rvCell) return;
-    let subTot=0;
-    let node=subRow.previousElementSibling;
+    var tot = 0;
+    var node = subRow.previousElementSibling;
     while(node){
-      if(node.dataset&&node.dataset.base!==undefined&&!node.classList.contains('excluded-row')){
-        const _ob=parseFloat(node.dataset.base)||0;
-        const _up=parseFloat(node.dataset.unitprice)||null;
-        const _qi=node.querySelector('.qi');
-        let _eb=_ob;
-        if(_up!==null&&_qi){const _nq=parseFloat(_qi.value)||0;_eb=_up*_nq;}
-        subTot+=_eb+(node.querySelector('.ri')?parseDelta(node.querySelector('.ri').value):0);
+      if(node.getAttribute('data-base') !== null && !node.classList.contains('excluded-row')){
+        tot += rowEffBase(node) + (node.querySelector('.ri') ? parseDelta(node.querySelector('.ri').value) : 0);
       }
-      node=node.previousElementSibling;
+      node = node.previousElementSibling;
     }
-    rvCell.textContent=f(subTot);
+    rvCell.textContent = f(tot);
   });
 
-  // ── Section contract totals ────────────────────────────────────────────
-  let grandRev=0, anyChanged=false;
-  SECS.forEach(s=>{
-    const container=document.querySelector(s.sel);
+  /* 4. Contract totals + grand total */
+  var grandRev = 0, anyChanged = false;
+  SECS.forEach(function(sec){
+    var container = document.querySelector(sec.sel);
     if(!container) return;
-    const tot=sumRows(container);
-    grandRev+=tot;
-    const delta=tot-BASE[s.key];
-    if(Math.abs(delta)>0.005) anyChanged=true;
+    var tot = 0;
+    container.querySelectorAll('tbody tr[data-base]').forEach(function(row){
+      if(row.classList.contains('excluded-row')) return;
+      tot += rowEffBase(row) + (row.querySelector('.ri') ? parseDelta(row.querySelector('.ri').value) : 0);
+    });
+    grandRev += tot;
+    var delta = tot - BASE[sec.key];
+    if(Math.abs(delta) > 0.005) anyChanged = true;
 
-    const tEl=document.getElementById(s.tid);
-    if(tEl){tEl.textContent=f(tot);tEl.classList.toggle('ch',Math.abs(delta)>0.005);}
-    const gtEl=document.getElementById(s.gtid);
-    if(gtEl){gtEl.textContent=f(tot);gtEl.style.color=Math.abs(delta)>0.005?'var(--cma-accent)':'';}
-    const gdEl=document.getElementById(s.gdid);
-    if(gdEl){
-      gdEl.textContent=fd(delta);
-      gdEl.className='m'+(delta>0.005?' dp':delta<-0.005?' dn':'');
-    }
+    var tEl = document.getElementById(sec.tid);
+    if(tEl){ tEl.textContent=f(tot); tEl.classList.toggle('ch', Math.abs(delta)>0.005); }
+    var gtEl = document.getElementById(sec.gtid);
+    if(gtEl){ gtEl.textContent=f(tot); gtEl.style.color=Math.abs(delta)>0.005?'var(--cma-accent)':''; }
+    var gdEl = document.getElementById(sec.gdid);
+    if(gdEl){ gdEl.textContent=fd(delta); gdEl.className='m'+(delta>0.005?' dp':delta<-0.005?' dn':''); }
   });
 
-  // ── Grand total ────────────────────────────────────────────────────────
-  const gd=grandRev-GRAND_BASE;
-  document.getElementById('gt-grand').textContent=f(grandRev);
-  document.getElementById('gt-grand').classList.toggle('live',anyChanged);
-  const gdG=document.getElementById('gd-grand');
-  gdG.textContent=fd(gd);
-  gdG.style.color=gd>0.005?'var(--cma-accent)':gd<-0.005?'var(--forest-1)':'var(--ink-3)';
-  gdG.style.fontSize='1.1rem';
+  var gd = grandRev - GRAND_BASE;
+  document.getElementById('gt-grand').textContent = f(grandRev);
+  document.getElementById('gt-grand').classList.toggle('live', anyChanged);
+  var gdG = document.getElementById('gd-grand');
+  gdG.textContent = fd(gd);
+  gdG.style.color = gd>0.005?'var(--cma-accent)':gd<-0.005?'var(--forest-1)':'var(--ink-3)';
+  gdG.style.fontSize = '1.1rem';
 
-  const sr=document.getElementById('sum-rev');
-  sr.textContent=anyChanged?f(grandRev):'\u2014';
-  sr.classList.toggle('live',anyChanged);
-  const sd=document.getElementById('sum-delta');
-  sd.textContent=anyChanged&&Math.abs(gd)>0.005?fd(gd):'\u2014';
-  sd.className='bc-val'+(gd>0.005?' neg':gd<-0.005?' pos':'');
+  var sr = document.getElementById('sum-rev');
+  sr.textContent = anyChanged ? f(grandRev) : '\u2014';
+  sr.classList.toggle('live', anyChanged);
+  var sd = document.getElementById('sum-delta');
+  sd.textContent = anyChanged && Math.abs(gd)>0.005 ? fd(gd) : '\u2014';
+  sd.className = 'bc-val'+(gd>0.005?' neg':gd<-0.005?' pos':'');
 }
 
 /* ── BUILD DATA ── */
 function buildData(){
-  const out={
+  var out={
     _meta:{saved:new Date().toISOString(),file:'revisions.json',note:'Deltas added to base amounts. excluded[] = row keys removed from totals.'},
-    revisions:{},
-    excluded:[]
+    revisions:{}, excluded:[], quantities:{}
   };
-  allInputs().forEach(inp=>{
-    const k=rowKey(inp);
-    const v=inp.value.trim();
-    if(k&&v!==''&&!isNaN(parseFloat(v)))out.revisions[k]=parseFloat(v);
-    if(k&&inp.closest('tr').classList.contains('excluded-row'))out.excluded.push(k);
+  allInputs().forEach(function(inp){
+    var k=rowKey(inp), v=inp.value.trim();
+    if(k&&v!==''&&!isNaN(parseFloat(v))) out.revisions[k]=parseFloat(v);
+    if(k&&inp.closest('tr').classList.contains('excluded-row')) out.excluded.push(k);
   });
-  // Save qty changes
-  out.quantities={};
-  document.querySelectorAll('tbody tr[data-qty] .qi').forEach(qi=>{
-    const row=qi.closest('tr');
-    const sec=qi.closest('.contract');
+  document.querySelectorAll('tbody tr[data-qty] .qi').forEach(function(qi){
+    var row=qi.closest('tr'), sec=qi.closest('.contract');
     if(!sec||!row) return;
-    const rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
-    const idx=rows.indexOf(row);
-    const k=sec.id+'::'+idx;
-    const origQty=parseFloat(row.dataset.qty)||0;
-    const newQty=parseFloat(qi.value)||0;
-    if(Math.abs(newQty-origQty)>0.0001) out.quantities[k]=newQty;
+    var rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
+    var k=sec.id+'::'+rows.indexOf(row);
+    var origQty=parseFloat(row.getAttribute('data-qty'))||0;
+    var newQty=parseFloat(qi.value);
+    if(!isNaN(newQty)&&Math.abs(newQty-origQty)>0.0001) out.quantities[k]=newQty;
   });
   return out;
 }
 
 /* ── GITHUB API SAVE ── */
-const GH_OWNER = 'tscarlisle-ghub';
-const GH_REPO  = 'CMA';
-const GH_PATH  = 'revisions.json';
-const GH_BRANCH= 'main';
+var GH_OWNER='tscarlisle-ghub', GH_REPO='CMA', GH_PATH='revisions.json', GH_BRANCH='main';
 
 function getToken(){
-  return (document.getElementById('gh-token')||{}).value ||
-         localStorage.getItem('cma-gh-token') || '';
+  return (document.getElementById('gh-token')||{}).value||localStorage.getItem('cma-gh-token')||'';
 }
-
 function updateTokenStatus(){
-  const t=getToken();
-  const el=document.getElementById('token-status');
-  if(!el)return;
-  el.textContent = t.startsWith('ghp_')||t.startsWith('github_pat_') ? '✓ token set' : t?'? unrecognised format':'';
-  el.style.color = (t.startsWith('ghp_')||t.startsWith('github_pat_')) ? 'var(--forest-1)' : 'var(--ink-4)';
+  var t=getToken(), el=document.getElementById('token-status');
+  if(!el) return;
+  var ok=t.startsWith('ghp_')||t.startsWith('github_pat_');
+  el.textContent=ok?'\u2713 token set':t?'? unrecognised format':'';
+  el.style.color=ok?'var(--forest-1)':'var(--ink-4)';
 }
 
 async function saveToGitHub(){
-  const token=getToken();
-  if(!token){
-    setStatus('Paste your GitHub token first',5000);
-    document.getElementById('gh-token')&&document.getElementById('gh-token').focus();
-    return;
-  }
-  const data=buildData();
-  const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2)+'
-')));
-
-  setStatus('Saving…',60000);
-
-  // Get current SHA (needed to update existing file)
-  let sha='';
+  var token=getToken();
+  if(!token){ setStatus('Paste your GitHub token first',5000); return; }
+  var data=buildData();
+  var content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2)+'\n')));
+  setStatus('Saving\u2026',60000);
+  var sha='';
   try{
-    const r=await fetch(
-      \`https://api.github.com/repos/\${GH_OWNER}/\${GH_REPO}/contents/\${GH_PATH}?ref=\${GH_BRANCH}\`,
-      {headers:{Authorization:\`Bearer \${token}\`,'Accept':'application/vnd.github+json'}}
-    );
-    if(r.ok){const j=await r.json();sha=j.sha||'';}
+    var r=await fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+GH_PATH+'?ref='+GH_BRANCH,
+      {headers:{Authorization:'Bearer '+token,'Accept':'application/vnd.github+json'}});
+    if(r.ok){var j=await r.json();sha=j.sha||'';}
   }catch(e){}
-
-  // Commit the file
-  const body={message:'Update revisions.json',content,branch:GH_BRANCH};
+  var body={message:'Update revisions.json',content:content,branch:GH_BRANCH};
   if(sha) body.sha=sha;
-
   try{
-    const r=await fetch(
-      \`https://api.github.com/repos/\${GH_OWNER}/\${GH_REPO}/contents/\${GH_PATH}\`,
-      {method:'PUT',headers:{Authorization:\`Bearer \${token}\`,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
-       body:JSON.stringify(body)}
-    );
-    if(r.ok){
-      const n=Object.keys(data.revisions).length+data.excluded.length;
-      setStatus('Saved to GitHub — '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'}),6000);
+    var r2=await fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+GH_PATH,
+      {method:'PUT',headers:{Authorization:'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+       body:JSON.stringify(body)});
+    if(r2.ok){
+      setStatus('Saved to GitHub \u2014 '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'}),6000);
       localStorage.setItem('cma-budget-draft',JSON.stringify(data));
     } else {
-      const err=await r.json();
-      setStatus('GitHub error: '+(err.message||r.status),8000);
+      var err=await r2.json();
+      setStatus('GitHub error: '+(err.message||r2.status),8000);
     }
-  }catch(e){
-    setStatus('Network error — '+e.message,8000);
-  }
+  }catch(e){ setStatus('Network error \u2014 '+e.message,8000); }
 }
 
-/* ── LOAD ── */
+/* ── LOAD FROM FILE ── */
 function loadFromFile(input){
-  const file=input.files[0];
-  if(!file)return;
-  const reader=new FileReader();
-  reader.onload=e=>{
+  var file=input.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
     try{
-      const data=JSON.parse(e.target.result);
-      const revs=data.revisions||data;
-      let n=0;
-      const excl=data.excluded||[];
-      allInputs().forEach(inp=>{
-        const k=rowKey(inp);
+      var data=JSON.parse(ev.target.result);
+      var revs=data.revisions||{}, excl=data.excluded||[], qtys=data.quantities||{};
+      var n=0;
+      allInputs().forEach(function(inp){
+        var k=rowKey(inp);
         if(k&&revs[k]!==undefined){inp.value=revs[k];n++;}
-        if(k&&excl.includes(k)){
-          const row=inp.closest('tr');
+        if(k&&excl.indexOf(k)>=0){
+          var row=inp.closest('tr');
           row.classList.add('excluded-row');
-          const btn=row.querySelector('.excl-btn');
-          if(btn){btn.title='Click to include';}
+          var btn=row.querySelector('.excl-btn');
+          if(btn) btn.title='Click to include';
         }
       });
-
-  // Restore qty changes
-  const qtys=data.quantities||{};
-  document.querySelectorAll('tbody tr[data-qty] .qi').forEach(qi=>{
-    const row=qi.closest('tr');
-    const sec=qi.closest('.contract');
-    if(!sec||!row) return;
-    const rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
-    const idx=rows.indexOf(row);
-    const k=sec.id+'::'+idx;
-    if(qtys[k]!==undefined) qi.value=qtys[k];
-  });
+      document.querySelectorAll('tbody tr[data-qty] .qi').forEach(function(qi){
+        var row=qi.closest('tr'), sec=qi.closest('.contract');
+        if(!sec||!row) return;
+        var rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
+        var k=sec.id+'::'+rows.indexOf(row);
+        if(qtys[k]!==undefined) qi.value=qtys[k];
+      });
       recalc();
       setStatus('Loaded '+n+' revision'+(n!==1?'s':'')+' from '+file.name);
-    }catch(err){
-      setStatus('Could not parse '+file.name+' — check it is a valid revisions.json');
-    }
+    }catch(err){ setStatus('Could not parse '+file.name); }
     input.value='';
   };
   reader.readAsText(file);
 }
 
-/* ── Auto-fetch revisions.json from same origin (GitHub Pages) ── */
+/* ── AUTO-LOAD from GitHub Pages ── */
 async function autoLoad(){
-  if(!location.protocol.startsWith('http'))return;
+  if(!location.protocol.startsWith('http')) return;
   try{
-    const r=await fetch('./revisions.json',{cache:'no-cache'});
-    if(!r.ok)return;
-    const data=await r.json();
-    const revs=data.revisions||data;
-    let n=0;
-    const excl=data.excluded||[];
-    allInputs().forEach(inp=>{
-      const k=rowKey(inp);
+    var r=await fetch('./revisions.json',{cache:'no-cache'});
+    if(!r.ok){ loadDraft(); return; }
+    var data=await r.json();
+    var revs=data.revisions||{}, excl=data.excluded||[], qtys=data.quantities||{};
+    var n=0;
+    allInputs().forEach(function(inp){
+      var k=rowKey(inp);
       if(k&&revs[k]!==undefined){inp.value=revs[k];n++;}
-      if(k&&excl.includes(k)){
-        const row=inp.closest('tr');
+      if(k&&excl.indexOf(k)>=0){
+        var row=inp.closest('tr');
         row.classList.add('excluded-row');
-        const btn=row.querySelector('.excl-btn');
-        if(btn){btn.title='Click to include';}
+        var btn=row.querySelector('.excl-btn');
+        if(btn) btn.title='Click to include';
       }
     });
-    if(n>0){recalc();setStatus('Loaded '+n+' revision'+(n!==1?'s':'')+' from revisions.json',6000);}
-    else{loadDraft();}
-  }catch(_){loadDraft();}
+    document.querySelectorAll('tbody tr[data-qty] .qi').forEach(function(qi){
+      var row=qi.closest('tr'), sec=qi.closest('.contract');
+      if(!sec||!row) return;
+      var rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
+      var k=sec.id+'::'+rows.indexOf(row);
+      if(qtys[k]!==undefined) qi.value=qtys[k];
+    });
+    if(n>0){ recalc(); setStatus('Loaded '+n+' revision'+(n!==1?'s':'')+' from revisions.json',6000); }
+    else loadDraft();
+  }catch(e){ loadDraft(); }
 }
+
+/* ── DRAFT (localStorage) ── */
+function loadDraft(){
+  try{
+    var raw=localStorage.getItem('cma-budget-draft');
+    if(!raw) return;
+    var data=JSON.parse(raw);
+    var revs=data.revisions||{}, excl=data.excluded||[], qtys=data.quantities||{};
+    var n=0;
+    allInputs().forEach(function(inp){
+      var k=rowKey(inp);
+      if(k&&revs[k]!==undefined){inp.value=revs[k];n++;}
+      if(k&&excl.indexOf(k)>=0){
+        var row=inp.closest('tr');
+        row.classList.add('excluded-row');
+        var btn=row.querySelector('.excl-btn');
+        if(btn) btn.title='Click to include';
+      }
+    });
+    document.querySelectorAll('tbody tr[data-qty] .qi').forEach(function(qi){
+      var row=qi.closest('tr'), sec=qi.closest('.contract');
+      if(!sec||!row) return;
+      var rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
+      var k=sec.id+'::'+rows.indexOf(row);
+      if(qtys[k]!==undefined) qi.value=qtys[k];
+    });
+    if(n>0){ recalc(); setStatus('Restored draft',4000); }
+  }catch(e){}
+}
+
 /* ── EXCLUDE TOGGLE ── */
 function toggleExclude(btn){
-  const row=btn.closest('tr');
-  const excluded=row.classList.toggle('excluded-row');
+  var row=btn.closest('tr');
+  var excluded=row.classList.toggle('excluded-row');
   btn.title=excluded?'Click to include':'Click to exclude';
   recalc();
 }
 
-function setStatus(msg,ms=6000){
-  const st=document.getElementById('save-status');
-  if(!st)return;
+/* ── STATUS ── */
+function setStatus(msg,ms){
+  ms=ms||6000;
+  var st=document.getElementById('save-status');
+  if(!st) return;
   st.textContent=msg;
-  setTimeout(()=>{if(st)st.textContent=''},ms);
+  setTimeout(function(){if(st)st.textContent='';},ms);
 }
 
-allInputs().forEach(inp=>inp.addEventListener('input',recalc));
-document.querySelectorAll('.qi').forEach(qi=>qi.addEventListener('input',recalc));
-document.querySelectorAll('.rv[data-excl="1"]').forEach(cell=>{cell.dataset.origText=cell.textContent;});
-autoLoad();
-// Restore token input from localStorage
+/* ── AUTOSAVE ── */
+setInterval(function(){
+  var token=getToken();
+  var data=buildData();
+  var n=Object.keys(data.revisions).length+data.excluded.length+Object.keys(data.quantities).length;
+  if(n===0) return;
+  try{localStorage.setItem('cma-budget-draft',JSON.stringify(data));}catch(e){}
+  if(token) saveToGitHub();
+},10000);
+
+/* ── INIT ── */
+allInputs().forEach(function(inp){ inp.addEventListener('input',recalc); });
+document.querySelectorAll('.qi').forEach(function(qi){ qi.addEventListener('input',recalc); });
+document.querySelectorAll('.rv[data-excl="1"]').forEach(function(cell){ cell.dataset.origText=cell.textContent; });
+
 (function(){
-  const t=localStorage.getItem('cma-gh-token');
-  const inp=document.getElementById('gh-token');
+  var t=localStorage.getItem('cma-gh-token');
+  var inp=document.getElementById('gh-token');
   if(t&&inp){inp.value=t;updateTokenStatus();}
 })();
 
-/* ── Autosave to GitHub every 10 seconds (if token set and data exists) ── */
-setInterval(()=>{
-  const token=getToken();
-  const data=buildData();
-  const n=Object.keys(data.revisions).length+data.excluded.length;
-  if(n===0) return;
-  // Always keep localStorage draft
-  try{localStorage.setItem('cma-budget-draft',JSON.stringify(data));}catch(e){}
-  // Push to GitHub silently if token is available
-  if(token) saveToGitHub();
-}, 10000);
-
-/* ── Restore draft from localStorage on load (fallback if no revisions.json) ── */
-function loadDraft(){
-  try{
-    const raw=localStorage.getItem('cma-budget-draft');
-    if(!raw) return false;
-    const data=JSON.parse(raw);
-    const revs=data.revisions||{};
-    const excl=data.excluded||[];
-    let n=0;
-    allInputs().forEach(inp=>{
-      const k=rowKey(inp);
-      if(k&&revs[k]!==undefined){inp.value=revs[k];n++;}
-      if(k&&excl.includes(k)){
-        const row=inp.closest('tr');
-        row.classList.add('excluded-row');
-        const btn=row.querySelector('.excl-btn');
-        if(btn) btn.title='Click to include';
-      }
-    });
-    if(n>0){recalc();setStatus('Restored '+n+' revision'+(n!==1?'s':'')+' from local draft',5000);}
-    return n>0;
-  }catch(e){return false;}
-}
+autoLoad();
 </script>
 </body>
 </html>
