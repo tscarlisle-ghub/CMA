@@ -6,19 +6,6 @@
 <title>CMA Office — Budget</title>
 <link rel="stylesheet" href="https://use.typekit.net/wup0iix.css">
 <style>
-@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Book.woff2')format('woff2');font-weight:400;font-style:normal}
-@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Book%20Italic.woff2')format('woff2');font-weight:400;font-style:italic}
-@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Medium.woff2')format('woff2');font-weight:500;font-style:normal}
-@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Hairline.woff2')format('woff2');font-weight:100;font-style:normal}
-@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Light.woff2')format('woff2');font-weight:300;font-style:normal}
-@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Regular.woff2')format('woff2');font-weight:400;font-style:normal}
-@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Bold.woff2')format('woff2');font-weight:700;font-style:normal}
-@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-LightCondensed.woff2')format('woff2');font-weight:300;font-style:normal}
-@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-RegularCondensed.woff2')format('woff2');font-weight:400;font-style:normal}
-@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-BoldCondensed.woff2')format('woff2');font-weight:700;font-style:normal}
-@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF49-Liteweight.woff2')format('woff2');font-weight:400;font-style:normal}
-@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF68-FullFeatherwt.woff2')format('woff2');font-weight:600;font-style:normal}
-@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF73-FullHeviweight.woff2')format('woff2');font-weight:800;font-style:normal}
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -27,13 +14,18 @@
   --rule:rgba(28,26,23,.12);--rule-md:rgba(28,26,23,.28);--rule-hv:rgba(28,26,23,.58);
   --red:#7a2515;--red-lt:#f9f0ed;--green:#1a4020;--green-lt:#f0f4f1;
   --amber:#6b4c00;--amber-lt:#fdf8ee;
+  /* per-contract row tints */
+  --tcc-odd:#f4f0eb;--tcc-even:#ede9e2;--tcc-hover:#e4dfd6;--tcc-grp:#ddd8ce;
+  --pw-odd:#eef2f0;--pw-even:#e5ece8;--pw-hover:#d9e4de;--pw-grp:#cdddd5;
+  --av-odd:#eef0f4;--av-even:#e5e8ef;--av-hover:#d9dde8;--av-grp:#cdd2e0;
+  --er-odd:#f4f0f0;--er-even:#ede6e6;--er-hover:#e3d9d9;--er-grp:#ddd0d0;
 }
 html{font-size:15px}
-body{font-family:'Eames Century Modern',Georgia,serif;font-weight:400;background:var(--paper);color:var(--ink);line-height:1.55;margin:0 auto;max-width:1160px}
+body{font-family:'warnock-pro',Georgia,serif;font-weight:400;background:var(--paper);color:var(--ink);line-height:1.55;margin:0 auto;max-width:1160px}
 
 /* TABS */
 .tab-bar{display:flex;align-items:flex-end;padding:0 52px;border-bottom:1px solid var(--rule-hv)}
-.tab-btn{font-family:'Interstate',sans-serif;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:none;border-bottom:2px solid transparent;padding:10px 18px 9px;cursor:pointer;color:var(--ink-4);transition:color .15s,border-color .15s;margin-bottom:-1px}
+.tab-btn{font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:none;border-bottom:2px solid transparent;padding:10px 18px 9px;cursor:pointer;color:var(--ink-4);transition:color .15s,border-color .15s;margin-bottom:-1px}
 .tab-btn:hover{color:var(--ink-2)}
 .tab-btn.active{color:var(--ink);border-bottom-color:var(--ink)}
 .tab-panel{display:none;padding:0 52px 96px}
@@ -41,13 +33,13 @@ body{font-family:'Eames Century Modern',Georgia,serif;font-weight:400;background
 
 /* MASTHEAD */
 .mast{border-top:1.5px solid var(--ink);border-bottom:.5px solid var(--rule-md);padding:14px 52px 12px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:0}
-.mast-title{font-family:'Knockout',sans-serif;font-weight:600;font-size:32px;letter-spacing:.05em;text-transform:uppercase;line-height:1}
-.mast-sub{font-family:'warnock-pro','Eames Century Modern',Georgia,serif;font-weight:400;font-style:italic;font-size:13.5px;letter-spacing:.02em;text-transform:none;color:var(--ink-3);margin-top:6px}
-.mast-meta{text-align:right;font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3);line-height:2;letter-spacing:.04em}
+.mast-title{font-family:'trade-gothic-next',sans-serif;font-weight:600;font-size:32px;letter-spacing:.05em;text-transform:uppercase;line-height:1}
+.mast-sub{font-family:'warnock-pro',Georgia,serif;font-weight:400;font-style:italic;font-size:13.5px;letter-spacing:.02em;text-transform:none;color:var(--ink-3);margin-top:6px}
+.mast-meta{text-align:right;font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3);line-height:2;letter-spacing:.04em}
 
 /* SAVE STRIP */
-.save-strip{display:flex;align-items:center;gap:14px;padding:7px 0 18px;font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
-.save-strip button,.save-strip .load-lbl{font-family:'Interstate',sans-serif;font-weight:400;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:4px 12px;cursor:pointer;color:var(--ink-2);display:inline-block}
+.save-strip{display:flex;align-items:center;gap:14px;padding:7px 0 18px;font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
+.save-strip button,.save-strip .load-lbl{font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:4px 12px;cursor:pointer;color:var(--ink-2);display:inline-block}
 .save-strip button:hover,.save-strip .load-lbl:hover{background:var(--paper-3)}
 .save-strip .status{font-style:italic}
 .save-strip .hint{font-style:italic;color:var(--ink-4);font-size:9.5px}
@@ -57,8 +49,8 @@ body{font-family:'Eames Century Modern',Georgia,serif;font-weight:400;background
 .bc{padding:12px 0;border-right:.5px solid var(--rule)}
 .bc:last-child{border-right:none}
 .bc:not(:first-child){padding-left:20px}
-.bc-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:3px}
-.bc-val{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:19px;letter-spacing:.01em}
+.bc-label{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:3px}
+.bc-val{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:19px;letter-spacing:.01em}
 .bc-val.live{color:var(--red)}
 .bc-val.pos{color:var(--green)}
 .bc-val.neg{color:var(--red)}
@@ -66,64 +58,88 @@ body{font-family:'Eames Century Modern',Georgia,serif;font-weight:400;background
 /* CONTRACT */
 .contract{margin-bottom:52px}
 .ch{border-top:1px solid var(--rule-hv);padding:10px 0 9px;display:block}
-.ch h2{font-family:'Knockout',sans-serif;font-weight:800;font-size:26px;letter-spacing:.05em;text-transform:uppercase;line-height:1}
-.ch-right{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;letter-spacing:.05em;color:var(--ink-3);margin-top:4px}
-.ch-total{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:14px;color:var(--ink-3);display:inline;margin-left:14px;letter-spacing:.02em;vertical-align:middle}
+.ch h2{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:700;font-size:26px;letter-spacing:.04em;text-transform:uppercase;line-height:1}
+.ch-right{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:10px;letter-spacing:.05em;color:var(--ink-3);margin-top:4px}
+.ch-total{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:14px;color:var(--ink-3);display:inline;margin-left:14px;letter-spacing:.02em;vertical-align:middle}
 
 /* TABLE */
 table{width:100%;border-collapse:collapse;font-size:14px}
 thead tr{border-bottom:.5px solid var(--rule-hv)}
-thead th{font-family:'Interstate',sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:7px 5px 6px;text-align:right;white-space:nowrap}
+thead th{font-family:'trade-gothic-next',sans-serif;font-weight:700;font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-3);padding:7px 5px 6px;text-align:right;white-space:nowrap}
 thead th:first-child{text-align:left;padding-left:0}
 thead th.thn{text-align:left}
 thead th.thr{color:var(--red)}
 
-tr.grp td{font-family:'Interstate',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:14px 0 5px;border-bottom:.5px solid var(--rule-md)}
+tr.grp td{font-family:'trade-gothic-next',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:14px 10px 5px;border-bottom:.5px solid var(--rule-md)}
+#sec-tcc tr.grp td{background:var(--tcc-grp)}
+#sec-pw  tr.grp td{background:var(--pw-grp)}
+#sec-av  tr.grp td{background:var(--av-grp)}
+#sec-er  tr.grp td{background:var(--er-grp)}
 tbody tr:not(.grp):not(.sub):not(.tot){border-bottom:.5px solid var(--rule)}
-tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--paper-2)}
+/* TCC — warm parchment */
+#sec-tcc tbody tr:not(.grp):not(.sub):not(.tot):nth-child(odd){background:var(--tcc-odd)}
+#sec-tcc tbody tr:not(.grp):not(.sub):not(.tot):nth-child(even){background:var(--tcc-even)}
+#sec-tcc tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--tcc-hover)}
+/* GHT Pre-Wire — sage */
+#sec-pw tbody tr:not(.grp):not(.sub):not(.tot):nth-child(odd){background:var(--pw-odd)}
+#sec-pw tbody tr:not(.grp):not(.sub):not(.tot):nth-child(even){background:var(--pw-even)}
+#sec-pw tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--pw-hover)}
+/* GHT A/V — slate blue */
+#sec-av tbody tr:not(.grp):not(.sub):not(.tot):nth-child(odd){background:var(--av-odd)}
+#sec-av tbody tr:not(.grp):not(.sub):not(.tot):nth-child(even){background:var(--av-even)}
+#sec-av tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--av-hover)}
+/* Emory Ratliff — dusty rose */
+#sec-er tbody tr:not(.grp):not(.sub):not(.tot):nth-child(odd){background:var(--er-odd)}
+#sec-er tbody tr:not(.grp):not(.sub):not(.tot):nth-child(even){background:var(--er-even)}
+#sec-er tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--er-hover)}
 
 td{padding:7px 5px;vertical-align:middle;text-align:right;color:var(--ink)}
 td:first-child{text-align:left;padding-left:0}
-td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:14px;white-space:nowrap}
+td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:300;font-size:14px;white-space:nowrap}
 td.nt{font-style:italic;font-size:12.5px;color:var(--ink-3);text-align:left;max-width:200px}
-td.ex{font-family:'Interstate',sans-serif;font-weight:300;font-size:11px;letter-spacing:.03em;color:var(--ink-4);text-align:right}
+td.ex{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:11px;letter-spacing:.03em;color:var(--ink-4);text-align:right}
 td.ng{color:var(--red)}
-td.rv{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:14px;white-space:nowrap;color:var(--ink-3)}
+td.rv{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:300;font-size:14px;white-space:nowrap;color:var(--ink-3)}
 td.rv.ch{color:var(--red);font-weight:700}
 
-td.rc{padding:4px 4px}
-.ri{width:96px;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:14px;color:var(--red);text-align:right;padding:3px 3px 2px;outline:none;transition:border-color .15s,background .12s;display:block;-moz-appearance:textfield}
+td.rc{padding:4px 5px}
+.ri{width:100%;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:14px;color:var(--red);text-align:right;padding:3px 0 2px;outline:none;transition:border-color .15s,background .12s;display:block;box-sizing:border-box;-moz-appearance:textfield}
 .ri::-webkit-outer-spin-button,.ri::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .ri:focus{background:var(--red-lt);border-bottom-color:var(--red)}
 .ri::placeholder{color:var(--ink-4);font-size:11px;letter-spacing:.05em}
 /* Indent data rows slightly under their section title */
-tbody tr:not(.grp):not(.sub):not(.tot) td:first-child{padding-left:10px}
+tbody tr:not(.grp):not(.sub):not(.tot) td:first-child{padding-left:18px}
 
-tr.sub td{border-top:.5px solid var(--rule-md);padding-top:8px;font-family:'Interstate',sans-serif;font-weight:300;font-size:13px;letter-spacing:.03em;color:var(--ink-2);background:var(--paper-2)}
-tr.sub td.m{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:14px}
+tr.sub td{border-top:.5px solid var(--rule-md);padding-top:8px;font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:13px;letter-spacing:.03em;color:var(--ink-2);background:var(--paper-2)}
+tr.sub td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:14px}
 tr.sub td:first-child{font-style:italic;padding-left:0;text-align:left}
-tr.tot td{border-top:1px solid var(--rule-hv);border-bottom:1px solid var(--rule-hv);padding:9px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:14px;letter-spacing:.03em;background:var(--paper-3)}
+tr.tot td{border-top:1px solid var(--rule-hv);border-bottom:1px solid var(--rule-hv);padding:9px 5px;font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:14px;letter-spacing:.03em;background:var(--paper-3)}
 tr.tot td:first-child{padding-left:0;font-style:italic}
-tr.tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:15.5px}
+tr.tot td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:700;font-size:15.5px}
 tr.tot td.rv.ch{font-weight:700}
+/* Section subtotal rows injected by JS */
+tr.grp-sub td{border-top:.5px solid var(--rule-md);padding:5px 5px 5px 10px;font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:11px;letter-spacing:.04em;color:var(--ink-3);text-align:right}
+tr.grp-sub td:first-child{text-align:left;padding-left:10px;font-style:italic}
+tr.grp-sub td.gsv{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:700;font-size:13px;color:var(--ink-2)}
+tr.grp-sub td.gsv.changed{color:var(--red)}
 
 /* GRAND */
 .grand{margin-top:52px;border-top:1.5px solid var(--ink)}
 .grand table{font-size:13px}
 .grand thead th{font-size:9px;padding:6px 5px 5px}
-.grand tr.gr td{padding:7px 5px;border-bottom:.5px solid var(--rule);font-family:'Interstate',sans-serif;font-weight:300;font-size:12px;color:var(--ink-2)}
+.grand tr.gr td{padding:7px 5px;border-bottom:.5px solid var(--rule);font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:12px;color:var(--ink-2)}
 .grand tr.gr td:first-child{padding-left:0;text-align:left}
-.grand tr.gr td.m{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:13px;color:var(--ink)}
+.grand tr.gr td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:13px;color:var(--ink)}
 .grand tr.gr td.dp{color:var(--red)}
 .grand tr.gr td.dn{color:var(--green)}
-.grand tr.grt td{padding:11px 5px;border-top:1px solid var(--rule-hv);font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:18px}
-.grand tr.grt td:first-child{font-family:'Knockout',sans-serif;font-weight:600;font-size:15px;letter-spacing:.07em;text-transform:uppercase;padding-left:0;text-align:left}
+.grand tr.grt td{padding:11px 5px;border-top:1px solid var(--rule-hv);font-family:'trade-gothic-next-condensed',sans-serif;font-weight:700;font-size:18px}
+.grand tr.grt td:first-child{font-family:'trade-gothic-next',sans-serif;font-weight:600;font-size:15px;letter-spacing:.07em;text-transform:uppercase;padding-left:0;text-align:left}
 .grand tr.grt td.live{color:var(--red)}
-.dep-note{font-family:'Interstate',sans-serif;font-weight:300;font-size:9.5px;color:var(--ink-3);letter-spacing:.04em;padding:9px 0 0;border-top:.5px solid var(--rule);margin-top:6px;line-height:2}
-.fn{margin-top:36px;padding-top:12px;border-top:.5px solid var(--rule);font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;color:var(--ink-4);letter-spacing:.05em;line-height:2.1}
+.dep-note{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9.5px;color:var(--ink-3);letter-spacing:.04em;padding:9px 0 0;border-top:.5px solid var(--rule);margin-top:6px;line-height:2}
+.fn{margin-top:36px;padding-top:12px;border-top:.5px solid var(--rule);font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9px;color:var(--ink-4);letter-spacing:.05em;line-height:2.1}
 
 /* Exclude toggle */
-.excl-btn{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-md);padding:2px 7px;cursor:pointer;color:var(--ink-4);white-space:nowrap;transition:all .12s}
+.excl-btn{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-md);padding:2px 7px;cursor:pointer;color:var(--ink-4);white-space:nowrap;transition:all .12s}
 .excl-btn:hover{border-color:var(--red);color:var(--red)}
 tr.excluded-row{opacity:.35}
 tr.excluded-row td{text-decoration:line-through;text-decoration-color:var(--ink-4)}
@@ -134,102 +150,102 @@ td.xc{padding:3px 4px;text-align:right}
 /* PRO FORMA */
 .pf-section{margin-bottom:48px}
 .pf-h{border-top:1px solid var(--rule-hv);padding:9px 0 7px;margin-bottom:18px}
-.pf-h h2{font-family:'Knockout',sans-serif;font-weight:800;font-size:17px;letter-spacing:.06em;text-transform:uppercase}
-.pf-h-note{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3);letter-spacing:.05em;margin-top:3px}
+.pf-h h2{font-family:'trade-gothic-next',sans-serif;font-weight:800;font-size:17px;letter-spacing:.06em;text-transform:uppercase}
+.pf-h-note{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3);letter-spacing:.05em;margin-top:3px}
 .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);border-top:.5px solid var(--rule-hv);border-bottom:.5px solid var(--rule-hv);margin-bottom:36px}
 .kpi{padding:12px 0;border-right:.5px solid var(--rule)}
 .kpi:last-child{border-right:none}
 .kpi:not(:first-child){padding-left:20px}
-.kpi-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:3px}
-.kpi-val{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:19px;letter-spacing:.01em}
-.kpi-sub{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;color:var(--ink-4);letter-spacing:.04em;margin-top:1px}
+.kpi-label{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:3px}
+.kpi-val{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:19px;letter-spacing:.01em}
+.kpi-sub{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9px;color:var(--ink-4);letter-spacing:.04em;margin-top:1px}
 .kpi-val.ok{color:var(--green)}.kpi-val.warn{color:var(--amber)}.kpi-val.alert{color:var(--red)}
 .sf-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:8px}
-.sf-table thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv);white-space:nowrap}
+.sf-table thead th{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv);white-space:nowrap}
 .sf-table thead th:first-child{text-align:left;padding-left:0}
 .sf-table tbody tr{border-bottom:.5px solid var(--rule)}
 .sf-table tbody tr:hover{background:var(--paper-2)}
 .sf-table td{padding:6px 5px;text-align:right}
 .sf-table td:first-child{text-align:left;padding-left:0}
-.sf-table td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px}
-.sf-table tr.sf-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);font-family:'Interstate',sans-serif;font-weight:400;font-size:12px;padding:8px 5px}
+.sf-table td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:300;font-size:12px}
+.sf-table tr.sf-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:12px;padding:8px 5px}
 .sf-table tr.sf-tot td:first-child{padding-left:0;font-style:italic}
-.sf-table tr.sf-tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:13px}
+.sf-table tr.sf-tot td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:700;font-size:13px}
 .bar-wrap{height:4px;background:var(--rule);border-radius:2px;overflow:hidden;width:100px;display:inline-block;vertical-align:middle;margin-left:8px}
 .bar-fill{height:100%;background:var(--ink-3);border-radius:2px;transition:width .3s}
 .cont-block{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:8px}
 .cont-card{border:.5px solid var(--rule-md);padding:18px 20px}
-.cont-card-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
-.cont-card-val{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:22px;margin-bottom:4px}
-.cont-card-sub{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3)}
+.cont-card-label{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.cont-card-val{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:22px;margin-bottom:4px}
+.cont-card-sub{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3)}
 .cont-progress{height:6px;background:var(--rule);border-radius:3px;overflow:hidden;margin-top:12px}
 .cont-fill{height:100%;background:var(--green);border-radius:3px;transition:width .4s}
 .cont-fill.warn{background:var(--amber)}.cont-fill.alert{background:var(--red)}
 .cont-card-val.ok{color:var(--green)}.cont-card-val.warn{color:var(--amber)}.cont-card-val.alert{color:var(--red)}
 .excl-table{width:100%;border-collapse:collapse;font-size:12.5px}
-.excl-table thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv)}
+.excl-table thead th{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv)}
 .excl-table thead th:first-child{text-align:left;padding-left:0}
 .excl-table thead th.thn{text-align:left}.excl-table thead th.thr{color:var(--red)}
 .excl-table tbody tr{border-bottom:.5px solid var(--rule)}
 .excl-table tbody tr:hover{background:var(--paper-2)}
-.excl-table td{padding:6px 5px;text-align:right;font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px}
-.excl-table td:first-child{text-align:left;padding-left:0;font-family:'Eames Century Modern',Georgia,serif;font-size:12.5px}
-.excl-table td.nt{font-style:italic;font-size:11px;color:var(--ink-3);text-align:left;font-family:'Eames Century Modern',Georgia,serif}
-.excl-table td.ct{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-4)}
-.ei{width:88px;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:11px;color:var(--red);text-align:right;padding:2px 2px 1px;outline:none;transition:border-color .15s,background .12s;display:block;-moz-appearance:textfield}
+.excl-table td{padding:6px 5px;text-align:right;font-family:'trade-gothic-next-condensed',sans-serif;font-weight:300;font-size:12px}
+.excl-table td:first-child{text-align:left;padding-left:0;font-family:'warnock-pro',Georgia,serif;font-size:12.5px}
+.excl-table td.nt{font-style:italic;font-size:11px;color:var(--ink-3);text-align:left;font-family:'warnock-pro',Georgia,serif}
+.excl-table td.ct{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:10px;color:var(--ink-4)}
+.ei{width:88px;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:11px;color:var(--red);text-align:right;padding:2px 2px 1px;outline:none;transition:border-color .15s,background .12s;display:block;-moz-appearance:textfield}
 .ei::-webkit-outer-spin-button,.ei::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .ei:focus{background:var(--red-lt);border-bottom-color:var(--red)}
 .ei::placeholder{color:var(--ink-4);font-size:9.5px;letter-spacing:.05em}
-.excl-table tr.excl-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);padding:8px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:12px}
+.excl-table tr.excl-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);padding:8px 5px;font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:12px}
 .excl-table tr.excl-tot td:first-child{padding-left:0;font-style:italic}
-.excl-table tr.excl-tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:13px}
+.excl-table tr.excl-tot td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:700;font-size:13px}
 .draws-log{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:12px}
-.draws-log thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv);white-space:nowrap}
+.draws-log thead th{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv);white-space:nowrap}
 .draws-log thead th:first-child{text-align:left;padding-left:0}
 .draws-log thead th.thn{text-align:left}
 .draws-log tbody tr{border-bottom:.5px solid var(--rule)}
 .draws-log tbody tr:hover{background:var(--paper-2)}
 .draws-log td{padding:5px;text-align:right;vertical-align:middle}
 .draws-log td:first-child{padding-left:0;text-align:left}
-.draws-log td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px}
-.draws-log tr.draws-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);padding:8px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:12px}
+.draws-log td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:300;font-size:12px}
+.draws-log tr.draws-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);padding:8px 5px;font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:12px}
 .draws-log tr.draws-tot td:first-child{padding-left:0;font-style:italic}
-.draws-log tr.draws-tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:13px}
-.di-input{background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:11px;color:var(--red);padding:2px 2px 1px;outline:none;transition:border-color .15s,background .12s;-moz-appearance:textfield}
+.draws-log tr.draws-tot td.m{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:700;font-size:13px}
+.di-input{background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'trade-gothic-next-condensed',sans-serif;font-weight:400;font-size:11px;color:var(--red);padding:2px 2px 1px;outline:none;transition:border-color .15s,background .12s;-moz-appearance:textfield}
 .di-input::-webkit-outer-spin-button,.di-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .di-input:focus{background:var(--red-lt);border-bottom-color:var(--red)}
 .di-input::placeholder{color:var(--ink-4);font-size:9.5px;letter-spacing:.04em}
 .di-input.date-in{width:90px;text-align:center}.di-input.amt-in{width:84px;text-align:right}.di-input.note-in{width:100%}
-.draws-add-btn{font-family:'Interstate',sans-serif;font-weight:400;font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:4px 12px;cursor:pointer;color:var(--ink-3);transition:all .12s}
+.draws-add-btn{font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:4px 12px;cursor:pointer;color:var(--ink-3);transition:all .12s}
 .draws-add-btn:hover{background:var(--paper-3);color:var(--ink-2)}
-.draws-del-btn{font-family:'Interstate',sans-serif;font-weight:300;font-size:11px;background:transparent;border:none;padding:2px 6px;cursor:pointer;color:var(--ink-4)}
+.draws-del-btn{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:11px;background:transparent;border:none;padding:2px 6px;cursor:pointer;color:var(--ink-4)}
 .draws-del-btn:hover{color:var(--red)}
 .pdf-zone{border:.5px dashed var(--rule-hv);padding:28px 24px;text-align:center;transition:background .15s,border-color .15s;cursor:pointer;position:relative}
 .pdf-zone:hover,.pdf-zone.dragover{background:var(--paper-2);border-color:var(--ink-3)}
 .pdf-zone-icon{font-size:22px;margin-bottom:8px;color:var(--ink-4)}
-.pdf-zone-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.pdf-zone-sub{font-family:'Interstate',sans-serif;font-weight:300;font-size:9.5px;color:var(--ink-4);letter-spacing:.04em;margin-top:4px;font-style:italic}
-.pdf-status{margin-top:16px;font-family:'Interstate',sans-serif;font-weight:300;font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;min-height:18px}
+.pdf-zone-label{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.pdf-zone-sub{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9.5px;color:var(--ink-4);letter-spacing:.04em;margin-top:4px;font-style:italic}
+.pdf-status{margin-top:16px;font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;min-height:18px}
 .pdf-status.working{font-style:italic;color:var(--amber)}.pdf-status.done{color:var(--green)}.pdf-status.err{color:var(--red)}
 .pdf-preview{margin-top:20px;border:.5px solid var(--rule-md);background:var(--paper-2)}
 .pdf-preview-hd{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:8px 14px;border-bottom:.5px solid var(--rule-md)}
-.pdf-preview-title{font-family:'Interstate',sans-serif;font-weight:400;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
-.pdf-preview-count{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:11px;color:var(--ink-3)}
-.pdf-apply-btn{font-family:'Interstate',sans-serif;font-weight:400;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:none;padding:5px 14px;cursor:pointer;transition:opacity .15s}
+.pdf-preview-title{font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.pdf-preview-count{font-family:'trade-gothic-next-condensed',sans-serif;font-weight:300;font-size:11px;color:var(--ink-3)}
+.pdf-apply-btn{font-family:'trade-gothic-next',sans-serif;font-weight:400;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:none;padding:5px 14px;cursor:pointer;transition:opacity .15s}
 .pdf-apply-btn:hover{opacity:.8}
-.pdf-discard-btn{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:5px 12px;cursor:pointer;color:var(--ink-3)}
+.pdf-discard-btn{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:5px 12px;cursor:pointer;color:var(--ink-3)}
 .pdf-discard-btn:hover{background:var(--paper-3)}
 .pdf-match-table{width:100%;border-collapse:collapse;font-size:12px}
-.pdf-match-table thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);padding:5px 10px;text-align:right;border-bottom:.5px solid var(--rule)}
+.pdf-match-table thead th{font-family:'trade-gothic-next',sans-serif;font-weight:300;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);padding:5px 10px;text-align:right;border-bottom:.5px solid var(--rule)}
 .pdf-match-table thead th:first-child{text-align:left}
 .pdf-match-table tbody tr{border-bottom:.5px solid var(--rule)}
-.pdf-match-table td{padding:5px 10px;text-align:right;font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px}
-.pdf-match-table td:first-child{text-align:left;font-family:'Eames Century Modern',serif;font-size:11.5px}
+.pdf-match-table td{padding:5px 10px;text-align:right;font-family:'trade-gothic-next-condensed',sans-serif;font-weight:300;font-size:12px}
+.pdf-match-table td:first-child{text-align:left;font-family:'warnock-pro',Georgia,serif;font-size:11.5px}
 .pdf-match-table td.chg-pos{color:var(--red)}.pdf-match-table td.chg-neg{color:var(--green)}
 .pdf-match-table tr.pdf-unmatched-row{background:var(--amber-lt)}
 .pdf-match-table tr.pdf-unmatched-row td{color:var(--amber)}
 .pdf-check{accent-color:var(--ink)}
-.pdf-section-hd{font-family:'Knockout',sans-serif;font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:8px 10px 4px;background:var(--paper-3);border-bottom:.5px solid var(--rule-md)}
+.pdf-section-hd{font-family:'trade-gothic-next',sans-serif;font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:8px 10px 4px;background:var(--paper-3);border-bottom:.5px solid var(--rule-md)}
 </style>
 </head>
 <body>
@@ -250,8 +266,8 @@ td.xc{padding:3px 4px;text-align:right}
 <div id="tab-budget" class="tab-panel active">
 
 <div class="save-strip">
-  <button onclick="saveToGitHub()">Save to GitHub</button>
-  <button onclick="loadFromGitHub()">Load from GitHub</button>
+  <button onclick="saveToGitHub()">Save</button>
+  <button onclick="loadFromGitHub()">Load Latest</button>
   <button onclick="clearData()">Clear all</button>
   <span class="status" id="save-status"></span>
   <span class="hint">Saves revisions.json to tscarlisle-ghub/CMA &middot; loads automatically on open</span>
@@ -272,7 +288,7 @@ td.xc{padding:3px 4px;text-align:right}
 <thead><tr>
   <th style="width:218px">Item</th><th style="width:40px">Qty</th><th style="width:34px">Unit</th>
   <th style="width:90px">Base</th><th class="thn" style="width:180px">Notes</th>
-  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+  <th class="thr" style="width:100px">Revision</th><th style="width:100px">Revised</th>
 </tr></thead>
 <tbody>
 <tr class="grp"><td colspan="7">General Conditions</td></tr>
@@ -394,7 +410,7 @@ td.xc{padding:3px 4px;text-align:right}
   <th style="width:218px">Item</th><th style="width:40px">Qty</th><th style="width:46px">Unit</th>
   <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
   <th class="thn" style="width:130px">Notes</th>
-  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+  <th class="thr" style="width:100px">Revision</th><th style="width:100px">Revised</th>
   <th style="width:58px"></th>
 </tr></thead>
 <tbody>
@@ -425,15 +441,15 @@ td.xc{padding:3px 4px;text-align:right}
   <th style="width:234px">Item / SKU</th><th style="width:36px">Qty</th><th style="width:42px">Unit</th>
   <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
   <th class="thn" style="width:120px">Notes</th>
-  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+  <th class="thr" style="width:100px">Revision</th><th style="width:100px">Revised</th>
   <th style="width:58px"></th>
 </tr></thead>
 <tbody>
-<tr class="grp"><td colspan="9">Work Room &mdash; Parts $1,340.00</td></tr>
+<tr class="grp"><td colspan="9">Work Room</td></tr>
 <tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Kitchen / Reception &mdash; Parts $1,340.00</td></tr>
+<tr class="grp"><td colspan="9">Kitchen / Reception</td></tr>
 <tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Conference Room #2 &mdash; Parts $5,762.95</td></tr>
+<tr class="grp"><td colspan="9">Conference Room #2</td></tr>
 <tr data-base="3099.99"><td>BRAVIA 7 II &mdash; Sony 75&rdquo; 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$3,099.99</td><td class="m">$3,099.99</td><td class="nt">Tilt mount</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,099.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="374.99"><td>SM-T-L Strong Large Tilting Mount 36&ndash;70&rdquo;</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$374.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="nt">Behind display</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$119.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
@@ -443,7 +459,7 @@ td.xc{padding:3px 4px;text-align:right}
 <tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90&deg; Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$26.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Music only</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$29.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Conference Room #1 &mdash; Parts $3,422.95</td></tr>
+<tr class="grp"><td colspan="9">Conference Room #1</td></tr>
 <tr data-base="2099.99"><td>BRAVIA 7 II &mdash; Sony 55&rdquo; 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$2,099.99</td><td class="m">$2,099.99</td><td class="nt">Tilt mount</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,099.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="374.99"><td>SMTL 36&ndash;80&rdquo; Tilting Mount</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$374.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="nt">Behind display</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$119.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
@@ -452,20 +468,20 @@ td.xc{padding:3px 4px;text-align:right}
 <tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$103.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90&deg; Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$26.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$29.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Restrooms &mdash; Parts $670.00</td></tr>
+<tr class="grp"><td colspan="9">Restrooms</td></tr>
 <tr data-base="670.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>1</td><td>pair</td><td class="m">$670.00</td><td class="m">$670.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$670.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Powder &mdash; Parts $660.00</td></tr>
+<tr class="grp"><td colspan="9">Powder</td></tr>
 <tr data-base="660.00"><td>VX66R SST 6&rdquo; Round Single Stereo Speaker</td><td>1</td><td>ea</td><td class="m">$660.00</td><td class="m">$660.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$660.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Wi-Fi &mdash; Parts $3,675.95</td></tr>
+<tr class="grp"><td colspan="9">Wi-Fi</td></tr>
 <tr data-base="556.99"><td>AN-220-RT Araknis 220-Series Single-WAN VPN Router</td><td>1</td><td>ea</td><td class="m">$556.99</td><td class="m">$556.99</td><td class="nt">Equipment rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$556.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="1418.97"><td>AN-520-AP-I Araknis Wi-Fi 6 520 Series Indoor AP</td><td>3</td><td>ea</td><td class="m">$472.99</td><td class="m">$1,418.97</td><td class="nt">Ceiling mounted</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,418.97</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="1699.99"><td>AN-220-SW-R-44-POE Araknis L2 Managed Switch 44+2</td><td>1</td><td>ea</td><td class="m">$1,699.99</td><td class="m">$1,699.99</td><td class="nt">Partial PoE+</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,699.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Surveillance &mdash; Parts $2,339.96</td></tr>
+<tr class="grp"><td colspan="9">Surveillance</td></tr>
 <tr data-base="1068.99"><td>LUM-121-NVR-4CH-2T Luma 121 NVR 4-channel 2TB</td><td>1</td><td>ea</td><td class="m">$1,068.99</td><td class="m">$1,068.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,068.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="601.99"><td>LUM-420-IP-TMB Luma 420 4MP Turret Camera &mdash; Black</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$601.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="66.99"><td>LUM-A20-JB-VF-BTB-BLACK Junction Box</td><td>1</td><td>ea</td><td class="m">$66.99</td><td class="m">$66.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$66.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="601.99"><td>LUM-420-IP-TMW Luma 420 4MP Turret Camera &mdash; White</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$601.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Equipment &mdash; Parts $6,591.98</td></tr>
+<tr class="grp"><td colspan="9">Equipment</td></tr>
 <tr data-base="483.99"><td>SR-CS-RACK-21U Strong 21U Rack w/ Side Panels &amp; Casters</td><td>1</td><td>ea</td><td class="m">$483.99</td><td class="m">$483.99</td><td class="nt">Equipment closet</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$483.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="2112.99"><td>KIT-UPS-IPVM12-1100 WattBox IP UPS 12-outlet 1100VA</td><td>1</td><td>ea</td><td class="m">$2,112.99</td><td class="m">$2,112.99</td><td class="nt">Incl. WB-800-IPVM-12 + WB-OVRC-UPS-1100-1</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,112.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="3995.00"><td>AMP-black Sonos Streaming Amplifier</td><td>5</td><td>ea</td><td class="m">$799.00</td><td class="m">$3,995.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,995.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
@@ -487,45 +503,45 @@ td.xc{padding:3px 4px;text-align:right}
   <th style="width:240px">Item</th><th style="width:36px">Qty</th><th style="width:36px">Unit</th>
   <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
   <th class="thn" style="width:130px">Notes</th>
-  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+  <th class="thr" style="width:100px">Revision</th><th style="width:100px">Revised</th>
   <th style="width:58px"></th>
 </tr></thead>
 <tbody>
-<tr class="grp"><td colspan="9">Bath-1 &mdash; Room Total $2,726.00</td></tr>
+<tr class="grp"><td colspan="9">Bath-1</td></tr>
 <tr data-base="2726.00"><td>The Hand Sconce &mdash; Polished Unlacquered Brass (1L + 1R)</td><td>2</td><td>ea</td><td class="m">$1,363.00</td><td class="m">$2,726.00</td><td class="nt">5.25&rdquo;W &times; 10&rdquo;H &middot; shade clip needed</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,726.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Bath-2 &mdash; Room Total $748.00</td></tr>
+<tr class="grp"><td colspan="9">Bath-2</td></tr>
 <tr data-base="748.00"><td>Nautical Schoolhouse Sconce &mdash; Shiplights (white ball)</td><td>2</td><td>ea</td><td class="m">$374.00</td><td class="m">$748.00</td><td class="nt">9&rdquo;H &middot; 9.5&rdquo; ext &middot; 8&rdquo; globe &middot; brass</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$748.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Bath-3 &mdash; Room Total $1,543.10</td></tr>
+<tr class="grp"><td colspan="9">Bath-3</td></tr>
 <tr data-base="266.00"><td>Soho Lighting Carlisle Half Cover IP65 Polished Brass</td><td>2</td><td>ea</td><td class="m">$133.00</td><td class="m">$266.00</td><td class="nt">Outdoor &amp; bathroom collection</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$266.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="989.10"><td>Toponas Paper &mdash; Spice (6 rolls / 66 yds)</td><td>6</td><td>roll</td><td class="m">$164.85</td><td class="m">$989.10</td><td class="nt">Install +$1,380 (separate)</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$989.10</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="288.00"><td>Tiny Stripe in Pale Pink &mdash; Checks &amp; Stripes fabric</td><td>4</td><td>ea</td><td class="m">$72.00</td><td class="m">$288.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$288.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Breakfast Room &mdash; Room Total $10,645.60</td></tr>
+<tr class="grp"><td colspan="9">Breakfast Room</td></tr>
 <tr data-base="3500.00"><td>Haven Dining Table, Cerused Oak 60&rdquo; &mdash; Bunny Williams</td><td>1</td><td>ea</td><td class="m">$3,500.00</td><td class="m">$3,500.00</td><td class="nt">60&rdquo; dia &middot; reeded octagonal pedestal</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="3645.60"><td>Thibaut MACKINAC T10300 Natural Wallcovering (14 rolls)</td><td>14</td><td>ea</td><td class="m">$260.40</td><td class="m">$3,645.60</td><td class="nt">Raffia/papyrus &middot; labor ~$2,000</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,645.60</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="3500.00"><td>Snowmass Bench &mdash; Charles Stewart (&#xd7;3.5)</td><td>3.5</td><td>ea</td><td class="m">$1,000.00</td><td class="m">$3,500.00</td><td class="nt">51&rdquo;W &times; 24.5&rdquo;H &middot; green trim +$208</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Dining Room &mdash; Room Total $31,709.56</td></tr>
+<tr class="grp"><td colspan="9">Dining Room</td></tr>
 <tr data-base="4318.56"><td>Mollino Large Tiered Chandelier ARN5427 &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$2,159.28</td><td class="m">$4,318.56</td><td class="nt">25&rdquo;H &times; 32&rdquo;W &middot; HRAB &middot; 55 lbs</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,318.56</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="1294.00"><td>Emery 30 Picture Light &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$647.00</td><td class="m">$1,294.00</td><td class="nt">30&rdquo;W &middot; LED 18W &middot; HRAB</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,294.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="8991.00"><td>HH27-122T Palma Dining Table Top &mdash; Highland House</td><td>1</td><td>ea</td><td class="m">$8,991.00</td><td class="m">$8,991.00</td><td class="nt">96&rdquo;W &times; 44&rdquo;D &middot; cream LQ</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$8,991.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="12000.00"><td>5204-41C Dining Chair &mdash; Lee (COM 5 yds)</td><td>8</td><td>ea</td><td class="m">$1,500.00</td><td class="m">$12,000.00</td><td class="nt">23.5&rdquo;W &times; 40.5&rdquo;H &middot; seat ht 19.5&rdquo;</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$12,000.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="5106.00"><td>Rembrandt Armchair</td><td>2</td><td>ea</td><td class="m">$2,553.00</td><td class="m">$5,106.00</td><td class="nt">23&rdquo;W &times; 27.5&rdquo;D &times; 39&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$5,106.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Entry &mdash; Room Total $22,906.06</td></tr>
+<tr class="grp"><td colspan="9">Entry</td></tr>
 <tr data-base="1439.28"><td>Modern Schoolhouse Lantern MS5030 &mdash; Visual Comfort</td><td>1</td><td>ea</td><td class="m">$1,439.28</td><td class="m">$1,439.28</td><td class="nt">18&rdquo;W &middot; 6&rsquo; chain &middot; custom ht TBD</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,439.28</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="7200.00"><td>Durango Chair &mdash; Charles Stewart (custom +2&rdquo; depth, mohair)</td><td>2</td><td>ea</td><td class="m">$3,600.00</td><td class="m">$7,200.00</td><td class="nt">27.5&rdquo;W &times; 39.5&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$7,200.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="4900.00"><td>Vintage Michael Taylor Hand Carved Mirror</td><td>1</td><td>ea</td><td class="m">$4,900.00</td><td class="m">$4,900.00</td><td class="nt">38&rdquo;W &times; 54.25&rdquo;H &middot; acanthus leaf</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,900.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="1692.00"><td>Antique French Empire Round Side Table</td><td>1</td><td>ea</td><td class="m">$1,692.00</td><td class="m">$1,692.00</td><td class="nt">19&rdquo;W &times; 28&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,692.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="3740.00"><td>Summerville Stripe &mdash; Umber Wallpaper (22 rolls)</td><td>22</td><td>ea</td><td class="m">$170.00</td><td class="m">$3,740.00</td><td class="nt">Labor from installer +$5,250</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,740.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="3934.78"><td>HH19-726S Atlantic Demilune &mdash; Highland House</td><td>1</td><td>ea</td><td class="m">$3,934.78</td><td class="m">$3,934.78</td><td class="nt">48&rdquo;W &times; 33.25&rdquo;H &middot; cream LQ</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,934.78</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Gallery &mdash; Room Total $1,386.00</td></tr>
+<tr class="grp"><td colspan="9">Gallery</td></tr>
 <tr data-base="1386.00"><td>Small Hooded Ball Wall Mount &mdash; Shiplights (Unlaq. Brass)</td><td>3</td><td>ea</td><td class="m">$462.00</td><td class="m">$1,386.00</td><td class="nt">11&rdquo;H &middot; 10.5&rdquo; ext</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,386.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Kitchen &mdash; Room Total $1,078.00</td></tr>
+<tr class="grp"><td colspan="9">Kitchen</td></tr>
 <tr data-base="1078.00"><td>Elkins Double Sconce TOB2068 &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$539.00</td><td class="m">$1,078.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,078.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Stairwell &mdash; Room Total $1,790.00</td></tr>
+<tr class="grp"><td colspan="9">Stairwell</td></tr>
 <tr data-base="1790.00"><td>Large Nautical Bronze Ceiling Light &mdash; Shiplights</td><td>2</td><td>ea</td><td class="m">$895.00</td><td class="m">$1,790.00</td><td class="nt">13&rdquo;H &middot; Unlacquered Bronze</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,790.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Studio &mdash; Room Total $3,770.00</td></tr>
+<tr class="grp"><td colspan="9">Studio</td></tr>
 <tr data-base="3000.00"><td>Art Deco Pendant Light (on chain)</td><td>8</td><td>ea</td><td class="m">$375.00</td><td class="m">$3,000.00</td><td class="nt">Chain for ceiling height</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,000.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr data-base="770.00"><td>Trafalgar Cordless Table Lamp &mdash; Antique Brass</td><td>2</td><td>ea</td><td class="m">$385.00</td><td class="m">$770.00</td><td class="nt">10&rdquo; empire shade, moonstone silk</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$770.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr class="grp"><td colspan="9">Study &mdash; Room Total $3,679.20</td></tr>
+<tr class="grp"><td colspan="9">Study</td></tr>
 <tr data-base="3679.20"><td>Clivedon &mdash; Hudson Valley Lighting</td><td>2</td><td>ea</td><td class="m">$1,839.60</td><td class="m">$3,679.20</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,679.20</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
 <tr class="sub"><td colspan="4">Sub Total</td><td class="m">$81,981.52</td><td></td><td></td><td class="m rv">$81,981.52</td><td></td></tr>
 <tr data-base="1186.73"><td>Freight</td><td></td><td></td><td></td><td class="m">$1,186.73</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,186.73</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
@@ -858,6 +874,7 @@ function recalc(){
   sd.className='bc-val'+(gd>0.005?' neg':gd<-0.005?' pos':'');
 
   if(document.getElementById('tab-proforma').classList.contains('active'))updateProForma();
+  updateSectionTotals();
 }
 
 // ═══════════════════════════════════════════
@@ -1231,7 +1248,7 @@ async function ghHeaders(){
 }
 
 async function saveToGitHub(quiet=false){
-  if(!quiet) setStatus('Saving to GitHub\u2026');
+  if(!quiet) setStatus('Saving\u2026');
   const data = buildData();
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
   const headers = await ghHeaders();
@@ -1260,7 +1277,7 @@ async function saveToGitHub(quiet=false){
 }
 
 async function loadFromGitHub(){
-  setStatus('Loading from GitHub\u2026');
+  setStatus('Loading\u2026');
   try{
     const headers = await ghHeaders();
     const r = await fetch(GH_API+'?t='+Date.now(), {headers});
@@ -1361,7 +1378,90 @@ allInputs().forEach(inp=>inp.addEventListener('input',()=>{recalc();scheduleSave
 document.querySelectorAll('.rv[data-excl="1"]').forEach(cell=>{cell.dataset.origText=cell.textContent;});
 buildExclTable();
 renderDraws();
+buildSectionTotals();
 autoLoad();
+
+// ═══════════════════════════════════════════
+// SECTION SUBTOTALS
+// ═══════════════════════════════════════════
+function buildSectionTotals(){
+  document.querySelectorAll('.contract').forEach(contract=>{
+    const secId = contract.id;
+    const colCount = contract.querySelector('thead tr').cells.length;
+    const tbody = contract.querySelector('tbody');
+
+    // Snapshot data rows only (no grp/sub/tot) grouped by their preceding grp
+    // Walk once, collect groups
+    const groups = []; // [{grpRow, dataRows:[]}]
+    let current = null;
+    Array.from(tbody.rows).forEach(row=>{
+      if(row.classList.contains('grp')){
+        current = {grpRow: row, dataRows: []};
+        groups.push(current);
+      } else if(current && !row.classList.contains('sub') && !row.classList.contains('tot')){
+        current.dataRows.push(row);
+      }
+    });
+
+    groups.forEach((g, gi)=>{
+      if(g.dataRows.length === 0) return;
+      const uid = secId + '-g' + gi;
+      // Insert grp-sub after last data row
+      const lastDataRow = g.dataRows[g.dataRows.length - 1];
+      const tr = document.createElement('tr');
+      tr.className = 'grp-sub';
+      tr.dataset.uid = uid;
+      // "Total" label right-justified next to value, with spacer
+      tr.innerHTML = `<td colspan="${colCount-2}" style="text-align:right;padding-right:12px;font-family:'trade-gothic-next',sans-serif;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)">Total</td><td class="gsv" id="gs-base-${uid}" style="white-space:nowrap"></td><td class="gsv" id="gs-rev-${uid}" style="white-space:nowrap"></td>`;
+      // Handle contracts with extra excl button column
+      if(colCount > 7){
+        tr.innerHTML = `<td colspan="${colCount-3}" style="text-align:right;padding-right:12px;font-family:'trade-gothic-next',sans-serif;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)">Total</td><td class="gsv" id="gs-base-${uid}" style="white-space:nowrap"></td><td class="gsv" id="gs-rev-${uid}" style="white-space:nowrap"></td><td></td>`;
+      }
+      lastDataRow.insertAdjacentElement('afterend', tr);
+    });
+  });
+  updateSectionTotals();
+}
+
+function updateSectionTotals(){
+  document.querySelectorAll('.contract').forEach(contract=>{
+    const secId = contract.id;
+    const tbody = contract.querySelector('tbody');
+
+    // Re-walk, grouping rows by preceding grp, skipping grp-sub rows
+    const groups = [];
+    let current = null;
+    Array.from(tbody.rows).forEach(row=>{
+      if(row.classList.contains('grp-sub')) return; // skip injected rows
+      if(row.classList.contains('grp')){
+        current = {dataRows: []};
+        groups.push(current);
+      } else if(current && !row.classList.contains('sub') && !row.classList.contains('tot')){
+        current.dataRows.push(row);
+      }
+    });
+
+    groups.forEach((g, gi)=>{
+      const uid = secId + '-g' + gi;
+      let baseSum = 0, revSum = 0;
+      g.dataRows.forEach(row=>{
+        if(row.classList.contains('excluded-row')) return;
+        const base = parseFloat(row.dataset.base) || 0;
+        const inp = row.querySelector('.ri');
+        const delta = inp ? parseDelta(inp.value) : 0;
+        baseSum += base;
+        revSum += base + delta;
+      });
+      const baseCell = document.getElementById('gs-base-'+uid);
+      const revCell  = document.getElementById('gs-rev-'+uid);
+      if(baseCell) baseCell.textContent = f(baseSum);
+      if(revCell){
+        revCell.textContent = f(revSum);
+        revCell.classList.toggle('changed', Math.abs(revSum - baseSum) > 0.005);
+      }
+    });
+  });
+}
 </script>
 </body>
 </html>
