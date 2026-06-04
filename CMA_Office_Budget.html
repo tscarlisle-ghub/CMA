@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMA Office — Budget</title>
+<style>
+@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Book.woff2')format('woff2');font-weight:400;font-style:normal}
+@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Book%20Italic.woff2')format('woff2');font-weight:400;font-style:italic}
+@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Medium.woff2')format('woff2');font-weight:500;font-style:normal}
+@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Hairline.woff2')format('woff2');font-weight:100;font-style:normal}
+@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Light.woff2')format('woff2');font-weight:300;font-style:normal}
+@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Regular.woff2')format('woff2');font-weight:400;font-style:normal}
+@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Bold.woff2')format('woff2');font-weight:700;font-style:normal}
+@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-LightCondensed.woff2')format('woff2');font-weight:300;font-style:normal}
+@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-RegularCondensed.woff2')format('woff2');font-weight:400;font-style:normal}
+@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-BoldCondensed.woff2')format('woff2');font-weight:700;font-style:normal}
+@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF49-Liteweight.woff2')format('woff2');font-weight:400;font-style:normal}
+@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF68-FullFeatherwt.woff2')format('woff2');font-weight:600;font-style:normal}
+@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF73-FullHeviweight.woff2')format('woff2');font-weight:800;font-style:normal}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#f8f6f1;--paper-2:#f0ede6;--paper-3:#e8e4db;
+  --ink:#1c1a17;--ink-2:#3d3a34;--ink-3:#7a7670;--ink-4:#b0ada6;
+  --rule:rgba(28,26,23,.12);--rule-md:rgba(28,26,23,.28);--rule-hv:rgba(28,26,23,.58);
+  --red:#7a2515;--red-lt:#f9f0ed;--green:#1a4020;--green-lt:#f0f4f1;
+  --amber:#6b4c00;--amber-lt:#fdf8ee;
+}
+html{font-size:15px}
+body{font-family:'Eames Century Modern',Georgia,serif;font-weight:400;background:var(--paper);color:var(--ink);line-height:1.55;margin:0 auto;max-width:1160px}
+
+/* TABS */
+.tab-bar{display:flex;align-items:flex-end;padding:0 52px;border-bottom:1px solid var(--rule-hv)}
+.tab-btn{font-family:'Interstate',sans-serif;font-weight:400;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:none;border-bottom:2px solid transparent;padding:10px 18px 9px;cursor:pointer;color:var(--ink-4);transition:color .15s,border-color .15s;margin-bottom:-1px}
+.tab-btn:hover{color:var(--ink-2)}
+.tab-btn.active{color:var(--ink);border-bottom-color:var(--ink)}
+.tab-panel{display:none;padding:0 52px 96px}
+.tab-panel.active{display:block}
+
+/* MASTHEAD */
+.mast{border-top:1.5px solid var(--ink);border-bottom:.5px solid var(--rule-md);padding:14px 52px 12px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:0}
+.mast-title{font-family:'Knockout',sans-serif;font-weight:600;font-size:32px;letter-spacing:.05em;text-transform:uppercase;line-height:1}
+.mast-sub{font-family:'Interstate',sans-serif;font-weight:100;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+.mast-meta{text-align:right;font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3);line-height:2;letter-spacing:.04em}
+
+/* SAVE STRIP */
+.save-strip{display:flex;align-items:center;gap:14px;padding:7px 0 18px;font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
+.save-strip button,.save-strip .load-lbl{font-family:'Interstate',sans-serif;font-weight:400;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:4px 12px;cursor:pointer;color:var(--ink-2);display:inline-block}
+.save-strip button:hover,.save-strip .load-lbl:hover{background:var(--paper-3)}
+.save-strip .status{font-style:italic}
+.save-strip .hint{font-style:italic;color:var(--ink-4);font-size:9.5px}
+
+/* SUMMARY BAND */
+.band{display:grid;grid-template-columns:repeat(4,1fr);border-top:.5px solid var(--rule-hv);border-bottom:.5px solid var(--rule-hv);margin-bottom:44px}
+.bc{padding:12px 0;border-right:.5px solid var(--rule)}
+.bc:last-child{border-right:none}
+.bc:not(:first-child){padding-left:20px}
+.bc-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:3px}
+.bc-val{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:19px;letter-spacing:.01em}
+.bc-val.live{color:var(--red)}
+.bc-val.pos{color:var(--green)}
+.bc-val.neg{color:var(--red)}
+
+/* CONTRACT */
+.contract{margin-bottom:52px}
+.ch{border-top:1px solid var(--rule-hv);padding:10px 0 9px;display:block}
+.ch h2{font-family:'Knockout',sans-serif;font-weight:800;font-size:26px;letter-spacing:.05em;text-transform:uppercase;line-height:1}
+.ch-right{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;letter-spacing:.05em;color:var(--ink-3);margin-top:4px}
+.ch-total{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:14px;color:var(--ink-3);display:inline;margin-left:14px;letter-spacing:.02em;vertical-align:middle}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{border-bottom:.5px solid var(--rule-hv)}
+thead th{font-family:'Interstate',sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:7px 5px 6px;text-align:right;white-space:nowrap}
+thead th:first-child{text-align:left;padding-left:0}
+thead th.thn{text-align:left}
+thead th.thr{color:var(--red)}
+
+tr.grp td{font-family:'Knockout',sans-serif;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:14px 0 5px;border-bottom:.5px solid var(--rule-md)}
+tbody tr:not(.grp):not(.sub):not(.tot){border-bottom:.5px solid var(--rule)}
+tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--paper-2)}
+
+td{padding:7px 5px;vertical-align:middle;text-align:right;color:var(--ink)}
+td:first-child{text-align:left;padding-left:0}
+td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:13px;white-space:nowrap}
+td.nt{font-style:italic;font-size:11.5px;color:var(--ink-3);text-align:left;max-width:200px}
+td.ex{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;letter-spacing:.03em;color:var(--ink-4);text-align:right}
+td.ng{color:var(--red)}
+td.rv{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:13px;white-space:nowrap;color:var(--ink-3)}
+td.rv.ch{color:var(--red);font-weight:700}
+
+td.rc{padding:4px 4px}
+.ri{width:96px;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:13px;color:var(--red);text-align:right;padding:3px 3px 2px;outline:none;transition:border-color .15s,background .12s;display:block;-moz-appearance:textfield}
+.ri::-webkit-outer-spin-button,.ri::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.ri:focus{background:var(--red-lt);border-bottom-color:var(--red)}
+.ri::placeholder{color:var(--ink-4);font-size:10px;letter-spacing:.05em}
+/* Indent data rows slightly under their section title */
+tbody tr:not(.grp):not(.sub):not(.tot) td:first-child{padding-left:10px}
+
+tr.sub td{border-top:.5px solid var(--rule-md);padding-top:8px;font-family:'Interstate',sans-serif;font-weight:300;font-size:12px;letter-spacing:.03em;color:var(--ink-2);background:var(--paper-2)}
+tr.sub td.m{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:13px}
+tr.sub td:first-child{font-style:italic;padding-left:0;text-align:left}
+tr.tot td{border-top:1px solid var(--rule-hv);border-bottom:1px solid var(--rule-hv);padding:9px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:12.5px;letter-spacing:.03em;background:var(--paper-3)}
+tr.tot td:first-child{padding-left:0;font-style:italic}
+tr.tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:14px}
+tr.tot td.rv.ch{font-weight:700}
+
+/* GRAND */
+.grand{margin-top:52px;border-top:1.5px solid var(--ink)}
+.grand table{font-size:13px}
+.grand thead th{font-size:9px;padding:6px 5px 5px}
+.grand tr.gr td{padding:7px 5px;border-bottom:.5px solid var(--rule);font-family:'Interstate',sans-serif;font-weight:300;font-size:12px;color:var(--ink-2)}
+.grand tr.gr td:first-child{padding-left:0;text-align:left}
+.grand tr.gr td.m{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:13px;color:var(--ink)}
+.grand tr.gr td.dp{color:var(--red)}
+.grand tr.gr td.dn{color:var(--green)}
+.grand tr.grt td{padding:11px 5px;border-top:1px solid var(--rule-hv);font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:18px}
+.grand tr.grt td:first-child{font-family:'Knockout',sans-serif;font-weight:600;font-size:15px;letter-spacing:.07em;text-transform:uppercase;padding-left:0;text-align:left}
+.grand tr.grt td.live{color:var(--red)}
+.dep-note{font-family:'Interstate',sans-serif;font-weight:300;font-size:9.5px;color:var(--ink-3);letter-spacing:.04em;padding:9px 0 0;border-top:.5px solid var(--rule);margin-top:6px;line-height:2}
+.fn{margin-top:36px;padding-top:12px;border-top:.5px solid var(--rule);font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;color:var(--ink-4);letter-spacing:.05em;line-height:2.1}
+
+/* Exclude toggle */
+.excl-btn{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-md);padding:2px 7px;cursor:pointer;color:var(--ink-4);white-space:nowrap;transition:all .12s}
+.excl-btn:hover{border-color:var(--red);color:var(--red)}
+tr.excluded-row{opacity:.35}
+tr.excluded-row td{text-decoration:line-through;text-decoration-color:var(--ink-4)}
+tr.excluded-row .excl-btn{border-color:var(--red);color:var(--red);background:var(--red-lt)}
+tr.excluded-row td.rv{text-decoration:none}
+td.xc{padding:3px 4px;text-align:right}
+
+/* PRO FORMA */
+.pf-section{margin-bottom:48px}
+.pf-h{border-top:1px solid var(--rule-hv);padding:9px 0 7px;margin-bottom:18px}
+.pf-h h2{font-family:'Knockout',sans-serif;font-weight:800;font-size:17px;letter-spacing:.06em;text-transform:uppercase}
+.pf-h-note{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3);letter-spacing:.05em;margin-top:3px}
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);border-top:.5px solid var(--rule-hv);border-bottom:.5px solid var(--rule-hv);margin-bottom:36px}
+.kpi{padding:12px 0;border-right:.5px solid var(--rule)}
+.kpi:last-child{border-right:none}
+.kpi:not(:first-child){padding-left:20px}
+.kpi-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:3px}
+.kpi-val{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:19px;letter-spacing:.01em}
+.kpi-sub{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;color:var(--ink-4);letter-spacing:.04em;margin-top:1px}
+.kpi-val.ok{color:var(--green)}.kpi-val.warn{color:var(--amber)}.kpi-val.alert{color:var(--red)}
+.sf-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:8px}
+.sf-table thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv);white-space:nowrap}
+.sf-table thead th:first-child{text-align:left;padding-left:0}
+.sf-table tbody tr{border-bottom:.5px solid var(--rule)}
+.sf-table tbody tr:hover{background:var(--paper-2)}
+.sf-table td{padding:6px 5px;text-align:right}
+.sf-table td:first-child{text-align:left;padding-left:0}
+.sf-table td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px}
+.sf-table tr.sf-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);font-family:'Interstate',sans-serif;font-weight:400;font-size:12px;padding:8px 5px}
+.sf-table tr.sf-tot td:first-child{padding-left:0;font-style:italic}
+.sf-table tr.sf-tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:13px}
+.bar-wrap{height:4px;background:var(--rule);border-radius:2px;overflow:hidden;width:100px;display:inline-block;vertical-align:middle;margin-left:8px}
+.bar-fill{height:100%;background:var(--ink-3);border-radius:2px;transition:width .3s}
+.cont-block{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:8px}
+.cont-card{border:.5px solid var(--rule-md);padding:18px 20px}
+.cont-card-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.cont-card-val{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:22px;margin-bottom:4px}
+.cont-card-sub{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3)}
+.cont-progress{height:6px;background:var(--rule);border-radius:3px;overflow:hidden;margin-top:12px}
+.cont-fill{height:100%;background:var(--green);border-radius:3px;transition:width .4s}
+.cont-fill.warn{background:var(--amber)}.cont-fill.alert{background:var(--red)}
+.cont-card-val.ok{color:var(--green)}.cont-card-val.warn{color:var(--amber)}.cont-card-val.alert{color:var(--red)}
+.excl-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.excl-table thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv)}
+.excl-table thead th:first-child{text-align:left;padding-left:0}
+.excl-table thead th.thn{text-align:left}.excl-table thead th.thr{color:var(--red)}
+.excl-table tbody tr{border-bottom:.5px solid var(--rule)}
+.excl-table tbody tr:hover{background:var(--paper-2)}
+.excl-table td{padding:6px 5px;text-align:right;font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px}
+.excl-table td:first-child{text-align:left;padding-left:0;font-family:'Eames Century Modern',Georgia,serif;font-size:12.5px}
+.excl-table td.nt{font-style:italic;font-size:11px;color:var(--ink-3);text-align:left;font-family:'Eames Century Modern',Georgia,serif}
+.excl-table td.ct{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-4)}
+.ei{width:88px;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:11px;color:var(--red);text-align:right;padding:2px 2px 1px;outline:none;transition:border-color .15s,background .12s;display:block;-moz-appearance:textfield}
+.ei::-webkit-outer-spin-button,.ei::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.ei:focus{background:var(--red-lt);border-bottom-color:var(--red)}
+.ei::placeholder{color:var(--ink-4);font-size:9.5px;letter-spacing:.05em}
+.excl-table tr.excl-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);padding:8px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:12px}
+.excl-table tr.excl-tot td:first-child{padding-left:0;font-style:italic}
+.excl-table tr.excl-tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:13px}
+.draws-log{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:12px}
+.draws-log thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px;text-align:right;border-bottom:.5px solid var(--rule-hv);white-space:nowrap}
+.draws-log thead th:first-child{text-align:left;padding-left:0}
+.draws-log thead th.thn{text-align:left}
+.draws-log tbody tr{border-bottom:.5px solid var(--rule)}
+.draws-log tbody tr:hover{background:var(--paper-2)}
+.draws-log td{padding:5px;text-align:right;vertical-align:middle}
+.draws-log td:first-child{padding-left:0;text-align:left}
+.draws-log td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px}
+.draws-log tr.draws-tot td{border-top:1px solid var(--rule-hv);background:var(--paper-3);padding:8px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:12px}
+.draws-log tr.draws-tot td:first-child{padding-left:0;font-style:italic}
+.draws-log tr.draws-tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:13px}
+.di-input{background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:11px;color:var(--red);padding:2px 2px 1px;outline:none;transition:border-color .15s,background .12s;-moz-appearance:textfield}
+.di-input::-webkit-outer-spin-button,.di-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.di-input:focus{background:var(--red-lt);border-bottom-color:var(--red)}
+.di-input::placeholder{color:var(--ink-4);font-size:9.5px;letter-spacing:.04em}
+.di-input.date-in{width:90px;text-align:center}.di-input.amt-in{width:84px;text-align:right}.di-input.note-in{width:100%}
+.draws-add-btn{font-family:'Interstate',sans-serif;font-weight:400;font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:4px 12px;cursor:pointer;color:var(--ink-3);transition:all .12s}
+.draws-add-btn:hover{background:var(--paper-3);color:var(--ink-2)}
+.draws-del-btn{font-family:'Interstate',sans-serif;font-weight:300;font-size:11px;background:transparent;border:none;padding:2px 6px;cursor:pointer;color:var(--ink-4)}
+.draws-del-btn:hover{color:var(--red)}
+.pdf-zone{border:.5px dashed var(--rule-hv);padding:28px 24px;text-align:center;transition:background .15s,border-color .15s;cursor:pointer;position:relative}
+.pdf-zone:hover,.pdf-zone.dragover{background:var(--paper-2);border-color:var(--ink-3)}
+.pdf-zone-icon{font-size:22px;margin-bottom:8px;color:var(--ink-4)}
+.pdf-zone-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.pdf-zone-sub{font-family:'Interstate',sans-serif;font-weight:300;font-size:9.5px;color:var(--ink-4);letter-spacing:.04em;margin-top:4px;font-style:italic}
+.pdf-status{margin-top:16px;font-family:'Interstate',sans-serif;font-weight:300;font-size:10.5px;color:var(--ink-3);letter-spacing:.04em;min-height:18px}
+.pdf-status.working{font-style:italic;color:var(--amber)}.pdf-status.done{color:var(--green)}.pdf-status.err{color:var(--red)}
+.pdf-preview{margin-top:20px;border:.5px solid var(--rule-md);background:var(--paper-2)}
+.pdf-preview-hd{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:8px 14px;border-bottom:.5px solid var(--rule-md)}
+.pdf-preview-title{font-family:'Interstate',sans-serif;font-weight:400;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.pdf-preview-count{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:11px;color:var(--ink-3)}
+.pdf-apply-btn{font-family:'Interstate',sans-serif;font-weight:400;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:none;padding:5px 14px;cursor:pointer;transition:opacity .15s}
+.pdf-apply-btn:hover{opacity:.8}
+.pdf-discard-btn{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:5px 12px;cursor:pointer;color:var(--ink-3)}
+.pdf-discard-btn:hover{background:var(--paper-3)}
+.pdf-match-table{width:100%;border-collapse:collapse;font-size:12px}
+.pdf-match-table thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);padding:5px 10px;text-align:right;border-bottom:.5px solid var(--rule)}
+.pdf-match-table thead th:first-child{text-align:left}
+.pdf-match-table tbody tr{border-bottom:.5px solid var(--rule)}
+.pdf-match-table td{padding:5px 10px;text-align:right;font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px}
+.pdf-match-table td:first-child{text-align:left;font-family:'Eames Century Modern',serif;font-size:11.5px}
+.pdf-match-table td.chg-pos{color:var(--red)}.pdf-match-table td.chg-neg{color:var(--green)}
+.pdf-match-table tr.pdf-unmatched-row{background:var(--amber-lt)}
+.pdf-match-table tr.pdf-unmatched-row td{color:var(--amber)}
+.pdf-check{accent-color:var(--ink)}
+.pdf-section-hd{font-family:'Knockout',sans-serif;font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:8px 10px 4px;background:var(--paper-3);border-bottom:.5px solid var(--rule-md)}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div>
+    <div class="mast-title">CMA Office Budget</div>
+    <div class="mast-sub">2401½ Canterbury Road &middot; Mountain Brook, Alabama &middot; Four Contracts</div>
+  </div>
+  <div class="mast-meta">Carlisle Moore Architects<br>Prepared 6.3.2026<br>TCC &middot; GHT &middot; Emory Ratliff</div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('budget',this)">Budget</button>
+  <button class="tab-btn" onclick="switchTab('proforma',this)">Pro Forma</button>
+</div>
+
+<div id="tab-budget" class="tab-panel active">
+
+<div class="save-strip">
+  <button onclick="saveToGitHub()">Save to GitHub</button>
+  <button onclick="loadFromGitHub()">Load from GitHub</button>
+  <button onclick="clearData()">Clear all</button>
+  <span class="status" id="save-status"></span>
+  <span class="hint">Saves revisions.json to tscarlisle-ghub/CMA &middot; loads automatically on open</span>
+</div>
+
+<div class="band">
+  <div class="bc"><div class="bc-label">Contracts</div><div class="bc-val">4</div></div>
+  <div class="bc"><div class="bc-label">Base total</div><div class="bc-val" id="sum-base">$707,365.39</div></div>
+  <div class="bc"><div class="bc-label">Revised total</div><div class="bc-val live" id="sum-rev">&mdash;</div></div>
+  <div class="bc"><div class="bc-label">Difference</div><div class="bc-val" id="sum-delta">&mdash;</div></div>
+</div>
+
+<!-- ═══════════ 1. TCC ═══════════ -->
+<div class="contract" id="sec-tcc">
+<div class="ch"><h2>TCC General Contractors &mdash; Construction<span class="ch-total" id="tcc-h">$580,302.64</span></h2>
+<div class="ch-right">Signed 5.26.26 &middot; Cost-plus 15% &middot; Schematic 3.7.26</div></div>
+<table>
+<thead><tr>
+  <th style="width:218px">Item</th><th style="width:40px">Qty</th><th style="width:34px">Unit</th>
+  <th style="width:90px">Base</th><th class="thn" style="width:180px">Notes</th>
+  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+</tr></thead>
+<tbody>
+<tr class="grp"><td colspan="7">General Conditions</td></tr>
+<tr data-base="215.73"><td>Framed SF</td><td>2690</td><td>SF</td><td class="m">$215.73</td><td class="nt">Heated / cooled</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$215.73</td></tr>
+<tr data-base="215.73"><td>Heated / Cooled SF</td><td>2690</td><td>SF</td><td class="m">$215.73</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$215.73</td></tr>
+<tr data-base="6100.00"><td>Structural Engineering</td><td>1</td><td>LS</td><td class="m">$6,100.00</td><td class="nt">Reimbursable</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,100.00</td></tr>
+<tr data-base="0"><td>Building Permit</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Plan Printing</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Payment / Performance Bond</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Temporary Utilities</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="4748.50"><td>Dumpster / Portalet</td><td>1</td><td>LS</td><td class="m">$4,748.50</td><td class="nt">Assume rear &mdash; CM to confirm</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,748.50</td></tr>
+<tr data-base="2500.00"><td>Equipment Rental</td><td>1</td><td>LS</td><td class="m">$2,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,500.00</td></tr>
+<tr data-base="15685.65"><td>Cleanup / Final Clean / Misc Labor / Punch</td><td>1</td><td>LS</td><td class="m">$15,685.65</td><td class="nt">By owner</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$15,685.65</td></tr>
+<tr data-base="0"><td>Mockup</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Builder&rsquo;s Risk Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="1000.00"><td>Sample Allowance</td><td>1</td><td>LS</td><td class="m">$1,000.00</td><td class="nt">Paint, floor, misc samples</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,000.00</td></tr>
+<tr data-base="0"><td>Retainage</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Sitework / Demo</td></tr>
+<tr data-base="11610.00"><td>Demo Work</td><td>1</td><td>LS</td><td class="m">$11,610.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$11,610.00</td></tr>
+
+<tr class="grp"><td colspan="7">Foundation</td></tr>
+<tr data-base="0"><td>Foundation</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Masonry</td></tr>
+<tr data-base="6500.00"><td>New Fireplace Surround Allowance</td><td>1</td><td>LS</td><td class="m">$6,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,500.00</td></tr>
+
+<tr class="grp"><td colspan="7">Framing</td></tr>
+<tr data-base="14070.00"><td>Framing Materials Allowance</td><td>1</td><td>LS</td><td class="m">$14,070.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$14,070.00</td></tr>
+<tr data-base="12150.00"><td>Framing Labor</td><td>1</td><td>LS</td><td class="m">$12,150.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$12,150.00</td></tr>
+<tr data-base="0"><td>Structural Steel</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Trim Carpentry / Interior</td></tr>
+<tr data-base="13365.00"><td>Running Trim / Treads / Accessories</td><td>1</td><td>LS</td><td class="m">$13,365.00</td><td class="nt">No crown / paneling / wood walls / clgs</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$13,365.00</td></tr>
+<tr data-base="33718.75"><td>Material Interior Trim</td><td>1</td><td>LS</td><td class="m">$33,718.75</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$33,718.75</td></tr>
+<tr data-base="3500.00"><td>Interior Handrail Allowance</td><td>1</td><td>LS</td><td class="m">$3,500.00</td><td class="nt">New wall rail / iron</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td></tr>
+
+<tr class="grp"><td colspan="7">Exterior</td></tr>
+<tr data-base="6500.00"><td>Exterior Handrail Allowance</td><td>1</td><td>LS</td><td class="m">$6,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,500.00</td></tr>
+<tr data-base="0"><td>Exterior Decorative Fixture Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Generator Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Roofing / Flashing</td></tr>
+<tr data-base="0"><td>Roofing / Flashing</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Doors and Windows</td></tr>
+<tr data-base="9500.00"><td>Exterior Doors and Windows</td><td>1</td><td>LS</td><td class="m">$9,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$9,500.00</td></tr>
+<tr data-base="8550.00"><td>Interior Doors and Windows</td><td>1</td><td>LS</td><td class="m">$8,550.00</td><td class="nt">Solid door units</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$8,550.00</td></tr>
+<tr data-base="34200.00"><td>Glass Interior Doors and Transoms</td><td>1</td><td>LS</td><td class="m">$34,200.00</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$34,200.00</td></tr>
+<tr data-base="0"><td>Door Hardware Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Paint / Insulation / Sheetrock</td></tr>
+<tr data-base="18856.00"><td>Painting</td><td>1</td><td>LS</td><td class="m">$18,856.00</td><td class="nt">Sherwin Williams</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$18,856.00</td></tr>
+<tr data-base="0"><td>Paint Registers / Trims / Plates</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Specialty Finishes</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">Need guidance on scope</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="7760.00"><td>Insulation</td><td>1</td><td>LS</td><td class="m">$7,760.00</td><td class="nt">Sound batts only</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$7,760.00</td></tr>
+<tr data-base="22610.00"><td>Sheetrock / Walls and Ceilings</td><td>1</td><td>LS</td><td class="m">$22,610.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$22,610.00</td></tr>
+<tr data-base="0"><td>Plaster</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Flooring and Tile</td></tr>
+<tr data-base="16590.00"><td>Wood Flooring / Paint Allowance</td><td>1</td><td>LS</td><td class="m">$16,590.00</td><td class="nt">$7,500 patch allowance</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$16,590.00</td></tr>
+<tr data-base="0"><td>Carpet</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Tile Material / Grout Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="1664.30"><td>Floor Protection</td><td>1</td><td>LS</td><td class="m">$1,664.30</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,664.30</td></tr>
+<tr data-base="0"><td>Tile Labor</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Cabinets / Tops</td></tr>
+<tr data-base="4040.00"><td>Bookcase / Shelves</td><td>1</td><td>LS</td><td class="m">$4,040.00</td><td class="nt">Island @ workroom only (most deleted)</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,040.00</td></tr>
+<tr data-base="1820.00"><td>Plywood Shelves</td><td>1</td><td>LS</td><td class="m">$1,820.00</td><td class="nt">Stained</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,820.00</td></tr>
+<tr data-base="15750.00"><td>Kitchen Cabinets</td><td>1</td><td>LS</td><td class="m">$15,750.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$15,750.00</td></tr>
+<tr data-base="2250.00"><td>Vanity &mdash; Floating Support / Misc Allowance</td><td>1</td><td>LS</td><td class="m">$2,250.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,250.00</td></tr>
+<tr data-base="20405.00"><td>Top Allowance</td><td>1</td><td>LS</td><td class="m">$20,405.00</td><td class="nt">Incl. butcher block &middot; $150/SF marble @ baths/kitchen</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$20,405.00</td></tr>
+<tr data-base="0"><td>Mirror / Glass</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Cabinet Hardware Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Appliances / Specialties</td></tr>
+<tr data-base="0"><td>Appliance Allowance (incl. install)</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Waterfountain Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="6060.00"><td>Exterior Signage Allowance</td><td>1</td><td>LS</td><td class="m">$6,060.00</td><td class="nt">Need guidance &middot; none figured yet</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,060.00</td></tr>
+<tr data-base="0"><td>Shades</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By others</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Allowance &mdash; Intumescent Paint on Floor</td><td>3030</td><td>SF</td><td class="ex">TBD</td><td class="nt">Need guidance &middot; placeholder</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">TBD</td></tr>
+
+<tr class="grp"><td colspan="7">Electrical</td></tr>
+<tr data-base="0"><td>Electrical M/L (panel rebuild)</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">~$30k est. + fee &middot; excl. fire alarm / sprinkler</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="75000.00"><td>Can Light Allowance</td><td>50</td><td>EA</td><td class="m">$75,000.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$75,000.00</td></tr>
+<tr data-base="0"><td>Decorative Fixture Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Plumbing</td></tr>
+<tr data-base="15000.00"><td>Plumbing M/L</td><td>1</td><td>LS</td><td class="m">$15,000.00</td><td class="nt">Assume move fixtures in storage / powder</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$15,000.00</td></tr>
+<tr data-base="0"><td>Water Heaters</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">Assume none needed or existing to remain</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Grinder Pump</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">Existing to remain</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Water Line</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">Existing to remain</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Gas Line</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">Existing to remain</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Sewer Line</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">Existing to remain</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Water Tap</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">Existing to remain</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Sewer Impact</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Bathroom Accessory Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+<tr data-base="0"><td>Plumbing Fixture Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="grp"><td colspan="7">Mechanical</td></tr>
+<tr data-base="64999.00"><td>HVAC Allowance</td><td>1</td><td>LS</td><td class="m">$64,999.00</td><td class="nt">Assumes no work below grade &middot; excl. fire alarm / sprinkler</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$64,999.00</td></tr>
+
+<tr class="grp"><td colspan="7">Audio / Video / Security</td></tr>
+<tr data-base="0"><td>AV / Security Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner &mdash; see GHT proposals</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
+
+<tr class="sub"><td colspan="3">Subtotal (from signed estimate)</td><td class="m">$462,752.20</td><td></td><td></td><td class="m rv" id="tcc-sub-rv">$462,752.20</td></tr>
+<tr data-base="92550.44"><td>Overhead / Profit / Supervision</td><td></td><td></td><td class="m">$92,550.44</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$92,550.44</td></tr>
+<tr data-base="25000.00"><td>Contingency</td><td></td><td></td><td class="m">$25,000.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$25,000.00</td></tr>
+<tr class="tot"><td colspan="3">TCC Contract Total</td><td class="m">$580,302.64</td><td></td><td></td><td class="m rv" id="tcc-tot">$580,302.64</td></tr>
+</tbody></table>
+</div>
+
+<!-- ═══════════ 2. GHT PRE-WIRE ═══════════ -->
+<div class="contract" id="sec-pw">
+<div class="ch"><h2>GHT Group &mdash; Pre-Wire<span class="ch-total">$7,374.57</span></h2>
+<div class="ch-right">Proposal 32509 &middot; Prepared 6.3.2026 &middot; Valid 15 days</div></div>
+<table>
+<thead><tr>
+  <th style="width:218px">Item</th><th style="width:40px">Qty</th><th style="width:46px">Unit</th>
+  <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
+  <th class="thn" style="width:130px">Notes</th>
+  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+  <th style="width:58px"></th>
+</tr></thead>
+<tbody>
+<tr class="grp"><td colspan="9">Data</td></tr>
+<tr data-base="3584.00"><td>CAT6 Data Locations</td><td>32</td><td>ea</td><td class="m">$112.00</td><td class="m">$3,584.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,584.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">TVs</td></tr>
+<tr data-base="960.00"><td>CAT6 (&#xd7;2) &amp; CAT6A (&#xd7;1) per TV location</td><td>2</td><td>loc</td><td class="m">$480.00</td><td class="m">$960.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$960.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Shades</td></tr>
+<tr data-base="1500.00"><td>Lutron QS Shade / Lighting Wiring</td><td>10</td><td>loc</td><td class="m">$150.00</td><td class="m">$1,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Cameras</td></tr>
+<tr data-base="253.34"><td>IP Camera Plus &mdash; CAT6 Camera Locations</td><td>2</td><td>ea</td><td class="m">$126.67</td><td class="m">$253.34</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$253.34</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Audio</td></tr>
+<tr data-base="1225.00"><td>Speaker Wire Pre-Wire 16/4 Looped</td><td>7</td><td>loop</td><td class="m">$175.00</td><td class="m">$1,225.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,225.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Discount</td></tr>
+<tr data-base="-900.00"><td>Key Partner Discount</td><td>1</td><td>LS</td><td class="m ng">&minus;$900.00</td><td class="m ng">&minus;$900.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ng">&minus;$900.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="sub"><td colspan="4">Parts subtotal</td><td class="m">$6,622.34</td><td></td><td></td><td class="m rv">$6,622.34</td><td></td></tr>
+<tr data-base="752.23"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$752.23</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$752.23</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="tot"><td colspan="4">Pre-Wire Total</td><td class="m">$7,374.57</td><td></td><td></td><td class="m rv" id="pw-tot">$7,374.57</td><td></td></tr>
+</tbody></table>
+</div>
+
+<!-- ═══════════ 3. GHT A/V ═══════════ -->
+<div class="contract" id="sec-av">
+<div class="ch"><h2>GHT Group &mdash; Audio &amp; Video<span class="ch-total">$30,055.01</span></h2>
+<div class="ch-right">Proposal 32513 &middot; Prepared 6.3.2026 &middot; Valid 15 days</div></div>
+<table>
+<thead><tr>
+  <th style="width:234px">Item / SKU</th><th style="width:36px">Qty</th><th style="width:42px">Unit</th>
+  <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
+  <th class="thn" style="width:120px">Notes</th>
+  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+  <th style="width:58px"></th>
+</tr></thead>
+<tbody>
+<tr class="grp"><td colspan="9">Work Room &mdash; Parts $1,340.00</td></tr>
+<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Kitchen / Reception &mdash; Parts $1,340.00</td></tr>
+<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Conference Room #2 &mdash; Parts $5,762.95</td></tr>
+<tr data-base="3099.99"><td>BRAVIA 7 II &mdash; Sony 75&rdquo; 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$3,099.99</td><td class="m">$3,099.99</td><td class="nt">Tilt mount</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,099.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="374.99"><td>SM-T-L Strong Large Tilting Mount 36&ndash;70&rdquo;</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$374.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="nt">Behind display</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$119.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="499.00"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td>1</td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="nt">Under TV</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$499.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="169.99"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td>1</td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$169.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="nt">2160J EMI/RFI</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$103.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90&deg; Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$26.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Music only</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$29.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Conference Room #1 &mdash; Parts $3,422.95</td></tr>
+<tr data-base="2099.99"><td>BRAVIA 7 II &mdash; Sony 55&rdquo; 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$2,099.99</td><td class="m">$2,099.99</td><td class="nt">Tilt mount</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,099.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="374.99"><td>SMTL 36&ndash;80&rdquo; Tilting Mount</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$374.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="nt">Behind display</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$119.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="499.00"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td>1</td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="nt">Under TV</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$499.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="169.99"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td>1</td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$169.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$103.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90&deg; Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$26.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$29.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Restrooms &mdash; Parts $670.00</td></tr>
+<tr data-base="670.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>1</td><td>pair</td><td class="m">$670.00</td><td class="m">$670.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$670.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Powder &mdash; Parts $660.00</td></tr>
+<tr data-base="660.00"><td>VX66R SST 6&rdquo; Round Single Stereo Speaker</td><td>1</td><td>ea</td><td class="m">$660.00</td><td class="m">$660.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$660.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Wi-Fi &mdash; Parts $3,675.95</td></tr>
+<tr data-base="556.99"><td>AN-220-RT Araknis 220-Series Single-WAN VPN Router</td><td>1</td><td>ea</td><td class="m">$556.99</td><td class="m">$556.99</td><td class="nt">Equipment rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$556.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1418.97"><td>AN-520-AP-I Araknis Wi-Fi 6 520 Series Indoor AP</td><td>3</td><td>ea</td><td class="m">$472.99</td><td class="m">$1,418.97</td><td class="nt">Ceiling mounted</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,418.97</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1699.99"><td>AN-220-SW-R-44-POE Araknis L2 Managed Switch 44+2</td><td>1</td><td>ea</td><td class="m">$1,699.99</td><td class="m">$1,699.99</td><td class="nt">Partial PoE+</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,699.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Surveillance &mdash; Parts $2,339.96</td></tr>
+<tr data-base="1068.99"><td>LUM-121-NVR-4CH-2T Luma 121 NVR 4-channel 2TB</td><td>1</td><td>ea</td><td class="m">$1,068.99</td><td class="m">$1,068.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,068.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="601.99"><td>LUM-420-IP-TMB Luma 420 4MP Turret Camera &mdash; Black</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$601.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="66.99"><td>LUM-A20-JB-VF-BTB-BLACK Junction Box</td><td>1</td><td>ea</td><td class="m">$66.99</td><td class="m">$66.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$66.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="601.99"><td>LUM-420-IP-TMW Luma 420 4MP Turret Camera &mdash; White</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$601.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Equipment &mdash; Parts $6,591.98</td></tr>
+<tr data-base="483.99"><td>SR-CS-RACK-21U Strong 21U Rack w/ Side Panels &amp; Casters</td><td>1</td><td>ea</td><td class="m">$483.99</td><td class="m">$483.99</td><td class="nt">Equipment closet</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$483.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="2112.99"><td>KIT-UPS-IPVM12-1100 WattBox IP UPS 12-outlet 1100VA</td><td>1</td><td>ea</td><td class="m">$2,112.99</td><td class="m">$2,112.99</td><td class="nt">Incl. WB-800-IPVM-12 + WB-OVRC-UPS-1100-1</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,112.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3995.00"><td>AMP-black Sonos Streaming Amplifier</td><td>5</td><td>ea</td><td class="m">$799.00</td><td class="m">$3,995.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,995.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Labor / Discount</td></tr>
+<tr data-base="6360.00"><td>Labor &mdash; Install and Setup (AL)</td><td>1</td><td>LS</td><td class="m">$6,360.00</td><td class="m">$6,360.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,360.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="-4689.16"><td>Discount (already reflected in parts total)</td><td>1</td><td>LS</td><td class="m ng">&minus;$4,689.16</td><td class="m ng">&minus;$4,689.16</td><td class="nt">Net parts = $21,114.63</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ng">&minus;$4,689.16</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="sub"><td colspan="4">Parts + Labor subtotal</td><td class="m">$27,474.63</td><td></td><td></td><td class="m rv">$27,474.63</td><td></td></tr>
+<tr data-base="2580.38"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$2,580.38</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,580.38</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="tot"><td colspan="4">A/V Total</td><td class="m">$30,055.01</td><td></td><td></td><td class="m rv" id="av-tot">$30,055.01</td><td></td></tr>
+</tbody></table>
+</div>
+
+<!-- ═══════════ 4. EMORY RATLIFF ═══════════ -->
+<div class="contract" id="sec-er">
+<div class="ch"><h2>Emory Ratliff Interiors &mdash; Lighting &amp; Furnishings<span class="ch-total">$89,633.17</span></h2>
+<div class="ch-right">Proposal 100018 &middot; Dated 4.27.2026 &middot; Bill Moore &amp; Scott Carlisle</div></div>
+<table>
+<thead><tr>
+  <th style="width:240px">Item</th><th style="width:36px">Qty</th><th style="width:36px">Unit</th>
+  <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
+  <th class="thn" style="width:130px">Notes</th>
+  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+  <th style="width:58px"></th>
+</tr></thead>
+<tbody>
+<tr class="grp"><td colspan="9">Bath-1 &mdash; Room Total $2,726.00</td></tr>
+<tr data-base="2726.00"><td>The Hand Sconce &mdash; Polished Unlacquered Brass (1L + 1R)</td><td>2</td><td>ea</td><td class="m">$1,363.00</td><td class="m">$2,726.00</td><td class="nt">5.25&rdquo;W &times; 10&rdquo;H &middot; shade clip needed</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,726.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Bath-2 &mdash; Room Total $748.00</td></tr>
+<tr data-base="748.00"><td>Nautical Schoolhouse Sconce &mdash; Shiplights (white ball)</td><td>2</td><td>ea</td><td class="m">$374.00</td><td class="m">$748.00</td><td class="nt">9&rdquo;H &middot; 9.5&rdquo; ext &middot; 8&rdquo; globe &middot; brass</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$748.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Bath-3 &mdash; Room Total $1,543.10</td></tr>
+<tr data-base="266.00"><td>Soho Lighting Carlisle Half Cover IP65 Polished Brass</td><td>2</td><td>ea</td><td class="m">$133.00</td><td class="m">$266.00</td><td class="nt">Outdoor &amp; bathroom collection</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$266.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="989.10"><td>Toponas Paper &mdash; Spice (6 rolls / 66 yds)</td><td>6</td><td>roll</td><td class="m">$164.85</td><td class="m">$989.10</td><td class="nt">Install +$1,380 (separate)</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$989.10</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="288.00"><td>Tiny Stripe in Pale Pink &mdash; Checks &amp; Stripes fabric</td><td>4</td><td>ea</td><td class="m">$72.00</td><td class="m">$288.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$288.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Breakfast Room &mdash; Room Total $10,645.60</td></tr>
+<tr data-base="3500.00"><td>Haven Dining Table, Cerused Oak 60&rdquo; &mdash; Bunny Williams</td><td>1</td><td>ea</td><td class="m">$3,500.00</td><td class="m">$3,500.00</td><td class="nt">60&rdquo; dia &middot; reeded octagonal pedestal</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3645.60"><td>Thibaut MACKINAC T10300 Natural Wallcovering (14 rolls)</td><td>14</td><td>ea</td><td class="m">$260.40</td><td class="m">$3,645.60</td><td class="nt">Raffia/papyrus &middot; labor ~$2,000</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,645.60</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3500.00"><td>Snowmass Bench &mdash; Charles Stewart (&#xd7;3.5)</td><td>3.5</td><td>ea</td><td class="m">$1,000.00</td><td class="m">$3,500.00</td><td class="nt">51&rdquo;W &times; 24.5&rdquo;H &middot; green trim +$208</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Dining Room &mdash; Room Total $31,709.56</td></tr>
+<tr data-base="4318.56"><td>Mollino Large Tiered Chandelier ARN5427 &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$2,159.28</td><td class="m">$4,318.56</td><td class="nt">25&rdquo;H &times; 32&rdquo;W &middot; HRAB &middot; 55 lbs</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,318.56</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1294.00"><td>Emery 30 Picture Light &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$647.00</td><td class="m">$1,294.00</td><td class="nt">30&rdquo;W &middot; LED 18W &middot; HRAB</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,294.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="8991.00"><td>HH27-122T Palma Dining Table Top &mdash; Highland House</td><td>1</td><td>ea</td><td class="m">$8,991.00</td><td class="m">$8,991.00</td><td class="nt">96&rdquo;W &times; 44&rdquo;D &middot; cream LQ</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$8,991.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="12000.00"><td>5204-41C Dining Chair &mdash; Lee (COM 5 yds)</td><td>8</td><td>ea</td><td class="m">$1,500.00</td><td class="m">$12,000.00</td><td class="nt">23.5&rdquo;W &times; 40.5&rdquo;H &middot; seat ht 19.5&rdquo;</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$12,000.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="5106.00"><td>Rembrandt Armchair</td><td>2</td><td>ea</td><td class="m">$2,553.00</td><td class="m">$5,106.00</td><td class="nt">23&rdquo;W &times; 27.5&rdquo;D &times; 39&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$5,106.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Entry &mdash; Room Total $22,906.06</td></tr>
+<tr data-base="1439.28"><td>Modern Schoolhouse Lantern MS5030 &mdash; Visual Comfort</td><td>1</td><td>ea</td><td class="m">$1,439.28</td><td class="m">$1,439.28</td><td class="nt">18&rdquo;W &middot; 6&rsquo; chain &middot; custom ht TBD</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,439.28</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="7200.00"><td>Durango Chair &mdash; Charles Stewart (custom +2&rdquo; depth, mohair)</td><td>2</td><td>ea</td><td class="m">$3,600.00</td><td class="m">$7,200.00</td><td class="nt">27.5&rdquo;W &times; 39.5&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$7,200.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="4900.00"><td>Vintage Michael Taylor Hand Carved Mirror</td><td>1</td><td>ea</td><td class="m">$4,900.00</td><td class="m">$4,900.00</td><td class="nt">38&rdquo;W &times; 54.25&rdquo;H &middot; acanthus leaf</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,900.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1692.00"><td>Antique French Empire Round Side Table</td><td>1</td><td>ea</td><td class="m">$1,692.00</td><td class="m">$1,692.00</td><td class="nt">19&rdquo;W &times; 28&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,692.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3740.00"><td>Summerville Stripe &mdash; Umber Wallpaper (22 rolls)</td><td>22</td><td>ea</td><td class="m">$170.00</td><td class="m">$3,740.00</td><td class="nt">Labor from installer +$5,250</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,740.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3934.78"><td>HH19-726S Atlantic Demilune &mdash; Highland House</td><td>1</td><td>ea</td><td class="m">$3,934.78</td><td class="m">$3,934.78</td><td class="nt">48&rdquo;W &times; 33.25&rdquo;H &middot; cream LQ</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,934.78</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Gallery &mdash; Room Total $1,386.00</td></tr>
+<tr data-base="1386.00"><td>Small Hooded Ball Wall Mount &mdash; Shiplights (Unlaq. Brass)</td><td>3</td><td>ea</td><td class="m">$462.00</td><td class="m">$1,386.00</td><td class="nt">11&rdquo;H &middot; 10.5&rdquo; ext</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,386.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Kitchen &mdash; Room Total $1,078.00</td></tr>
+<tr data-base="1078.00"><td>Elkins Double Sconce TOB2068 &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$539.00</td><td class="m">$1,078.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,078.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Stairwell &mdash; Room Total $1,790.00</td></tr>
+<tr data-base="1790.00"><td>Large Nautical Bronze Ceiling Light &mdash; Shiplights</td><td>2</td><td>ea</td><td class="m">$895.00</td><td class="m">$1,790.00</td><td class="nt">13&rdquo;H &middot; Unlacquered Bronze</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,790.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Studio &mdash; Room Total $3,770.00</td></tr>
+<tr data-base="3000.00"><td>Art Deco Pendant Light (on chain)</td><td>8</td><td>ea</td><td class="m">$375.00</td><td class="m">$3,000.00</td><td class="nt">Chain for ceiling height</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,000.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="770.00"><td>Trafalgar Cordless Table Lamp &mdash; Antique Brass</td><td>2</td><td>ea</td><td class="m">$385.00</td><td class="m">$770.00</td><td class="nt">10&rdquo; empire shade, moonstone silk</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$770.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="grp"><td colspan="9">Study &mdash; Room Total $3,679.20</td></tr>
+<tr data-base="3679.20"><td>Clivedon &mdash; Hudson Valley Lighting</td><td>2</td><td>ea</td><td class="m">$1,839.60</td><td class="m">$3,679.20</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,679.20</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="sub"><td colspan="4">Sub Total</td><td class="m">$81,981.52</td><td></td><td></td><td class="m rv">$81,981.52</td><td></td></tr>
+<tr data-base="1186.73"><td>Freight</td><td></td><td></td><td></td><td class="m">$1,186.73</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,186.73</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="208.00"><td>Other &mdash; Snowmass green trim</td><td></td><td></td><td></td><td class="m">$208.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$208.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="6256.92"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$6,256.92</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,256.92</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr class="tot"><td colspan="4">Interiors Total</td><td class="m">$89,633.17</td><td></td><td></td><td class="m rv" id="er-tot">$89,633.17</td><td></td></tr>
+</tbody></table>
+</div>
+
+<!-- GRAND TOTAL -->
+<div class="grand">
+<table>
+<thead><tr>
+  <th style="text-align:left;padding-left:0">Contract</th>
+  <th>Base</th><th>Revised</th><th>Difference</th>
+</tr></thead>
+<tbody>
+<tr class="gr"><td>TCC General Contractors &mdash; Construction</td><td class="m">$580,302.64</td><td class="m" id="gt-tcc">$580,302.64</td><td class="m" id="gd-tcc">&mdash;</td></tr>
+<tr class="gr"><td>GHT Group &mdash; Pre-Wire</td><td class="m">$7,374.57</td><td class="m" id="gt-pw">$7,374.57</td><td class="m" id="gd-pw">&mdash;</td></tr>
+<tr class="gr"><td>GHT Group &mdash; Audio / Video</td><td class="m">$30,055.01</td><td class="m" id="gt-av">$30,055.01</td><td class="m" id="gd-av">&mdash;</td></tr>
+<tr class="gr"><td>Emory Ratliff Interiors</td><td class="m">$89,633.17</td><td class="m" id="gt-er">$89,633.17</td><td class="m" id="gd-er">&mdash;</td></tr>
+<tr class="grt">
+  <td>Total</td>
+  <td>$707,365.39</td>
+  <td class="live" id="gt-grand">$707,365.39</td>
+  <td id="gd-grand" style="color:var(--ink-3);font-size:15px">&mdash;</td>
+</tr>
+</tbody>
+</table>
+<div class="dep-note">
+  Deposits due (excl. TCC draw schedule) &middot;
+  GHT A/V 70% = $21,038.51 &middot;
+  GHT Pre-Wire 70% = $5,162.20 &middot;
+  Emory Ratliff deposit = $44,119.24 (as stated in proposal) &middot;
+  Subtotal deposits = $70,319.95
+</div>
+</div>
+
+<div class="fn">
+  GHT proposals expire 15 days from 6.3.2026 &middot; Tariff pricing subject to change per GHT Group notice &middot; TCC contract signed 5.26.26, cost-plus 15%, Exhibit B schematic 3.7.26<br>
+  Wallpaper install labor not in proposal totals: Bath-3 $1,380 &middot; Breakfast Room ~$2,000 &middot; Entry $5,250 &middot; total ~$8,630 additional<br>
+  TCC line item subtotals are sourced from the signed Exhibit B scan; the ~$5,800 gap between visible line items and the $462,752.20 subtotal likely reflects the intumescent paint allowance (3030 SF) which is illegible in the rotated scan<br>
+  Revision column accepts positive or negative amounts added to the base &middot; Save to GitHub commits revisions.json to tscarlisle-ghub/CMA &middot; loads automatically on open
+</div>
+
+</div><!-- /tab-budget -->
+
+
+<!-- ═══════════════════════════════ PRO FORMA TAB ═══════════════════════════════ -->
+<div id="tab-proforma" class="tab-panel">
+<div style="padding-top:28px"></div>
+
+<!-- KPI BAND -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">Total Budget</div>
+    <div class="kpi-val" id="pf-total">$707,365</div>
+    <div class="kpi-sub" id="pf-total-sub">base &middot; no revisions</div>
+  </div>
+  <div class="kpi" style="padding-left:20px">
+    <div class="kpi-label">Cost / SF</div>
+    <div class="kpi-val" id="pf-psf">$263</div>
+    <div class="kpi-sub">2,690 SF heated / cooled</div>
+  </div>
+  <div class="kpi" style="padding-left:20px">
+    <div class="kpi-label">Contingency Remaining</div>
+    <div class="kpi-val ok" id="pf-cont-rem">$25,000</div>
+    <div class="kpi-sub" id="pf-cont-sub">of $25,000 &middot; 0% burned</div>
+  </div>
+  <div class="kpi" style="padding-left:20px">
+    <div class="kpi-label">Total Paid</div>
+    <div class="kpi-val" id="pf-paid">$0</div>
+    <div class="kpi-sub" id="pf-paid-sub">0% of budget</div>
+  </div>
+  <div class="kpi" style="padding-left:20px">
+    <div class="kpi-label">Remaining</div>
+    <div class="kpi-val" id="pf-remaining">$707,365</div>
+    <div class="kpi-sub">budget less paid</div>
+  </div>
+</div>
+
+<!-- $/SF BY CONTRACT -->
+<div class="pf-section">
+  <div class="pf-h">
+    <h2>Cost / SF by Contract</h2>
+    <div class="pf-h-note">2,690 SF heated &amp; cooled &middot; updates with revisions from Budget tab</div>
+  </div>
+  <table class="sf-table">
+    <thead><tr>
+      <th style="text-align:left;padding-left:0;width:260px">Contract</th>
+      <th style="width:120px">Base</th>
+      <th style="width:120px">Revised</th>
+      <th style="width:90px">$/SF (base)</th>
+      <th style="width:90px">$/SF (rev.)</th>
+      <th style="text-align:left">Share of total</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>TCC &mdash; Construction</td><td class="m">$580,302.64</td><td class="m" id="sf-tcc-rev">$580,302.64</td><td class="m">$215.73</td><td class="m" id="sf-tcc-psf">$215.73</td><td><span class="bar-wrap"><span class="bar-fill" id="sf-tcc-bar" style="width:82%"></span></span></td></tr>
+      <tr><td>GHT &mdash; Pre-Wire</td><td class="m">$7,374.57</td><td class="m" id="sf-pw-rev">$7,374.57</td><td class="m">$2.74</td><td class="m" id="sf-pw-psf">$2.74</td><td><span class="bar-wrap"><span class="bar-fill" id="sf-pw-bar" style="width:1%"></span></span></td></tr>
+      <tr><td>GHT &mdash; Audio / Video</td><td class="m">$30,055.01</td><td class="m" id="sf-av-rev">$30,055.01</td><td class="m">$11.17</td><td class="m" id="sf-av-psf">$11.17</td><td><span class="bar-wrap"><span class="bar-fill" id="sf-av-bar" style="width:4%"></span></span></td></tr>
+      <tr><td>Emory Ratliff &mdash; Interiors</td><td class="m">$89,633.17</td><td class="m" id="sf-er-rev">$89,633.17</td><td class="m">$33.32</td><td class="m" id="sf-er-psf">$33.32</td><td><span class="bar-wrap"><span class="bar-fill" id="sf-er-bar" style="width:13%"></span></span></td></tr>
+    </tbody>
+    <tr class="sf-tot"><td>Total</td><td class="m">$707,365.39</td><td class="m" id="sf-grand-rev">$707,365.39</td><td class="m">$263.00</td><td class="m" id="sf-grand-psf" style="font-weight:700">$263.00</td><td></td></tr>
+  </table>
+</div>
+
+<!-- CONTINGENCY -->
+<div class="pf-section">
+  <div class="pf-h">
+    <h2>Contingency</h2>
+    <div class="pf-h-note">TCC contract includes $25,000 contingency &middot; log draws against contingency in the Draws table below</div>
+  </div>
+  <div class="cont-block">
+    <div class="cont-card">
+      <div class="cont-card-label">Contingency Budget</div>
+      <div class="cont-card-val" id="pf-cont-budget">$25,000.00</div>
+      <div class="cont-card-sub">as stated in TCC contract</div>
+      <div class="cont-progress"><div class="cont-fill" id="pf-cont-bar" style="width:0%"></div></div>
+    </div>
+    <div class="cont-card">
+      <div class="cont-card-label">Contingency Used</div>
+      <div class="cont-card-val ok" id="pf-cont-used">$0.00</div>
+      <div class="cont-card-sub" id="pf-cont-used-sub">0% of contingency &middot; $25,000 remaining</div>
+    </div>
+  </div>
+</div>
+
+<!-- DRAWS / INVOICES -->
+<div class="pf-section">
+  <div class="pf-h">
+    <h2>Draws &amp; Invoices Paid</h2>
+    <div class="pf-h-note">Log payments as they are made &middot; saved with revisions.json on export &middot; mark contingency draws in the Contingency column</div>
+  </div>
+  <table class="draws-log">
+    <thead><tr>
+      <th style="text-align:left;padding-left:0;width:100px">Date</th>
+      <th class="thn" style="width:150px">Payee</th>
+      <th class="thn" style="width:210px">Description / Draw #</th>
+      <th style="width:100px">Amount</th>
+      <th style="width:100px">Contingency</th>
+      <th class="thn">Notes</th>
+      <th style="width:28px"></th>
+    </tr></thead>
+    <tbody id="draws-tbody"></tbody>
+    <tfoot>
+      <tr class="draws-tot">
+        <td colspan="3" style="padding-left:0;font-style:italic;text-align:left">Total Paid</td>
+        <td class="m" id="draws-total-amt">$0.00</td>
+        <td class="m" id="draws-total-cont">$0.00</td>
+        <td colspan="2"></td>
+      </tr>
+    </tfoot>
+  </table>
+  <div style="margin-top:10px">
+    <button class="draws-add-btn" onclick="addDrawRow()">+ Add draw / payment</button>
+  </div>
+</div>
+
+
+<!-- PDF UPLOAD -->
+<div class="pf-section">
+  <div class="pf-h">
+    <h2>Upload Revised Estimate</h2>
+    <div class="pf-h-note">Drop a contractor PDF &middot; Claude extracts line items and proposes revisions &middot; review matches before applying to Budget tab</div>
+  </div>
+  <div class="pdf-zone" id="pdf-drop-zone" onclick="document.getElementById('pdf-file-input').click()" ondragover="pdfDragOver(event)" ondragleave="pdfDragLeave(event)" ondrop="pdfDrop(event)">
+    <input type="file" id="pdf-file-input" accept=".pdf" style="display:none" onchange="handlePdfFile(this.files[0])">
+    <div class="pdf-zone-icon">&#x2191;</div>
+    <div class="pdf-zone-label">Drop a contractor PDF here or click to browse</div>
+    <div class="pdf-zone-sub">TCC, GHT, or Emory Ratliff revised estimate &middot; Claude will read it and propose changes to the revision column</div>
+  </div>
+  <div class="pdf-status" id="pdf-status"></div>
+  <div id="pdf-preview-wrap" style="display:none"></div>
+</div>
+
+</div><!-- /tab-proforma -->
+
+<script>
+// ═══════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════
+const BASE = {tcc:580302.64, pw:7374.57, av:30055.01, er:89633.17};
+const GRAND_BASE = 707365.39;
+const SF = 2690;
+const CONTINGENCY_BASE = 25000;
+
+const SECS = [
+  {key:'tcc', sel:'#sec-tcc', tid:'tcc-tot', gtid:'gt-tcc', gdid:'gd-tcc'},
+  {key:'pw',  sel:'#sec-pw',  tid:'pw-tot',  gtid:'gt-pw',  gdid:'gd-pw'},
+  {key:'av',  sel:'#sec-av',  tid:'av-tot',  gtid:'gt-av',  gdid:'gd-av'},
+  {key:'er',  sel:'#sec-er',  tid:'er-tot',  gtid:'gt-er',  gdid:'gd-er'},
+];
+
+const EXCL_ITEMS = [
+  {sec:'tcc', name:'Building Permit',                     note:'By owner'},
+  {sec:'tcc', name:'Plan Printing',                       note:'By owner'},
+  {sec:'tcc', name:'Payment / Performance Bond',          note:'By owner'},
+  {sec:'tcc', name:'Temporary Utilities',                 note:'By owner'},
+  {sec:'tcc', name:'Mockup',                              note:'None figured'},
+  {sec:'tcc', name:"Builder's Risk Allowance",            note:'None figured'},
+  {sec:'tcc', name:'Retainage',                           note:''},
+  {sec:'tcc', name:'Foundation',                          note:''},
+  {sec:'tcc', name:'Structural Steel',                    note:'None figured'},
+  {sec:'tcc', name:'Exterior Decorative Fixture Allow.',  note:'By owner per BM'},
+  {sec:'tcc', name:'Generator Allowance',                 note:'None figured'},
+  {sec:'tcc', name:'Roofing / Flashing',                  note:'By owner per BM'},
+  {sec:'tcc', name:'Door Hardware Allowance',             note:'By owner per BM'},
+  {sec:'tcc', name:'Paint Registers / Trims / Plates',    note:'None figured'},
+  {sec:'tcc', name:'Specialty Finishes',                  note:'Need guidance on scope'},
+  {sec:'tcc', name:'Plaster',                             note:'None figured'},
+  {sec:'tcc', name:'Carpet',                              note:'None figured'},
+  {sec:'tcc', name:'Tile Material / Grout Allowance',     note:'None figured'},
+  {sec:'tcc', name:'Tile Labor',                          note:'None figured'},
+  {sec:'tcc', name:'Mirror / Glass',                      note:'By owner per BM'},
+  {sec:'tcc', name:'Cabinet Hardware Allowance',          note:'By owner per BM'},
+  {sec:'tcc', name:'Appliance Allowance (incl. install)', note:'By owner per BM'},
+  {sec:'tcc', name:'Waterfountain Allowance',             note:''},
+  {sec:'tcc', name:'Shades',                              note:'By others'},
+  {sec:'tcc', name:'Intumescent Paint on Floor (TBD)',    note:'3030 SF placeholder'},
+  {sec:'tcc', name:'Electrical M/L (panel rebuild)',      note:'~$30k est. + fee'},
+  {sec:'tcc', name:'Decorative Fixture Allowance',        note:'By owner per BM'},
+  {sec:'tcc', name:'Water Heaters',                       note:'Assume existing to remain'},
+  {sec:'tcc', name:'Grinder Pump',                        note:'Existing to remain'},
+  {sec:'tcc', name:'Water Line',                          note:'Existing to remain'},
+  {sec:'tcc', name:'Gas Line',                            note:'Existing to remain'},
+  {sec:'tcc', name:'Sewer Line',                          note:'Existing to remain'},
+  {sec:'tcc', name:'Water Tap',                           note:'Existing to remain'},
+  {sec:'tcc', name:'Sewer Impact',                        note:'By owner per BM'},
+  {sec:'tcc', name:'Bathroom Accessory Allowance',        note:'By owner per BM'},
+  {sec:'tcc', name:'Plumbing Fixture Allowance',          note:'By owner per BM'},
+  {sec:'tcc', name:'AV / Security Allowance',             note:'See GHT proposals'},
+];
+
+// State
+let drawRows = [];
+let exclEsts = {};
+
+// ═══════════════════════════════════════════
+// FORMAT HELPERS
+// ═══════════════════════════════════════════
+function f(n){const a=Math.abs(n),s=a.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});return(n<0?'\u2212$':'$')+s;}
+function fd(d){if(Math.abs(d)<0.005)return'\u2014';const s=Math.abs(d).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});return(d>0?'+$':'\u2212$')+s;}
+function fpsf(n){return'$'+n.toFixed(2);}
+
+// ═══════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='proforma')updateProForma();
+}
+
+// ═══════════════════════════════════════════
+// BUDGET RECALC
+// ═══════════════════════════════════════════
+function allInputs(){return document.querySelectorAll('.ri')}
+
+function rowKey(inp){
+  const sec=inp.closest('.contract');
+  if(!sec)return null;
+  const rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
+  const idx=rows.indexOf(inp.closest('tr'));
+  return sec.id+'::'+idx;
+}
+
+function parseDelta(v){
+  const s=v.trim();
+  if(s===''||isNaN(parseFloat(s)))return 0;
+  return parseFloat(s);
+}
+
+function getContractRevised(secSel){
+  let tot=0;
+  document.querySelectorAll(secSel+' tbody tr[data-base]').forEach(row=>{
+    if(row.classList.contains('excluded-row'))return;
+    const base=parseFloat(row.dataset.base);
+    const inp=row.querySelector('.ri');
+    const delta=inp?parseDelta(inp.value):0;
+    tot+=base+delta;
+  });
+  return tot;
+}
+
+function recalc(){
+  document.querySelectorAll('tbody tr[data-base]').forEach(row=>{
+    const base=parseFloat(row.dataset.base);
+    const inp=row.querySelector('.ri');
+    const cell=row.querySelector('.rv');
+    if(!inp||!cell)return;
+    const delta=parseDelta(inp.value);
+    const revised=base+delta;
+    const changed=Math.abs(delta)>0.005;
+    const isExcl=cell.dataset.excl==='1';
+    if(isExcl&&!changed)return;
+    const display=revised<0?('\u2212$'+Math.abs(revised).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})):('$'+revised.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}));
+    cell.textContent=display;
+    cell.classList.toggle('ch',changed);
+  });
+
+  let grandRev=0,anyChanged=false;
+  SECS.forEach(s=>{
+    const tot=getContractRevised(s.sel);
+    grandRev+=tot;
+    const delta=tot-BASE[s.key];
+    if(Math.abs(delta)>0.005)anyChanged=true;
+    const tEl=document.getElementById(s.tid);
+    if(tEl){tEl.textContent=f(tot);tEl.classList.toggle('ch',Math.abs(delta)>0.005);}
+    const gtEl=document.getElementById(s.gtid);
+    if(gtEl){gtEl.textContent=f(tot);gtEl.style.color=Math.abs(delta)>0.005?'var(--red)':'';}
+    const gdEl=document.getElementById(s.gdid);
+    if(gdEl){gdEl.textContent=fd(delta);gdEl.className='m'+(delta>0.005?' dp':delta<-0.005?' dn':'');}
+  });
+
+  const gd=grandRev-GRAND_BASE;
+  document.getElementById('gt-grand').textContent=f(grandRev);
+  document.getElementById('gt-grand').classList.toggle('live',anyChanged);
+  const gdG=document.getElementById('gd-grand');
+  gdG.textContent=fd(gd);
+  gdG.style.color=gd>0.005?'var(--red)':gd<-0.005?'var(--green)':'var(--ink-3)';
+  gdG.style.fontSize='18px';
+
+  const sr=document.getElementById('sum-rev');
+  sr.textContent=anyChanged?f(grandRev):'\u2014';
+  sr.classList.toggle('live',anyChanged);
+  const sd=document.getElementById('sum-delta');
+  sd.textContent=anyChanged&&Math.abs(gd)>0.005?fd(gd):'\u2014';
+  sd.className='bc-val'+(gd>0.005?' neg':gd<-0.005?' pos':'');
+
+  if(document.getElementById('tab-proforma').classList.contains('active'))updateProForma();
+}
+
+// ═══════════════════════════════════════════
+// PRO FORMA
+// ═══════════════════════════════════════════
+function updateProForma(){
+  const revs={
+    tcc:getContractRevised('#sec-tcc'),
+    pw: getContractRevised('#sec-pw'),
+    av: getContractRevised('#sec-av'),
+    er: getContractRevised('#sec-er'),
+  };
+  const grandRev=revs.tcc+revs.pw+revs.av+revs.er;
+  const anyChanged=Math.abs(grandRev-GRAND_BASE)>0.005;
+  const el=id=>document.getElementById(id);
+
+  // KPI band
+  el('pf-total').textContent=f(grandRev);
+  el('pf-total-sub').textContent=anyChanged?'revised':'base \u00b7 no revisions';
+  el('pf-psf').textContent='$'+(grandRev/SF).toFixed(0);
+
+  // $/SF table
+  const KEYS=['tcc','pw','av','er'];
+  KEYS.forEach(k=>{
+    const rv=revs[k];
+    const pct=(rv/grandRev*100).toFixed(1);
+    el('sf-'+k+'-rev').textContent=f(rv);
+    el('sf-'+k+'-psf').textContent=fpsf(rv/SF);
+    const bar=el('sf-'+k+'-bar');
+    if(bar)bar.style.width=pct+'%';
+  });
+  el('sf-grand-rev').textContent=f(grandRev);
+  el('sf-grand-psf').textContent=fpsf(grandRev/SF);
+
+  // Contingency
+  const contUsed=drawRows.reduce((s,r)=>s+(parseFloat(r.contingency)||0),0);
+  const contRem=CONTINGENCY_BASE-contUsed;
+  const contPct=Math.min(contUsed/CONTINGENCY_BASE*100,100);
+  const contCls=contPct>80?' alert':contPct>50?' warn':'';
+  el('pf-cont-rem').textContent=f(Math.max(contRem,0));
+  el('pf-cont-rem').className='kpi-val ok'+contCls.replace(' ok','');
+  if(contPct>80)el('pf-cont-rem').className='kpi-val alert';
+  else if(contPct>50)el('pf-cont-rem').className='kpi-val warn';
+  else el('pf-cont-rem').className='kpi-val ok';
+  el('pf-cont-sub').textContent='of $'+CONTINGENCY_BASE.toLocaleString()+' \u00b7 '+contPct.toFixed(0)+'% burned';
+  el('pf-cont-budget').textContent=f(CONTINGENCY_BASE);
+  el('pf-cont-used').textContent=f(contUsed);
+  el('pf-cont-used').className='cont-card-val'+(contPct>80?' alert':contPct>50?' warn':' ok');
+  el('pf-cont-used-sub').textContent=contPct.toFixed(0)+'% of contingency \u00b7 '+f(Math.max(contRem,0))+' remaining';
+  const bar=el('pf-cont-bar');
+  bar.style.width=contPct+'%';
+  bar.className='cont-fill'+(contPct>80?' alert':contPct>50?' warn':'');
+
+  // Draws totals
+  const totalPaid=drawRows.reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
+  el('pf-paid').textContent=f(totalPaid);
+  el('pf-paid-sub').textContent=(totalPaid/grandRev*100).toFixed(1)+'% of budget';
+  el('pf-remaining').textContent=f(grandRev-totalPaid);
+
+  // Excluded items
+  updateExclTable(grandRev);
+}
+
+// ═══════════════════════════════════════════
+// EXCLUDED ITEMS
+// ═══════════════════════════════════════════
+const CONTRACT_LABEL={tcc:'TCC',pw:'GHT Pre-Wire',av:'GHT A/V',er:'Emory Ratliff'};
+
+function buildExclTable(){
+  const tbody=document.getElementById('excl-tbody');
+  if(!tbody)return;
+  tbody.innerHTML='';
+  EXCL_ITEMS.forEach((item,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${item.name}</td><td class="ct">${CONTRACT_LABEL[item.sec]||item.sec}</td><td class="nt">${item.note}</td><td style="padding:3px 4px"><input class="ei" type="number" placeholder="enter estimate" step="any" data-excl-idx="${i}" oninput="onExclInput(this)"></td><td class="m" id="excl-run-${i}">\u2014</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function onExclInput(inp){
+  const i=parseInt(inp.dataset.exclIdx);
+  const v=parseFloat(inp.value);
+  if(!isNaN(v)&&v!==0)exclEsts[i]=v; else delete exclEsts[i];
+  const grandRev=getContractRevised('#sec-tcc')+getContractRevised('#sec-pw')+getContractRevised('#sec-av')+getContractRevised('#sec-er');
+  updateExclTable(grandRev);
+}
+
+function updateExclTable(grandRev){
+  let estTotal=0;
+  let running=grandRev;
+  const keys=Object.keys(exclEsts).map(Number).sort((a,b)=>a-b);
+  // Pre-build cumulative
+  const cumul={};
+  let acc=grandRev;
+  EXCL_ITEMS.forEach((_,i)=>{
+    acc+=(exclEsts[i]||0);
+    cumul[i]=acc;
+  });
+  EXCL_ITEMS.forEach((item,i)=>{
+    const est=exclEsts[i]||0;
+    estTotal+=est;
+    const cell=document.getElementById('excl-run-'+i);
+    if(cell){cell.textContent=est>0?f(cumul[i]):'\u2014';}
+  });
+  const estEl=document.getElementById('excl-est-total');
+  const runEl=document.getElementById('excl-running-total');
+  const projEl=document.getElementById('excl-proj-total');
+  if(estEl)estEl.textContent=estTotal>0?f(estTotal):'\u2014';
+  if(runEl)runEl.textContent=estTotal>0?f(grandRev+estTotal):'\u2014';
+  if(projEl)projEl.textContent=f(grandRev+estTotal);
+}
+
+// ═══════════════════════════════════════════
+// DRAWS LOG
+// ═══════════════════════════════════════════
+function addDrawRow(data){
+  const id=Date.now()+(Math.random()*1000|0);
+  const row=data?{...data}:{id,date:'',payee:'',desc:'',amount:'',contingency:'',note:''};
+  if(!data)row.id=id;
+  drawRows.push(row);
+  renderDraws();
+}
+
+function removeDrawRow(id){
+  drawRows=drawRows.filter(r=>r.id!==id);
+  renderDraws();
+  updateProForma();
+}
+
+function renderDraws(){
+  const tbody=document.getElementById('draws-tbody');
+  if(!tbody)return;
+  tbody.innerHTML='';
+  drawRows.forEach(row=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td style="padding:3px 4px"><input class="di-input date-in" type="text" placeholder="MM/DD/YY" value="${row.date||''}" oninput="updateDraw(${row.id},'date',this.value)"></td>
+      <td style="padding:3px 4px"><input class="di-input" style="width:130px" type="text" placeholder="Payee" value="${row.payee||''}" oninput="updateDraw(${row.id},'payee',this.value)"></td>
+      <td style="padding:3px 4px"><input class="di-input" style="width:190px" type="text" placeholder="Description / Draw #" value="${row.desc||''}" oninput="updateDraw(${row.id},'desc',this.value)"></td>
+      <td style="padding:3px 4px;text-align:right"><input class="di-input amt-in" type="number" placeholder="0.00" step="any" value="${row.amount||''}" oninput="updateDraw(${row.id},'amount',this.value)"></td>
+      <td style="padding:3px 4px;text-align:right"><input class="di-input amt-in" type="number" placeholder="0.00" step="any" value="${row.contingency||''}" oninput="updateDraw(${row.id},'contingency',this.value)"></td>
+      <td style="padding:3px 4px"><input class="di-input" style="width:150px" type="text" placeholder="Notes" value="${row.note||''}" oninput="updateDraw(${row.id},'note',this.value)"></td>
+      <td style="text-align:center;padding:3px 4px"><button class="draws-del-btn" onclick="removeDrawRow(${row.id})" title="Remove">&times;</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  const totalAmt=drawRows.reduce((s,r)=>s+(parseFloat(r.amount)||0),0);
+  const totalCont=drawRows.reduce((s,r)=>s+(parseFloat(r.contingency)||0),0);
+  document.getElementById('draws-total-amt').textContent=f(totalAmt);
+  document.getElementById('draws-total-cont').textContent=totalCont>0?f(totalCont):'$0.00';
+}
+
+function updateDraw(id,field,value){
+  const row=drawRows.find(r=>r.id===id);
+  if(row){row[field]=value;updateProForma();}
+}
+
+// ═══════════════════════════════════════════
+// PDF UPLOAD + CLAUDE EXTRACTION
+// ═══════════════════════════════════════════
+function pdfDragOver(e){e.preventDefault();document.getElementById('pdf-drop-zone').classList.add('dragover');}
+function pdfDragLeave(){document.getElementById('pdf-drop-zone').classList.remove('dragover');}
+function pdfDrop(e){e.preventDefault();pdfDragLeave();const file=e.dataTransfer.files[0];if(file&&file.type==='application/pdf')handlePdfFile(file);}
+
+async function handlePdfFile(file){
+  if(!file)return;
+  const statusEl=document.getElementById('pdf-status');
+  const previewWrap=document.getElementById('pdf-preview-wrap');
+  previewWrap.style.display='none';
+  previewWrap.innerHTML='';
+  statusEl.className='pdf-status working';
+  statusEl.textContent='Reading '+file.name+' ('+Math.round(file.size/1024)+' KB)\u2026';
+
+  let b64;
+  try{
+    b64=await new Promise((res,rej)=>{
+      const r=new FileReader();
+      r.onload=e=>res(e.target.result.split(',')[1]);
+      r.onerror=()=>rej(new Error('Read failed'));
+      r.readAsDataURL(file);
+    });
+  }catch(err){statusEl.className='pdf-status err';statusEl.textContent='Could not read file: '+err.message;return;}
+
+  statusEl.textContent='Sending to Claude for extraction\u2026';
+
+  // Serialize budget rows for Claude to match against
+  const ctx=[];
+  SECS.forEach(s=>{
+    document.querySelectorAll(s.sel+' tbody tr[data-base]').forEach((row,i)=>{
+      const nm=row.querySelector('td:first-child')?.textContent?.trim();
+      const base=parseFloat(row.dataset.base);
+      if(nm)ctx.push(s.sel.replace('#','')+'::'+i+'|'+nm+'|'+base.toFixed(2));
+    });
+  });
+
+  const systemPrompt=`You are a construction cost analyst for Carlisle Moore Architects reviewing a revised contractor PDF estimate for a 2,690 SF office renovation at 2401½ Canterbury Road, Mountain Brook, Alabama.
+
+The current budget line items are:
+${ctx.join('\n')}
+
+Extract every line item with a dollar amount from the PDF. Match each to the budget items above using semantic/fuzzy matching. Return ONLY valid JSON, no prose, no markdown.
+
+{
+  "contractor": string,
+  "proposalDate": string|null,
+  "proposalNumber": string|null,
+  "totalAmount": number|null,
+  "matches": [{
+    "pdfItem": string,
+    "pdfAmount": number,
+    "matchedKey": "sec-id::row-index or null",
+    "matchedName": string|null,
+    "currentBase": number|null,
+    "proposedRevision": number,
+    "confidence": "high|medium|low",
+    "note": string
+  }],
+  "unmatchedPdfItems": [{"item": string, "amount": number, "note": string}]
+}`;
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:4000,
+        system:systemPrompt,
+        messages:[{role:'user',content:[
+          {type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}},
+          {type:'text',text:'Extract all line items and amounts. Match to budget. Return JSON only.'}
+        ]}]
+      })
+    });
+    if(!resp.ok)throw new Error('API '+resp.status+': '+(await resp.text()).slice(0,200));
+    const data=await resp.json();
+    const raw=data.content.filter(c=>c.type==='text').map(c=>c.text).join('');
+    const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    statusEl.className='pdf-status done';
+    statusEl.textContent='Extracted '+parsed.matches.length+' matched items'+(parsed.contractor?' \u2014 '+parsed.contractor:'');
+    renderPdfPreview(parsed,previewWrap);
+  }catch(err){
+    statusEl.className='pdf-status err';
+    statusEl.textContent='Extraction failed: '+err.message;
+  }
+}
+
+const SEC_LABELS={'sec-tcc':'TCC \u2014 Construction','sec-pw':'GHT Pre-Wire','sec-av':'GHT Audio / Video','sec-er':'Emory Ratliff Interiors'};
+
+function renderPdfPreview(data,wrap){
+  wrap.style.display='block';
+  const matched=data.matches||[];
+  const unmatched=data.unmatchedPdfItems||[];
+
+  const bySec={};
+  matched.forEach(m=>{
+    const sec=m.matchedKey?m.matchedKey.split('::')[0]:'_nomatch';
+    if(!bySec[sec])bySec[sec]=[];
+    bySec[sec].push(m);
+  });
+
+  let rows='';
+  Object.entries(bySec).forEach(([sec,items])=>{
+    rows+=`<tr><td colspan="7" class="pdf-section-hd">${SEC_LABELS[sec]||sec}</td></tr>`;
+    items.forEach((m,mi)=>{
+      const delta=m.proposedRevision||0;
+      const dc=delta>0.005?'chg-pos':delta<-0.005?'chg-neg':'';
+      const ds=Math.abs(delta)<0.005?'\u2014':(delta>0?'+':'')+f(delta);
+      const cc=m.confidence==='high'?'var(--green)':m.confidence==='medium'?'var(--amber)':'var(--red)';
+      const uid='pchk-'+sec+'-'+mi;
+      rows+=`<tr data-matchkey="${m.matchedKey||''}" data-delta="${delta}">
+        <td>${m.pdfItem}</td>
+        <td class="m">${f(m.pdfAmount)}</td>
+        <td class="m">${m.currentBase!=null?f(m.currentBase):'\u2014'}</td>
+        <td class="m ${dc}">${ds}</td>
+        <td style="font-family:inherit;font-size:11.5px;text-align:left;color:var(--ink-2)">${m.matchedName||'\u2014'}</td>
+        <td style="font-family:Interstate,sans-serif;font-size:10px;color:${cc}">${m.confidence||'\u2014'}</td>
+        <td style="text-align:center"><input type="checkbox" class="pdf-check" ${m.confidence==='high'?'checked':''} ${!m.matchedKey?'disabled':''} title="${m.note||''}"></td>
+      </tr>`;
+    });
+  });
+
+  if(unmatched.length){
+    rows+=`<tr><td colspan="7" class="pdf-section-hd" style="color:var(--amber)">PDF Items \u2014 No Budget Match</td></tr>`;
+    unmatched.forEach(u=>{
+      rows+=`<tr class="pdf-unmatched-row"><td>${u.item}</td><td class="m">${f(u.amount)}</td><td colspan="4" style="text-align:left;font-style:italic;font-size:11px;color:var(--amber)">${u.note||'No match found'}</td><td></td></tr>`;
+    });
+  }
+
+  wrap.innerHTML=`<div class="pdf-preview">
+    <div class="pdf-preview-hd">
+      <span class="pdf-preview-title">${data.contractor||'Extracted Items'}${data.proposalDate?' \u00b7 '+data.proposalDate:''}${data.proposalNumber?' \u00b7 Proposal '+data.proposalNumber:''}</span>
+      <span class="pdf-preview-count">${matched.length} matched \u00b7 ${unmatched.length} unmatched</span>
+      <div style="display:flex;gap:8px">
+        <button class="pdf-discard-btn" onclick="discardPdf()">Discard</button>
+        <button class="pdf-apply-btn" onclick="applyPdfRevisions(this)">Apply Checked</button>
+      </div>
+    </div>
+    <table class="pdf-match-table" id="pdf-match-results">
+      <thead><tr>
+        <th style="text-align:left;width:240px">PDF Item</th>
+        <th style="width:100px">PDF Amount</th>
+        <th style="width:100px">Current Base</th>
+        <th style="width:100px">Delta</th>
+        <th style="text-align:left;width:190px">Matched To</th>
+        <th style="width:72px">Conf.</th>
+        <th style="width:32px">\u2713</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+  wrap._pdfData=data;
+}
+
+function applyPdfRevisions(btn){
+  const wrap=document.getElementById('pdf-preview-wrap');
+  const table=document.getElementById('pdf-match-results');
+  if(!table)return;
+  let applied=0;
+  table.querySelectorAll('tbody tr[data-matchkey]').forEach(row=>{
+    const key=row.dataset.matchkey;
+    if(!key)return;
+    const check=row.querySelector('.pdf-check');
+    if(!check||!check.checked)return;
+    const delta=parseFloat(row.dataset.delta)||0;
+    if(Math.abs(delta)<0.005)return;
+    allInputs().forEach(inp=>{if(rowKey(inp)===key){inp.value=delta;applied++;}});
+  });
+  recalc();
+  document.getElementById('pdf-status').className='pdf-status done';
+  document.getElementById('pdf-status').textContent='Applied '+applied+' revision'+(applied!==1?'s':'')+' \u2014 review on Budget tab then export revisions.json';
+  document.querySelector('.tab-btn').click();
+}
+
+function discardPdf(){
+  document.getElementById('pdf-preview-wrap').style.display='none';
+  document.getElementById('pdf-preview-wrap').innerHTML='';
+  document.getElementById('pdf-status').textContent='';
+  document.getElementById('pdf-status').className='pdf-status';
+}
+
+// ═══════════════════════════════════════════
+// JSON EXPORT / IMPORT
+// ═══════════════════════════════════════════
+function buildData(){
+  const out={_meta:{exported:new Date().toISOString()},revisions:{},excluded:[],draws:drawRows,exclEsts};
+  allInputs().forEach(inp=>{
+    const k=rowKey(inp);const v=inp.value.trim();
+    if(k&&v!==''&&!isNaN(parseFloat(v)))out.revisions[k]=parseFloat(v);
+    if(k&&inp.closest('tr').classList.contains('excluded-row'))out.excluded.push(k);
+  });
+  return out;
+}
+
+// ═══════════════════════════════════════════
+// GITHUB SAVE / LOAD
+// ═══════════════════════════════════════════
+const GH_TOKEN = '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';
+const GH_REPO  = 'tscarlisle-ghub/CMA';
+const GH_PATH  = 'revisions.json';
+const GH_API   = `https://api.github.com/repos/${GH_REPO}/contents/${GH_PATH}`;
+
+async function ghHeaders(){
+  return {
+    'Authorization': 'token '+GH_TOKEN,
+    'Accept': 'application/vnd.github+json',
+    'Content-Type': 'application/json'
+  };
+}
+
+async function saveToGitHub(){
+  setStatus('Saving to GitHub\u2026');
+  const data = buildData();
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+  const headers = await ghHeaders();
+
+  // Fetch current SHA so we can update (not just create)
+  let sha;
+  try{
+    const r = await fetch(GH_API, {headers});
+    if(r.ok){ const j = await r.json(); sha = j.sha; }
+  }catch(_){}
+
+  const body = {message:'Update revisions.json', content, ...(sha?{sha}:{})};
+  try{
+    const r = await fetch(GH_API, {method:'PUT', headers, body:JSON.stringify(body)});
+    if(r.ok){
+      const n = Object.keys(data.revisions).length;
+      setStatus('Saved to GitHub \u2014 '+n+' revision'+(n!==1?'s':'')+', '+drawRows.length+' draw'+(drawRows.length!==1?'s':''), 7000);
+    } else {
+      const err = await r.json();
+      setStatus('GitHub error: '+(err.message||r.status));
+    }
+  }catch(err){
+    setStatus('Save failed: '+err.message);
+  }
+}
+
+async function loadFromGitHub(){
+  setStatus('Loading from GitHub\u2026');
+  try{
+    const headers = await ghHeaders();
+    const r = await fetch(GH_API+'?t='+Date.now(), {headers});
+    if(!r.ok){ setStatus('No revisions.json found on GitHub yet.', 5000); return; }
+    const j = await r.json();
+    const text = decodeURIComponent(escape(atob(j.content.replace(/\n/g,''))));
+    const data = JSON.parse(text);
+    applyLoadedData(data);
+    const n = Object.keys(data.revisions||{}).length;
+    setStatus('Loaded from GitHub \u2014 '+n+' revision'+(n!==1?'s':'')+', '+(data.draws||[]).length+' draw'+((data.draws||[]).length!==1?'s':''), 7000);
+  }catch(err){
+    setStatus('Load failed: '+err.message);
+  }
+}
+
+function applyLoadedData(data){
+  const revs=data.revisions||data;
+  const excl=data.excluded||[];
+  let n=0;
+  allInputs().forEach(inp=>{
+    const k=rowKey(inp);
+    if(k&&revs[k]!==undefined){inp.value=revs[k];n++;}
+    if(k&&excl.includes(k)){
+      const row=inp.closest('tr');row.classList.add('excluded-row');
+      const btn=row.querySelector('.excl-btn');
+      if(btn){btn.textContent='incl.';btn.title='Include in total';}
+    }
+  });
+  if(data.draws&&Array.isArray(data.draws)){drawRows=data.draws;renderDraws();}
+  if(data.exclEsts){
+    exclEsts=data.exclEsts;
+    document.querySelectorAll('.ei').forEach(inp=>{
+      const i=parseInt(inp.dataset.exclIdx);
+      if(exclEsts[i]!==undefined)inp.value=exclEsts[i];
+    });
+  }
+  recalc();
+}
+
+async function autoLoad(){
+  // Always try GitHub first
+  try{
+    const headers = await ghHeaders();
+    const r = await fetch(GH_API+'?t='+Date.now(), {headers});
+    if(!r.ok) return;
+    const j = await r.json();
+    const text = decodeURIComponent(escape(atob(j.content.replace(/\n/g,''))));
+    const data = JSON.parse(text);
+    applyLoadedData(data);
+    const n = Object.keys(data.revisions||{}).length;
+    if(n>0||( data.draws&&data.draws.length>0))
+      setStatus('Auto-loaded from GitHub \u2014 '+n+' revision'+(n!==1?'s':''), 6000);
+  }catch(_){}
+}
+
+function clearData(){
+  if(!confirm('Clear all revisions and reset to base values?'))return;
+  allInputs().forEach(inp=>{inp.value='';});
+  document.querySelectorAll('tr.excluded-row').forEach(row=>{
+    row.classList.remove('excluded-row');
+    const btn=row.querySelector('.excl-btn');
+    if(btn){btn.textContent='excl.';btn.title='Exclude from total';}
+  });
+  document.querySelectorAll('.rv[data-excl="1"]').forEach(cell=>{
+    if(cell.classList.contains('ch')){cell.textContent=cell.dataset.origText||'Excl.';cell.classList.remove('ch');}
+  });
+  drawRows=[];exclEsts={};
+  renderDraws();buildExclTable();
+  recalc();
+  setStatus('Cleared \u2014 save to GitHub to commit the reset');
+}
+
+function toggleExclude(btn){
+  const row=btn.closest('tr');
+  const excluded=row.classList.toggle('excluded-row');
+  btn.textContent=excluded?'incl.':'excl.';
+  btn.title=excluded?'Include in total':'Exclude from total';
+  recalc();
+}
+
+function setStatus(msg,ms=5000){
+  const st=document.getElementById('save-status');if(!st)return;
+  st.textContent=msg;setTimeout(()=>{if(st)st.textContent='';},ms);
+}
+
+// Init
+allInputs().forEach(inp=>inp.addEventListener('input',recalc));
+document.querySelectorAll('.rv[data-excl="1"]').forEach(cell=>{cell.dataset.origText=cell.textContent;});
+buildExclTable();
+renderDraws();
+autoLoad();
+</script>
+</body>
+</html>
