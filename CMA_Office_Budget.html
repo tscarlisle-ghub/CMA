@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CMA Office — Budget</title>
+<link rel="stylesheet" href="https://use.typekit.net/wup0iix.css">
 <style>
 @font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Book.woff2')format('woff2');font-weight:400;font-style:normal}
 @font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Book%20Italic.woff2')format('woff2');font-weight:400;font-style:italic}
@@ -41,7 +42,7 @@ body{font-family:'Eames Century Modern',Georgia,serif;font-weight:400;background
 /* MASTHEAD */
 .mast{border-top:1.5px solid var(--ink);border-bottom:.5px solid var(--rule-md);padding:14px 52px 12px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:0}
 .mast-title{font-family:'Knockout',sans-serif;font-weight:600;font-size:32px;letter-spacing:.05em;text-transform:uppercase;line-height:1}
-.mast-sub{font-family:'Interstate',sans-serif;font-weight:100;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+.mast-sub{font-family:'warnock-pro','Eames Century Modern',Georgia,serif;font-weight:400;font-style:italic;font-size:13.5px;letter-spacing:.02em;text-transform:none;color:var(--ink-3);margin-top:6px}
 .mast-meta{text-align:right;font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3);line-height:2;letter-spacing:.04em}
 
 /* SAVE STRIP */
@@ -70,40 +71,40 @@ body{font-family:'Eames Century Modern',Georgia,serif;font-weight:400;background
 .ch-total{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:14px;color:var(--ink-3);display:inline;margin-left:14px;letter-spacing:.02em;vertical-align:middle}
 
 /* TABLE */
-table{width:100%;border-collapse:collapse;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:14px}
 thead tr{border-bottom:.5px solid var(--rule-hv)}
 thead th{font-family:'Interstate',sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:7px 5px 6px;text-align:right;white-space:nowrap}
 thead th:first-child{text-align:left;padding-left:0}
 thead th.thn{text-align:left}
 thead th.thr{color:var(--red)}
 
-tr.grp td{font-family:'Knockout',sans-serif;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:14px 0 5px;border-bottom:.5px solid var(--rule-md)}
+tr.grp td{font-family:'Interstate',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:14px 0 5px;border-bottom:.5px solid var(--rule-md)}
 tbody tr:not(.grp):not(.sub):not(.tot){border-bottom:.5px solid var(--rule)}
 tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--paper-2)}
 
 td{padding:7px 5px;vertical-align:middle;text-align:right;color:var(--ink)}
 td:first-child{text-align:left;padding-left:0}
-td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:13px;white-space:nowrap}
-td.nt{font-style:italic;font-size:11.5px;color:var(--ink-3);text-align:left;max-width:200px}
-td.ex{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;letter-spacing:.03em;color:var(--ink-4);text-align:right}
+td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:14px;white-space:nowrap}
+td.nt{font-style:italic;font-size:12.5px;color:var(--ink-3);text-align:left;max-width:200px}
+td.ex{font-family:'Interstate',sans-serif;font-weight:300;font-size:11px;letter-spacing:.03em;color:var(--ink-4);text-align:right}
 td.ng{color:var(--red)}
-td.rv{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:13px;white-space:nowrap;color:var(--ink-3)}
+td.rv{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:14px;white-space:nowrap;color:var(--ink-3)}
 td.rv.ch{color:var(--red);font-weight:700}
 
 td.rc{padding:4px 4px}
-.ri{width:96px;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:13px;color:var(--red);text-align:right;padding:3px 3px 2px;outline:none;transition:border-color .15s,background .12s;display:block;-moz-appearance:textfield}
+.ri{width:96px;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:14px;color:var(--red);text-align:right;padding:3px 3px 2px;outline:none;transition:border-color .15s,background .12s;display:block;-moz-appearance:textfield}
 .ri::-webkit-outer-spin-button,.ri::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .ri:focus{background:var(--red-lt);border-bottom-color:var(--red)}
-.ri::placeholder{color:var(--ink-4);font-size:10px;letter-spacing:.05em}
+.ri::placeholder{color:var(--ink-4);font-size:11px;letter-spacing:.05em}
 /* Indent data rows slightly under their section title */
 tbody tr:not(.grp):not(.sub):not(.tot) td:first-child{padding-left:10px}
 
-tr.sub td{border-top:.5px solid var(--rule-md);padding-top:8px;font-family:'Interstate',sans-serif;font-weight:300;font-size:12px;letter-spacing:.03em;color:var(--ink-2);background:var(--paper-2)}
-tr.sub td.m{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:13px}
+tr.sub td{border-top:.5px solid var(--rule-md);padding-top:8px;font-family:'Interstate',sans-serif;font-weight:300;font-size:13px;letter-spacing:.03em;color:var(--ink-2);background:var(--paper-2)}
+tr.sub td.m{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:14px}
 tr.sub td:first-child{font-style:italic;padding-left:0;text-align:left}
-tr.tot td{border-top:1px solid var(--rule-hv);border-bottom:1px solid var(--rule-hv);padding:9px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:12.5px;letter-spacing:.03em;background:var(--paper-3)}
+tr.tot td{border-top:1px solid var(--rule-hv);border-bottom:1px solid var(--rule-hv);padding:9px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:14px;letter-spacing:.03em;background:var(--paper-3)}
 tr.tot td:first-child{padding-left:0;font-style:italic}
-tr.tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:14px}
+tr.tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:15.5px}
 tr.tot td.rv.ch{font-weight:700}
 
 /* GRAND */
@@ -978,12 +979,14 @@ function addDrawRow(data){
   if(!data)row.id=id;
   drawRows.push(row);
   renderDraws();
+  scheduleSave();
 }
 
 function removeDrawRow(id){
   drawRows=drawRows.filter(r=>r.id!==id);
   renderDraws();
   updateProForma();
+  scheduleSave();
 }
 
 function renderDraws(){
@@ -1011,7 +1014,7 @@ function renderDraws(){
 
 function updateDraw(id,field,value){
   const row=drawRows.find(r=>r.id===id);
-  if(row){row[field]=value;updateProForma();}
+  if(row){row[field]=value;updateProForma();scheduleSave();}
 }
 
 // ═══════════════════════════════════════════
@@ -1227,8 +1230,8 @@ async function ghHeaders(){
   };
 }
 
-async function saveToGitHub(){
-  setStatus('Saving to GitHub\u2026');
+async function saveToGitHub(quiet=false){
+  if(!quiet) setStatus('Saving to GitHub\u2026');
   const data = buildData();
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
   const headers = await ghHeaders();
@@ -1245,7 +1248,8 @@ async function saveToGitHub(){
     const r = await fetch(GH_API, {method:'PUT', headers, body:JSON.stringify(body)});
     if(r.ok){
       const n = Object.keys(data.revisions).length;
-      setStatus('Saved to GitHub \u2014 '+n+' revision'+(n!==1?'s':'')+', '+drawRows.length+' draw'+(drawRows.length!==1?'s':''), 7000);
+      if(quiet) setStatus('Auto-saved \u2713', 3000);
+      else setStatus('Saved to GitHub \u2014 '+n+' revision'+(n!==1?'s':'')+', '+drawRows.length+' draw'+(drawRows.length!==1?'s':''), 7000);
     } else {
       const err = await r.json();
       setStatus('GitHub error: '+(err.message||r.status));
@@ -1314,6 +1318,7 @@ async function autoLoad(){
 
 function clearData(){
   if(!confirm('Clear all revisions and reset to base values?'))return;
+  if(_saveTimer){clearTimeout(_saveTimer);_saveTimer=null;}
   allInputs().forEach(inp=>{inp.value='';});
   document.querySelectorAll('tr.excluded-row').forEach(row=>{
     row.classList.remove('excluded-row');
@@ -1326,7 +1331,7 @@ function clearData(){
   drawRows=[];exclEsts={};
   renderDraws();buildExclTable();
   recalc();
-  setStatus('Cleared \u2014 save to GitHub to commit the reset');
+  saveToGitHub();
 }
 
 function toggleExclude(btn){
@@ -1335,6 +1340,7 @@ function toggleExclude(btn){
   btn.textContent=excluded?'incl.':'excl.';
   btn.title=excluded?'Include in total':'Exclude from total';
   recalc();
+  scheduleSave();
 }
 
 function setStatus(msg,ms=5000){
@@ -1342,8 +1348,16 @@ function setStatus(msg,ms=5000){
   st.textContent=msg;setTimeout(()=>{if(st)st.textContent='';},ms);
 }
 
+// ── AUTO-SAVE (debounced, 2s after last change) ──
+let _saveTimer=null;
+function scheduleSave(){
+  if(_saveTimer)clearTimeout(_saveTimer);
+  setStatus('Saving\u2026', 30000);
+  _saveTimer=setTimeout(()=>{ _saveTimer=null; saveToGitHub(true); }, 1500);
+}
+
 // Init
-allInputs().forEach(inp=>inp.addEventListener('input',recalc));
+allInputs().forEach(inp=>inp.addEventListener('input',()=>{recalc();scheduleSave();}));
 document.querySelectorAll('.rv[data-excl="1"]').forEach(cell=>{cell.dataset.origText=cell.textContent;});
 buildExclTable();
 renderDraws();
