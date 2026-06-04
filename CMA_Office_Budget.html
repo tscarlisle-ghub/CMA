@@ -189,8 +189,8 @@ body{
 }
 .ch h2{
   font-family:var(--ff-display);
-  font-weight:400;
-  font-size:1rem;
+  font-weight:700;
+  font-size:1.05rem;
   letter-spacing:var(--tr-engraved);
   text-transform:uppercase;
   color:var(--cma-accent);
@@ -215,7 +215,7 @@ body{
 }
 
 /* ── TABLE ─────────────────────────────────────────────── */
-table{width:100%;border-collapse:collapse;font-size:0.83rem;}
+table{width:100%;border-collapse:collapse;font-size:0.83rem;table-layout:fixed;}
 
 thead tr{border-bottom:0.5px solid var(--engraved-rule);}
 thead th{
@@ -233,11 +233,25 @@ thead th:first-child{text-align:left;padding-left:0;}
 thead th.thn{text-align:left;}
 thead th.thr{color:var(--cma-accent);text-align:right;padding-right:5px;}
 
-/* Alternating row colors — odd rows paper-0, even rows paper-1 */
-tbody tr:not(.grp):not(.sub):not(.tot):nth-child(odd){background:var(--paper-0);}
-tbody tr:not(.grp):not(.sub):not(.tot):nth-child(even){background:var(--paper-1);}
-tbody tr:not(.grp):not(.sub):not(.tot){border-bottom:0.5px solid var(--ink-5);}
-tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--cma-accent-tint);}
+/* Alternating row colors — per-contract, global hover */
+tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub){border-bottom:0.5px solid var(--ink-5);}
+tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):hover{background:#4e6e7a !important;color:#fff;}
+tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):hover td{color:#fff !important;}
+tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):hover .ri{background:#ffffff;border-color:rgba(255,255,255,0.6);color:var(--cma-accent);}
+
+/* TCC — warm ivory */
+#sec-tcc tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):nth-child(odd){background:#fbf8f2;}
+#sec-tcc tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):nth-child(even){background:#f5f0e6;}
+
+/* GHT Pre-Wire + A/V — cool slate tint */
+#sec-pw tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):nth-child(odd){background:#f4f5f0;}
+#sec-pw tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):nth-child(even){background:#eaece4;}
+#sec-av tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):nth-child(odd){background:#f4f5f0;}
+#sec-av tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):nth-child(even){background:#eaece4;}
+
+/* Emory Ratliff — dusty rose tint */
+#sec-er tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):nth-child(odd){background:#f8f2f0;}
+#sec-er tbody tr:not(.grp):not(.sub):not(.tot):not(.grp-sub):nth-child(even){background:#f0e8e4;}
 
 tr.grp td{
   font-family:var(--ff-sans-cond);
@@ -248,12 +262,12 @@ tr.grp td{
   color:var(--ink-1);
   padding:10px 10px;
   border-bottom:0.5px solid var(--cma-accent-rule);
-  background:var(--paper-3) !important;
+  background:var(--grp-bg, var(--paper-3)) !important;
 }
 
 td{padding:6px 6px;vertical-align:middle;text-align:right;color:var(--ink-1);}
 td:first-child{text-align:left;padding-left:18px;}
-td.m{
+td.m{min-width:88px;
   font-family:var(--ff-mono);
   font-weight:400;
   font-size:0.83rem;
@@ -278,35 +292,58 @@ td.ex{
   text-align:right;
 }
 td.ng{color:var(--alert);}
-td.rv{
+td.rv{min-width:88px;
   font-family:var(--ff-mono);
   font-weight:300;
   font-size:0.83rem;
   white-space:nowrap;
   color:var(--ink-3);
   font-variant-numeric:tabular-nums lining-nums;
+  padding-left:14px;
 }
 td.rv.ch{color:var(--cma-accent);font-weight:700;}
 
 /* Revision input cell */
-td.rc{padding:3px 5px;display:flex;align-items:center;gap:5px;}
+td.rc{padding:0 4px;vertical-align:middle;}
+.rc-inner{display:flex;align-items:center;gap:4px;}
+.qi{
+  width:100%;
+  text-align:right;
+  background:transparent;
+  border:none;
+  border-bottom:0.5px solid var(--ink-5);
+  font-family:var(--ff-mono);
+  font-size:0.83rem;
+  color:var(--ink-1);
+  padding:0 2px;
+  outline:none;
+  font-variant-numeric:tabular-nums lining-nums;
+  transition:border-color .12s, background .12s;
+}
+.qi:focus{background:var(--paper-2);border-bottom-color:var(--ink-2);}
+.qi:hover{border-bottom-color:var(--ink-3);}
 .ri{
-  width:90px;
-  background:var(--cma-accent-tint);
-  border:0.5px solid var(--cma-accent-rule);
+  width:84px;
+  flex-shrink:0;
+  background:#ffffff;
+  border:1px solid var(--cma-accent-rule);
   font-family:var(--ff-mono);
   font-weight:700;
-  font-size:0.78rem;
+  font-size:0.83rem;
   color:var(--cma-accent);
   text-align:right;
-  padding:3px 5px;
+  padding:0px 6px;
+  margin:0;
   outline:none;
-  transition:border-color .15s,background .12s,box-shadow .12s;
-  display:block;
+  transition:border-color .15s,box-shadow .12s;
   font-variant-numeric:tabular-nums lining-nums;
+  line-height:inherit;
+  height:1.6em;
+  box-sizing:content-box;
+  vertical-align:middle;
 }
-.ri:focus{background:#fde8d4;border-color:var(--cma-accent);box-shadow:0 0 0 2px rgba(168,92,36,0.12);}
-.ri::placeholder{color:var(--cma-accent-soft);font-size:0.62rem;letter-spacing:0.05em;font-weight:400;}
+.ri:focus{background:#ffffff;border-color:var(--cma-accent);box-shadow:0 0 0 2px rgba(168,92,36,0.18);}
+.ri::placeholder{color:var(--ink-4);font-size:0.56rem;letter-spacing:0.14em;font-weight:400;text-transform:uppercase;}
 
 /* Subtotal row */
 tr.sub td{
@@ -412,27 +449,39 @@ tr.tot td.rv.ch{color:var(--cma-accent);font-weight:700;}
 
 
 
+
+/* Per-contract section title backgrounds */
+#sec-tcc tr.grp td{--grp-bg:#e8dfc8;}
+#sec-pw  tr.grp td{--grp-bg:#d8ddd0;}
+#sec-av  tr.grp td{--grp-bg:#d8ddd0;}
+#sec-er  tr.grp td{--grp-bg:#e4d4cc;}
 /* ── EXCLUDE TOGGLE ────────────────────────────────────── */
 td.xc{padding:3px 5px;text-align:right;}
 .excl-btn{
-  font-family:var(--ff-sans-cond);
+  font-family:var(--ff-sans);
   font-weight:400;
-  font-size:0.56rem;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
+  font-size:0.7rem;
   background:transparent;
-  border:0.5px solid var(--ink-5);
-  padding:3px 8px;
+  border:1px solid var(--ink-4);
+  width:20px;
+  height:20px;
+  padding:0;
   cursor:pointer;
   color:var(--ink-4);
-  white-space:nowrap;
-  transition:all .12s;
+  flex-shrink:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .12s, color .12s, border-color .12s;
+  line-height:1;
+  align-self:center;
+  box-sizing:border-box;
 }
-.excl-btn:hover{border-color:var(--alert);color:var(--alert);}
-tr.excluded-row{opacity:.3;}
-tr.excluded-row td{text-decoration:line-through;text-decoration-color:var(--ink-4);}
-tr.excluded-row .excl-btn{border-color:var(--alert);color:var(--alert);background:var(--alert-tint);}
-tr.excluded-row td.rv{text-decoration:none;}
+.excl-btn:hover{border-color:var(--cma-accent);color:var(--cma-accent);}
+tr.excluded-row td{color:var(--ink-4) !important;text-decoration:line-through;text-decoration-color:var(--ink-5);}
+tr.excluded-row td.m,tr.excluded-row td.rv{color:var(--ink-4) !important;text-decoration:none;}
+tr.excluded-row .excl-btn{background:var(--cma-accent) !important;color:#fff !important;border-color:var(--cma-accent) !important;}
+tr.excluded-row td.nt{text-decoration:none;}
 /* Section subtotal row */
 tr.grp-sub td{
   border-top:0.5px solid var(--cma-accent-rule);
@@ -447,33 +496,53 @@ tr.grp-sub td{
   font-variant-numeric:tabular-nums lining-nums;
 }
 tr.grp-sub td:first-child{text-align:left;padding-left:18px;}
-tr.grp-sub td.gslabel{
-  text-align:right;
-  font-family:var(--ff-sans);
-  font-weight:700;
-  font-size:0.72rem;
-  color:var(--ink-2);
-  letter-spacing:0.04em;
-  padding-right:8px;
+tr.grp-sub td.gsbase,
+tr.grp-sub td.gsrv{
   white-space:nowrap;
+  font-variant-numeric:tabular-nums lining-nums;
+  padding:4px 6px;
 }
 tr.grp-sub td.gsbase{
-  font-family:var(--ff-mono);
-  font-weight:400;
-  font-size:0.78rem;
-  color:var(--ink-3);
-  text-align:right;
-  font-variant-numeric:tabular-nums lining-nums;
+  display:flex;
+  align-items:baseline;
+  justify-content:flex-end;
+  gap:0;
 }
 tr.grp-sub td.gsrv{
+  display:flex;
+  align-items:baseline;
+  justify-content:flex-end;
+  gap:0;
+  padding-left:14px;
+}
+tr.grp-sub td.gsrv.ch .gs-num{color:var(--cma-accent);}
+.gs-lbl{
+  font-family:var(--ff-sans);
+  font-weight:700;
+  font-size:0.67rem;
+  color:var(--ink-3);
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  padding-right:12px;
+}
+.gs-lbl-rv{
+  color:var(--ink-2);
+}
+.gs-num{
   font-family:var(--ff-mono);
   font-weight:700;
   font-size:0.78rem;
   color:var(--ink-2);
-  text-align:right;
   font-variant-numeric:tabular-nums lining-nums;
+  min-width:80px;
+  text-align:right;
+  display:inline-block;
 }
-tr.grp-sub td.gsrv.ch{color:var(--cma-accent);}
+tr.grp-sub td.gsbase .gs-num{
+  font-weight:400;
+  color:var(--ink-3);
+}
 /* ── EXCLUDE TOGGLE ── */
 </style>
 </head>
@@ -486,10 +555,15 @@ tr.grp-sub td.gsrv.ch{color:var(--cma-accent);}
 <div class="mast-meta">Carlisle Moore Architects<br/>Prepared 6.3.2026<br/>TCC · GHT · Emory Ratliff</div>
 </div>
 <div class="save-strip">
-<button class="btn-save" onclick="saveData()">Save</button>
-<label class="load-lbl" title="Load a previously saved revisions.json">Load revisions.json<input accept=".json" onchange="loadFromFile(this)" style="display:none" type="file"/></label>
+<button class="btn-save" onclick="saveToGitHub()">Save</button>
 <span class="save-status" id="save-status"></span>
-<span class="save-hint">Revision column adds or subtracts from the base amount · save commits revisions.json alongside the HTML in git</span>
+<span class="save-hint" id="gh-token-wrap">
+  <span style="color:var(--ink-3);font-size:0.67rem;">GitHub token:</span>
+  <input id="gh-token" type="password" placeholder="ghp_…" autocomplete="off"
+    style="font-family:var(--ff-mono);font-size:0.67rem;border:0.5px solid var(--ink-4);background:var(--paper-1);color:var(--ink-1);padding:2px 6px;width:180px;outline:none;"
+    oninput="localStorage.setItem('cma-gh-token',this.value);updateTokenStatus()"/>
+  <span id="token-status" style="font-size:0.67rem;font-style:italic;color:var(--ink-4);"></span>
+</span>
 </div>
 <div class="band">
 <div class="bc"><div class="bc-label">Contracts</div><div class="bc-val">4</div></div>
@@ -502,102 +576,103 @@ tr.grp-sub td.gsrv.ch{color:var(--cma-accent);}
 <div class="ch"><h2>TCC General Contractors — Construction</h2>
 <div class="ch-right">Signed 5.26.26 · Cost-plus 15% · Schematic 3.7.26<span class="ch-total" id="tcc-h">$580,302.64</span></div></div>
 <table>
+<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:90px"><col style="width:140px"><col style="width:90px"><col></colgroup>
 <thead><tr>
-<th style="width:260px">Item</th><th style="width:40px">Qty</th><th style="width:34px">Unit</th>
+<th>Item</th><th style="width:38px">Qty</th><th style="width:42px">Unit</th>
 <th style="width:90px">Base</th>
-<th class="thr" style="width:90px">Revision</th><th style="width:90px">Revised</th>
-<th class="thn" style="width:180px">Notes</th></tr></thead>
+<th style="width:140px" class="thr">Revision</th><th style="width:90px">Revised</th>
+<th class="thn">Notes</th></tr></thead>
 <tbody>
 <tr class="grp"><td colspan="7">General Conditions</td></tr>
-<tr data-base="215.73"><td>Framed SF</td><td>2690</td><td>SF</td><td class="m">$215.73</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$215.73</td><td class="nt">Heated / cooled</td></tr>
-<tr data-base="215.73"><td>Heated / Cooled SF</td><td>2690</td><td>SF</td><td class="m">$215.73</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$215.73</td><td class="nt"></td></tr>
-<tr data-base="6100.00"><td>Structural Engineering</td><td>1</td><td>LS</td><td class="m">$6,100.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$6,100.00</td><td class="nt">Reimbursable</td></tr>
-<tr data-base="0"><td>Building Permit</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner</td></tr>
-<tr data-base="0"><td>Plan Printing</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner</td></tr>
-<tr data-base="0"><td>Payment / Performance Bond</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner</td></tr>
-<tr data-base="0"><td>Temporary Utilities</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner</td></tr>
-<tr data-base="4748.50"><td>Dumpster / Portalet</td><td>1</td><td>LS</td><td class="m">$4,748.50</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$4,748.50</td><td class="nt">Assume rear — CM to confirm</td></tr>
-<tr data-base="2500.00"><td>Equipment Rental</td><td>1</td><td>LS</td><td class="m">$2,500.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$2,500.00</td><td class="nt"></td></tr>
-<tr data-base="15685.65"><td>Cleanup / Final Clean / Misc Labor / Punch</td><td>1</td><td>LS</td><td class="m">$15,685.65</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$15,685.65</td><td class="nt">By owner</td></tr>
-<tr data-base="0"><td>Mockup</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
-<tr data-base="0"><td>Builder’s Risk Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
-<tr data-base="1000.00"><td>Sample Allowance</td><td>1</td><td>LS</td><td class="m">$1,000.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$1,000.00</td><td class="nt">Paint, floor, misc samples</td></tr>
-<tr data-base="0"><td>Retainage</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="0" data-grpbase="30465.61"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$30,465.61</td><td></td><td class="gsrv">$30,465.61</td><td></td></tr>
+<tr data-base="215.73" data-qty="2690.0" data-unitprice="0.0802"><td>Framed SF</td><td><input class="qi" type="number" value="2690" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>SF</td><td class="m">$215.73</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$215.73</td><td class="nt">Heated / cooled</td></tr>
+<tr data-base="215.73" data-qty="2690.0" data-unitprice="0.0802"><td>Heated / Cooled SF</td><td><input class="qi" type="number" value="2690" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>SF</td><td class="m">$215.73</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$215.73</td><td class="nt"></td></tr>
+<tr data-base="6100.00" data-qty="1.0" data-unitprice="6100.0000"><td>Structural Engineering</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$6,100.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$6,100.00</td><td class="nt">Reimbursable</td></tr>
+<tr data-base="0"><td>Building Permit</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner</td></tr>
+<tr data-base="0"><td>Plan Printing</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner</td></tr>
+<tr data-base="0"><td>Payment / Performance Bond</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner</td></tr>
+<tr data-base="0"><td>Temporary Utilities</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner</td></tr>
+<tr data-base="4748.50" data-qty="1.0" data-unitprice="4748.5000"><td>Dumpster / Portalet</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$4,748.50</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$4,748.50</td><td class="nt">Assume rear — CM to confirm</td></tr>
+<tr data-base="2500.00" data-qty="1.0" data-unitprice="2500.0000"><td>Equipment Rental</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$2,500.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$2,500.00</td><td class="nt"></td></tr>
+<tr data-base="15685.65" data-qty="1.0" data-unitprice="15685.6500"><td>Cleanup / Final Clean / Misc Labor / Punch</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$15,685.65</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$15,685.65</td><td class="nt">By owner</td></tr>
+<tr data-base="0"><td>Mockup</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
+<tr data-base="0"><td>Builder’s Risk Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
+<tr data-base="1000.00" data-qty="1.0" data-unitprice="1000.0000"><td>Sample Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$1,000.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$1,000.00</td><td class="nt">Paint, floor, misc samples</td></tr>
+<tr data-base="0"><td>Retainage</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="0" data-grpbase="30465.61"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$30,465.61</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$30,465.61</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Sitework / Demo</td></tr>
-<tr data-base="11610.00"><td>Demo Work</td><td>1</td><td>LS</td><td class="m">$11,610.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$11,610.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="1" data-grpbase="11610.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$11,610.00</td><td></td><td class="gsrv">$11,610.00</td><td></td></tr>
+<tr data-base="11610.00" data-qty="1.0" data-unitprice="11610.0000"><td>Demo Work</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$11,610.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$11,610.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="1" data-grpbase="11610.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$11,610.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$11,610.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Foundation</td></tr>
-<tr data-base="0"><td>Foundation</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="2" data-grpbase="0.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$0.00</td><td></td><td class="gsrv">$0.00</td><td></td></tr>
+<tr data-base="0"><td>Foundation</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="2" data-grpbase="0.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$0.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$0.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Masonry</td></tr>
-<tr data-base="6500.00"><td>New Fireplace Surround Allowance</td><td>1</td><td>LS</td><td class="m">$6,500.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$6,500.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="3" data-grpbase="6500.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$6,500.00</td><td></td><td class="gsrv">$6,500.00</td><td></td></tr>
+<tr data-base="6500.00" data-qty="1.0" data-unitprice="6500.0000"><td>New Fireplace Surround Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$6,500.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$6,500.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="3" data-grpbase="6500.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$6,500.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$6,500.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Framing</td></tr>
-<tr data-base="14070.00"><td>Framing Materials Allowance</td><td>1</td><td>LS</td><td class="m">$14,070.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$14,070.00</td><td class="nt"></td></tr>
-<tr data-base="12150.00"><td>Framing Labor</td><td>1</td><td>LS</td><td class="m">$12,150.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$12,150.00</td><td class="nt"></td></tr>
-<tr data-base="0"><td>Structural Steel</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr><tr class="grp-sub" data-grp="4" data-grpbase="26220.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$26,220.00</td><td></td><td class="gsrv">$26,220.00</td><td></td></tr>
+<tr data-base="14070.00" data-qty="1.0" data-unitprice="14070.0000"><td>Framing Materials Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$14,070.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$14,070.00</td><td class="nt"></td></tr>
+<tr data-base="12150.00" data-qty="1.0" data-unitprice="12150.0000"><td>Framing Labor</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$12,150.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$12,150.00</td><td class="nt"></td></tr>
+<tr data-base="0"><td>Structural Steel</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr><tr class="grp-sub" data-grp="4" data-grpbase="26220.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$26,220.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$26,220.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Trim Carpentry / Interior</td></tr>
-<tr data-base="13365.00"><td>Running Trim / Treads / Accessories</td><td>1</td><td>LS</td><td class="m">$13,365.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$13,365.00</td><td class="nt">No crown / paneling / wood walls / clgs</td></tr>
-<tr data-base="33718.75"><td>Material Interior Trim</td><td>1</td><td>LS</td><td class="m">$33,718.75</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$33,718.75</td><td class="nt"></td></tr>
-<tr data-base="3500.00"><td>Interior Handrail Allowance</td><td>1</td><td>LS</td><td class="m">$3,500.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$3,500.00</td><td class="nt">New wall rail / iron</td></tr><tr class="grp-sub" data-grp="5" data-grpbase="50583.75"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$50,583.75</td><td></td><td class="gsrv">$50,583.75</td><td></td></tr>
+<tr data-base="13365.00" data-qty="1.0" data-unitprice="13365.0000"><td>Running Trim / Treads / Accessories</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$13,365.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$13,365.00</td><td class="nt">No crown / paneling / wood walls / clgs</td></tr>
+<tr data-base="33718.75" data-qty="1.0" data-unitprice="33718.7500"><td>Material Interior Trim</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$33,718.75</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$33,718.75</td><td class="nt"></td></tr>
+<tr data-base="3500.00" data-qty="1.0" data-unitprice="3500.0000"><td>Interior Handrail Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$3,500.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$3,500.00</td><td class="nt">New wall rail / iron</td></tr><tr class="grp-sub" data-grp="5" data-grpbase="50583.75"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$50,583.75</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$50,583.75</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Exterior</td></tr>
-<tr data-base="6500.00"><td>Exterior Handrail Allowance</td><td>1</td><td>LS</td><td class="m">$6,500.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$6,500.00</td><td class="nt"></td></tr>
-<tr data-base="0"><td>Exterior Decorative Fixture Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
-<tr data-base="0"><td>Generator Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr><tr class="grp-sub" data-grp="6" data-grpbase="6500.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$6,500.00</td><td></td><td class="gsrv">$6,500.00</td><td></td></tr>
+<tr data-base="6500.00" data-qty="1.0" data-unitprice="6500.0000"><td>Exterior Handrail Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$6,500.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$6,500.00</td><td class="nt"></td></tr>
+<tr data-base="0"><td>Exterior Decorative Fixture Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
+<tr data-base="0"><td>Generator Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr><tr class="grp-sub" data-grp="6" data-grpbase="6500.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$6,500.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$6,500.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Roofing / Flashing</td></tr>
-<tr data-base="0"><td>Roofing / Flashing</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="7" data-grpbase="0.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$0.00</td><td></td><td class="gsrv">$0.00</td><td></td></tr>
+<tr data-base="0"><td>Roofing / Flashing</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="7" data-grpbase="0.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$0.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$0.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Doors and Windows</td></tr>
-<tr data-base="9500.00"><td>Exterior Doors and Windows</td><td>1</td><td>LS</td><td class="m">$9,500.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$9,500.00</td><td class="nt"></td></tr>
-<tr data-base="8550.00"><td>Interior Doors and Windows</td><td>1</td><td>LS</td><td class="m">$8,550.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$8,550.00</td><td class="nt">Solid door units</td></tr>
-<tr data-base="34200.00"><td>Glass Interior Doors and Transoms</td><td>1</td><td>LS</td><td class="m">$34,200.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$34,200.00</td><td class="nt">By owner per BM</td></tr>
-<tr data-base="0"><td>Door Hardware Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="8" data-grpbase="52250.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$52,250.00</td><td></td><td class="gsrv">$52,250.00</td><td></td></tr>
+<tr data-base="9500.00" data-qty="1.0" data-unitprice="9500.0000"><td>Exterior Doors and Windows</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$9,500.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$9,500.00</td><td class="nt"></td></tr>
+<tr data-base="8550.00" data-qty="1.0" data-unitprice="8550.0000"><td>Interior Doors and Windows</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$8,550.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$8,550.00</td><td class="nt">Solid door units</td></tr>
+<tr data-base="34200.00" data-qty="1.0" data-unitprice="34200.0000"><td>Glass Interior Doors and Transoms</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$34,200.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$34,200.00</td><td class="nt">By owner per BM</td></tr>
+<tr data-base="0"><td>Door Hardware Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="8" data-grpbase="52250.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$52,250.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$52,250.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Paint / Insulation / Sheetrock</td></tr>
-<tr data-base="18856.00"><td>Painting</td><td>1</td><td>LS</td><td class="m">$18,856.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$18,856.00</td><td class="nt">Sherwin Williams</td></tr>
-<tr data-base="0"><td>Paint Registers / Trims / Plates</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
-<tr data-base="0"><td>Specialty Finishes</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Need guidance on scope</td></tr>
-<tr data-base="7760.00"><td>Insulation</td><td>1</td><td>LS</td><td class="m">$7,760.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$7,760.00</td><td class="nt">Sound batts only</td></tr>
-<tr data-base="22610.00"><td>Sheetrock / Walls and Ceilings</td><td>1</td><td>LS</td><td class="m">$22,610.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$22,610.00</td><td class="nt"></td></tr>
-<tr data-base="0"><td>Plaster</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr><tr class="grp-sub" data-grp="9" data-grpbase="49226.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$49,226.00</td><td></td><td class="gsrv">$49,226.00</td><td></td></tr>
+<tr data-base="18856.00" data-qty="1.0" data-unitprice="18856.0000"><td>Painting</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$18,856.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$18,856.00</td><td class="nt">Sherwin Williams</td></tr>
+<tr data-base="0"><td>Paint Registers / Trims / Plates</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
+<tr data-base="0"><td>Specialty Finishes</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Need guidance on scope</td></tr>
+<tr data-base="7760.00" data-qty="1.0" data-unitprice="7760.0000"><td>Insulation</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$7,760.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$7,760.00</td><td class="nt">Sound batts only</td></tr>
+<tr data-base="22610.00" data-qty="1.0" data-unitprice="22610.0000"><td>Sheetrock / Walls and Ceilings</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$22,610.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$22,610.00</td><td class="nt"></td></tr>
+<tr data-base="0"><td>Plaster</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr><tr class="grp-sub" data-grp="9" data-grpbase="49226.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$49,226.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$49,226.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Flooring and Tile</td></tr>
-<tr data-base="16590.00"><td>Wood Flooring / Paint Allowance</td><td>1</td><td>LS</td><td class="m">$16,590.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$16,590.00</td><td class="nt">$7,500 patch allowance</td></tr>
-<tr data-base="0"><td>Carpet</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
-<tr data-base="0"><td>Tile Material / Grout Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
-<tr data-base="1664.30"><td>Floor Protection</td><td>1</td><td>LS</td><td class="m">$1,664.30</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$1,664.30</td><td class="nt"></td></tr>
-<tr data-base="0"><td>Tile Labor</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr><tr class="grp-sub" data-grp="10" data-grpbase="18254.3"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$18,254.30</td><td></td><td class="gsrv">$18,254.30</td><td></td></tr>
+<tr data-base="16590.00" data-qty="1.0" data-unitprice="16590.0000"><td>Wood Flooring / Paint Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$16,590.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$16,590.00</td><td class="nt">$7,500 patch allowance</td></tr>
+<tr data-base="0"><td>Carpet</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
+<tr data-base="0"><td>Tile Material / Grout Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr>
+<tr data-base="1664.30" data-qty="1.0" data-unitprice="1664.3000"><td>Floor Protection</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$1,664.30</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$1,664.30</td><td class="nt"></td></tr>
+<tr data-base="0"><td>Tile Labor</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">None figured</td></tr><tr class="grp-sub" data-grp="10" data-grpbase="18254.3"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$18,254.30</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$18,254.30</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Cabinets / Tops</td></tr>
-<tr data-base="4040.00"><td>Bookcase / Shelves</td><td>1</td><td>LS</td><td class="m">$4,040.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$4,040.00</td><td class="nt">Island @ workroom only (most deleted)</td></tr>
-<tr data-base="1820.00"><td>Plywood Shelves</td><td>1</td><td>LS</td><td class="m">$1,820.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$1,820.00</td><td class="nt">Stained</td></tr>
-<tr data-base="15750.00"><td>Kitchen Cabinets</td><td>1</td><td>LS</td><td class="m">$15,750.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$15,750.00</td><td class="nt"></td></tr>
-<tr data-base="2250.00"><td>Vanity — Floating Support / Misc Allowance</td><td>1</td><td>LS</td><td class="m">$2,250.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$2,250.00</td><td class="nt"></td></tr>
-<tr data-base="20405.00"><td>Top Allowance</td><td>1</td><td>LS</td><td class="m">$20,405.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$20,405.00</td><td class="nt">Incl. butcher block · $150/SF marble @ baths/kitchen</td></tr>
-<tr data-base="0"><td>Mirror / Glass</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
-<tr data-base="0"><td>Cabinet Hardware Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="11" data-grpbase="44265.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$44,265.00</td><td></td><td class="gsrv">$44,265.00</td><td></td></tr>
+<tr data-base="4040.00" data-qty="1.0" data-unitprice="4040.0000"><td>Bookcase / Shelves</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$4,040.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$4,040.00</td><td class="nt">Island @ workroom only (most deleted)</td></tr>
+<tr data-base="1820.00" data-qty="1.0" data-unitprice="1820.0000"><td>Plywood Shelves</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$1,820.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$1,820.00</td><td class="nt">Stained</td></tr>
+<tr data-base="15750.00" data-qty="1.0" data-unitprice="15750.0000"><td>Kitchen Cabinets</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$15,750.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$15,750.00</td><td class="nt"></td></tr>
+<tr data-base="2250.00" data-qty="1.0" data-unitprice="2250.0000"><td>Vanity — Floating Support / Misc Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$2,250.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$2,250.00</td><td class="nt"></td></tr>
+<tr data-base="20405.00" data-qty="1.0" data-unitprice="20405.0000"><td>Top Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$20,405.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$20,405.00</td><td class="nt">Incl. butcher block · $150/SF marble @ baths/kitchen</td></tr>
+<tr data-base="0"><td>Mirror / Glass</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
+<tr data-base="0"><td>Cabinet Hardware Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="11" data-grpbase="44265.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$44,265.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$44,265.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Appliances / Specialties</td></tr>
-<tr data-base="0"><td>Appliance Allowance (incl. install)</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
-<tr data-base="0"><td>Waterfountain Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt"></td></tr>
-<tr data-base="6060.00"><td>Exterior Signage Allowance</td><td>1</td><td>LS</td><td class="m">$6,060.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$6,060.00</td><td class="nt">Need guidance · none figured yet</td></tr>
-<tr data-base="0"><td>Shades</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By others</td></tr>
-<tr data-base="0"><td>Allowance — Intumescent Paint on Floor</td><td>3030</td><td>SF</td><td class="ex">TBD</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">TBD</td><td class="nt">Need guidance · placeholder</td></tr><tr class="grp-sub" data-grp="12" data-grpbase="6060.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$6,060.00</td><td></td><td class="gsrv">$6,060.00</td><td></td></tr>
+<tr data-base="0"><td>Appliance Allowance (incl. install)</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
+<tr data-base="0"><td>Waterfountain Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt"></td></tr>
+<tr data-base="6060.00" data-qty="1.0" data-unitprice="6060.0000"><td>Exterior Signage Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$6,060.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$6,060.00</td><td class="nt">Need guidance · none figured yet</td></tr>
+<tr data-base="0"><td>Shades</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By others</td></tr>
+<tr data-base="0" data-qty="3030.0" data-unitprice="0.0000"><td>Allowance — Intumescent Paint on Floor</td><td><input class="qi" type="number" value="3030" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>SF</td><td class="ex">TBD</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">TBD</td><td class="nt">Need guidance · placeholder</td></tr><tr class="grp-sub" data-grp="12" data-grpbase="6060.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$6,060.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$6,060.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Electrical</td></tr>
-<tr data-base="0"><td>Electrical M/L (panel rebuild)</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">~$30k est. + fee · excl. fire alarm / sprinkler</td></tr>
-<tr data-base="75000.00"><td>Can Light Allowance</td><td>50</td><td>EA</td><td class="m">$75,000.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$75,000.00</td><td class="nt"></td></tr>
-<tr data-base="0"><td>Decorative Fixture Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="13" data-grpbase="75000.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$75,000.00</td><td></td><td class="gsrv">$75,000.00</td><td></td></tr>
+<tr data-base="0"><td>Electrical M/L (panel rebuild)</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">~$30k est. + fee · excl. fire alarm / sprinkler</td></tr>
+<tr data-base="75000.00" data-qty="50.0" data-unitprice="1500.0000"><td>Can Light Allowance</td><td><input class="qi" type="number" value="50" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>EA</td><td class="m">$75,000.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$75,000.00</td><td class="nt"></td></tr>
+<tr data-base="0"><td>Decorative Fixture Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="13" data-grpbase="75000.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$75,000.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$75,000.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Plumbing</td></tr>
-<tr data-base="15000.00"><td>Plumbing M/L</td><td>1</td><td>LS</td><td class="m">$15,000.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$15,000.00</td><td class="nt">Assume move fixtures in storage / powder</td></tr>
-<tr data-base="0"><td>Water Heaters</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Assume none needed or existing to remain</td></tr>
-<tr data-base="0"><td>Grinder Pump</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
-<tr data-base="0"><td>Water Line</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
-<tr data-base="0"><td>Gas Line</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
-<tr data-base="0"><td>Sewer Line</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
-<tr data-base="0"><td>Water Tap</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
-<tr data-base="0"><td>Sewer Impact</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
-<tr data-base="0"><td>Bathroom Accessory Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
-<tr data-base="0"><td>Plumbing Fixture Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="14" data-grpbase="15000.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$15,000.00</td><td></td><td class="gsrv">$15,000.00</td><td></td></tr>
+<tr data-base="15000.00" data-qty="1.0" data-unitprice="15000.0000"><td>Plumbing M/L</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$15,000.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$15,000.00</td><td class="nt">Assume move fixtures in storage / powder</td></tr>
+<tr data-base="0"><td>Water Heaters</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Assume none needed or existing to remain</td></tr>
+<tr data-base="0"><td>Grinder Pump</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
+<tr data-base="0"><td>Water Line</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
+<tr data-base="0"><td>Gas Line</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
+<tr data-base="0"><td>Sewer Line</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
+<tr data-base="0"><td>Water Tap</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">Existing to remain</td></tr>
+<tr data-base="0"><td>Sewer Impact</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
+<tr data-base="0"><td>Bathroom Accessory Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr>
+<tr data-base="0"><td>Plumbing Fixture Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner per BM</td></tr><tr class="grp-sub" data-grp="14" data-grpbase="15000.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$15,000.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$15,000.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Mechanical</td></tr>
-<tr data-base="64999.00"><td>HVAC Allowance</td><td>1</td><td>LS</td><td class="m">$64,999.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$64,999.00</td><td class="nt">Assumes no work below grade · excl. fire alarm / sprinkler</td></tr><tr class="grp-sub" data-grp="15" data-grpbase="64999.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$64,999.00</td><td></td><td class="gsrv">$64,999.00</td><td></td></tr>
+<tr data-base="64999.00" data-qty="1.0" data-unitprice="64999.0000"><td>HVAC Allowance</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$64,999.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$64,999.00</td><td class="nt">Assumes no work below grade · excl. fire alarm / sprinkler</td></tr><tr class="grp-sub" data-grp="15" data-grpbase="64999.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$64,999.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$64,999.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="7">Audio / Video / Security</td></tr>
-<tr data-base="0"><td>AV / Security Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner — see GHT proposals</td></tr><tr class="grp-sub" data-grp="16" data-grpbase="0.0"><td colspan="2"></td><td class="gslabel">Section Total</td><td class="gsbase">$0.00</td><td></td><td class="gsrv">$0.00</td><td></td></tr>
-<tr class="sub"><td colspan="3">Subtotal (from signed estimate)</td><td class="m">$462,752.20</td><td></td><td></td><td class="m rv" id="tcc-sub-rv">$462,752.20</td></tr>
-<tr data-base="92550.44"><td>Overhead / Profit / Supervision</td><td></td><td></td><td class="m">$92,550.44</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$92,550.44</td><td class="nt"></td></tr>
-<tr data-base="25000.00"><td>Contingency</td><td></td><td></td><td class="m">$25,000.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/></td><td class="rv">$25,000.00</td><td class="nt"></td></tr>
-<tr class="tot"><td colspan="3">TCC Contract Total</td><td class="m">$580,302.64</td><td></td><td></td><td class="m rv" id="tcc-tot">$580,302.64</td></tr>
+<tr data-base="0"><td>AV / Security Allowance</td><td>—</td><td></td><td class="ex">Excluded</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv ex" data-excl="1">Excl.</td><td class="nt">By owner — see GHT proposals</td></tr><tr class="grp-sub" data-grp="16" data-grpbase="0.0"><td colspan="3"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$0.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$0.00</span></td><td></td></tr>
+<tr class="sub"><td colspan="3">Subtotal (from signed estimate)</td><td class="m" id="sub-tcc-base">$462,752.20</td><td></td><td class="m rv" id="sub-tcc">$462,752.20</td><td></td></tr>
+<tr data-base="92550.44"><td>Overhead / Profit / Supervision</td><td></td><td></td><td class="m">$92,550.44</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$92,550.44</td><td class="nt"></td></tr>
+<tr data-base="25000.00"><td>Contingency</td><td></td><td></td><td class="m">$25,000.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/></div></td><td class="rv">$25,000.00</td><td class="nt"></td></tr>
+<tr class="tot"><td colspan="3">TCC Contract Total</td><td class="m" id="tcc-tot-base">$580,302.64</td><td></td><td class="m rv" id="tcc-tot">$580,302.64</td><td></td></tr>
 </tbody></table>
 </div>
 <!-- ═══════════ 2. GHT PRE-WIRE ═══════════ -->
@@ -605,28 +680,27 @@ tr.grp-sub td.gsrv.ch{color:var(--cma-accent);}
 <div class="ch"><h2>GHT Group — Pre-Wire</h2>
 <div class="ch-right">Proposal 32509 · Prepared 6.3.2026 · Valid 15 days<span class="ch-total">$7,374.57</span></div></div>
 <table>
+<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:90px"><col style="width:140px"><col style="width:90px"><col></colgroup>
 <thead><tr>
-<th style="width:260px">Item</th><th style="width:40px">Qty</th><th style="width:46px">Unit</th>
-<th style="width:76px">Unit $</th><th style="width:88px">Total</th>
-<th class="thr" style="width:90px">Revision</th><th style="width:90px">Revised</th>
-<th style="width:72px"></th>
-<th class="thn" style="width:130px">Notes</th></tr></thead>
+<th>Item</th><th style="width:38px">Qty</th><th style="width:42px">Unit</th>
+<th style="width:80px">Unit $</th><th style="width:90px">Total</th>
+<th style="width:140px" class="thr">Revision</th><th style="width:90px">Revised</th><th class="thn">Notes</th></tr></thead>
 <tbody>
 <tr class="grp"><td colspan="9">Data</td></tr>
-<tr data-base="3584.00"><td>CAT6 Data Locations</td><td>32</td><td>ea</td><td class="m">$112.00</td><td class="m">$3,584.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,584.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="0" data-grpbase="3584.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$3,584.00</td><td></td><td class="gsrv">$3,584.00</td><td></td><td></td></tr>
+<tr data-base="3584.00" data-qty="32.0" data-unitprice="112.0000"><td>CAT6 Data Locations</td><td><input class="qi" type="number" value="32" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$112.00</td><td class="m">$3,584.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,584.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="0" data-grpbase="3584.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$3,584.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$3,584.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="9">TVs</td></tr>
-<tr data-base="960.00"><td>CAT6 (×2) &amp; CAT6A (×1) per TV location</td><td>2</td><td>loc</td><td class="m">$480.00</td><td class="m">$960.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$960.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="1" data-grpbase="960.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$960.00</td><td></td><td class="gsrv">$960.00</td><td></td><td></td></tr>
+<tr data-base="960.00" data-qty="2.0" data-unitprice="480.0000"><td>CAT6 (×2) &amp; CAT6A (×1) per TV location</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>loc</td><td class="m">$480.00</td><td class="m">$960.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$960.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="1" data-grpbase="960.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$960.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$960.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="9">Shades</td></tr>
-<tr data-base="1500.00"><td>Lutron QS Shade / Lighting Wiring</td><td>10</td><td>loc</td><td class="m">$150.00</td><td class="m">$1,500.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,500.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="2" data-grpbase="1500.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,500.00</td><td></td><td class="gsrv">$1,500.00</td><td></td><td></td></tr>
+<tr data-base="1500.00" data-qty="10.0" data-unitprice="150.0000"><td>Lutron QS Shade / Lighting Wiring</td><td><input class="qi" type="number" value="10" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>loc</td><td class="m">$150.00</td><td class="m">$1,500.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,500.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="2" data-grpbase="1500.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,500.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,500.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="9">Cameras</td></tr>
-<tr data-base="253.34"><td>IP Camera Plus — CAT6 Camera Locations</td><td>2</td><td>ea</td><td class="m">$126.67</td><td class="m">$253.34</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$253.34</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="3" data-grpbase="253.34"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$253.34</td><td></td><td class="gsrv">$253.34</td><td></td><td></td></tr>
+<tr data-base="253.34" data-qty="2.0" data-unitprice="126.6700"><td>IP Camera Plus — CAT6 Camera Locations</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$126.67</td><td class="m">$253.34</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$253.34</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="3" data-grpbase="253.34"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$253.34</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$253.34</span></td><td></td></tr>
 <tr class="grp"><td colspan="9">Audio</td></tr>
-<tr data-base="1225.00"><td>Speaker Wire Pre-Wire 16/4 Looped</td><td>7</td><td>loop</td><td class="m">$175.00</td><td class="m">$1,225.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,225.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="4" data-grpbase="1225.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,225.00</td><td></td><td class="gsrv">$1,225.00</td><td></td><td></td></tr>
+<tr data-base="1225.00" data-qty="7.0" data-unitprice="175.0000"><td>Speaker Wire Pre-Wire 16/4 Looped</td><td><input class="qi" type="number" value="7" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>loop</td><td class="m">$175.00</td><td class="m">$1,225.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,225.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="4" data-grpbase="1225.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,225.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,225.00</span></td><td></td></tr>
 <tr class="grp"><td colspan="9">Discount</td></tr>
-<tr data-base="-900.00"><td>Key Partner Discount</td><td>1</td><td>LS</td><td class="m ng">−$900.00</td><td class="m ng">−$900.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv ng">−$900.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="5" data-grpbase="-900.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">−$900.00</td><td></td><td class="gsrv">−$900.00</td><td></td><td></td></tr>
-<tr class="sub"><td colspan="4">Parts subtotal</td><td class="m">$6,622.34</td><td></td><td></td><td class="m rv">$6,622.34</td><td></td></tr>
-<tr data-base="752.23"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$752.23</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$752.23</td><td class="nt">Alabama</td></tr>
-<tr class="tot"><td colspan="4">Pre-Wire Total</td><td class="m">$7,374.57</td><td></td><td></td><td class="m rv" id="pw-tot">$7,374.57</td><td></td></tr>
+<tr data-base="-900.00" data-qty="1.0" data-unitprice="900.0000"><td>Key Partner Discount</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m ng">−$900.00</td><td class="m ng">−$900.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv ng">−$900.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="5" data-grpbase="-900.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">−$900.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">−$900.00</span></td><td></td></tr>
+<tr class="sub"><td colspan="4">Parts subtotal</td><td class="m" id="sub-pw-base">$6,622.34</td><td></td><td class="m rv" id="sub-pw">$6,622.34</td><td></td></tr>
+<tr data-base="752.23"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$752.23</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$752.23</td><td class="nt">Alabama</td></tr>
+<tr class="tot"><td colspan="4">Pre-Wire Total</td><td class="m" id="pw-tot-base">$7,374.57</td><td></td><td class="m rv" id="pw-tot">$7,374.57</td><td></td></tr>
 </tbody></table>
 </div>
 <!-- ═══════════ 3. GHT A/V ═══════════ -->
@@ -634,59 +708,58 @@ tr.grp-sub td.gsrv.ch{color:var(--cma-accent);}
 <div class="ch"><h2>GHT Group — Audio &amp; Video</h2>
 <div class="ch-right">Proposal 32513 · Prepared 6.3.2026 · Valid 15 days<span class="ch-total">$30,055.01</span></div></div>
 <table>
+<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:90px"><col style="width:140px"><col style="width:90px"><col></colgroup>
 <thead><tr>
-<th style="width:270px">Item / SKU</th><th style="width:36px">Qty</th><th style="width:42px">Unit</th>
-<th style="width:76px">Unit $</th><th style="width:88px">Total</th>
-<th class="thr" style="width:90px">Revision</th><th style="width:90px">Revised</th>
-<th style="width:72px"></th>
-<th class="thn" style="width:120px">Notes</th></tr></thead>
+<th>Item / SKU</th><th style="width:38px">Qty</th><th style="width:42px">Unit</th>
+<th style="width:80px">Unit $</th><th style="width:90px">Total</th>
+<th style="width:140px" class="thr">Revision</th><th style="width:90px">Revised</th><th class="thn">Notes</th></tr></thead>
 <tbody>
-<tr class="grp"><td colspan="9">Work Room — Parts $1,340.00</td></tr>
-<tr data-base="1340.00"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,340.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="0" data-grpbase="1340.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,340.00</td><td></td><td class="gsrv">$1,340.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Kitchen / Reception — Parts $1,340.00</td></tr>
-<tr data-base="1340.00"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,340.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="1" data-grpbase="1340.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,340.00</td><td></td><td class="gsrv">$1,340.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Conference Room #2 — Parts $5,762.95</td></tr>
-<tr data-base="3099.99"><td>BRAVIA 7 II — Sony 75” 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$3,099.99</td><td class="m">$3,099.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,099.99</td><td class="nt">Tilt mount</td></tr>
-<tr data-base="374.99"><td>SM-T-L Strong Large Tilting Mount 36–70”</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$374.99</td><td class="nt"></td></tr>
-<tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$119.00</td><td class="nt">Behind display</td></tr>
-<tr data-base="499.00"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td>1</td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$499.00</td><td class="nt">Under TV</td></tr>
-<tr data-base="169.99"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td>1</td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$169.99</td><td class="nt"></td></tr>
-<tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$103.99</td><td class="nt">2160J EMI/RFI</td></tr>
-<tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90° Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$26.99</td><td class="nt"></td></tr>
-<tr data-base="1340.00"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,340.00</td><td class="nt">Music only</td></tr>
-<tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$29.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="2" data-grpbase="5762.95"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$5,762.95</td><td></td><td class="gsrv">$5,762.95</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Conference Room #1 — Parts $3,422.95</td></tr>
-<tr data-base="2099.99"><td>BRAVIA 7 II — Sony 55” 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$2,099.99</td><td class="m">$2,099.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$2,099.99</td><td class="nt">Tilt mount</td></tr>
-<tr data-base="374.99"><td>SMTL 36–80” Tilting Mount</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$374.99</td><td class="nt"></td></tr>
-<tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$119.00</td><td class="nt">Behind display</td></tr>
-<tr data-base="499.00"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td>1</td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$499.00</td><td class="nt">Under TV</td></tr>
-<tr data-base="169.99"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td>1</td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$169.99</td><td class="nt"></td></tr>
-<tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$103.99</td><td class="nt"></td></tr>
-<tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90° Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$26.99</td><td class="nt"></td></tr>
-<tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$29.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="3" data-grpbase="3422.95"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$3,422.95</td><td></td><td class="gsrv">$3,422.95</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Restrooms — Parts $670.00</td></tr>
-<tr data-base="670.00"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td>1</td><td>pair</td><td class="m">$670.00</td><td class="m">$670.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$670.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="4" data-grpbase="670.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$670.00</td><td></td><td class="gsrv">$670.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Powder — Parts $660.00</td></tr>
-<tr data-base="660.00"><td>VX66R SST 6” Round Single Stereo Speaker</td><td>1</td><td>ea</td><td class="m">$660.00</td><td class="m">$660.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$660.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="5" data-grpbase="660.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$660.00</td><td></td><td class="gsrv">$660.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Wi-Fi — Parts $3,675.95</td></tr>
-<tr data-base="556.99"><td>AN-220-RT Araknis 220-Series Single-WAN VPN Router</td><td>1</td><td>ea</td><td class="m">$556.99</td><td class="m">$556.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$556.99</td><td class="nt">Equipment rack</td></tr>
-<tr data-base="1418.97"><td>AN-520-AP-I Araknis Wi-Fi 6 520 Series Indoor AP</td><td>3</td><td>ea</td><td class="m">$472.99</td><td class="m">$1,418.97</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,418.97</td><td class="nt">Ceiling mounted</td></tr>
-<tr data-base="1699.99"><td>AN-220-SW-R-44-POE Araknis L2 Managed Switch 44+2</td><td>1</td><td>ea</td><td class="m">$1,699.99</td><td class="m">$1,699.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,699.99</td><td class="nt">Partial PoE+</td></tr><tr class="grp-sub" data-grp="6" data-grpbase="3675.95"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$3,675.95</td><td></td><td class="gsrv">$3,675.95</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Surveillance — Parts $2,339.96</td></tr>
-<tr data-base="1068.99"><td>LUM-121-NVR-4CH-2T Luma 121 NVR 4-channel 2TB</td><td>1</td><td>ea</td><td class="m">$1,068.99</td><td class="m">$1,068.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,068.99</td><td class="nt"></td></tr>
-<tr data-base="601.99"><td>LUM-420-IP-TMB Luma 420 4MP Turret Camera — Black</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$601.99</td><td class="nt"></td></tr>
-<tr data-base="66.99"><td>LUM-A20-JB-VF-BTB-BLACK Junction Box</td><td>1</td><td>ea</td><td class="m">$66.99</td><td class="m">$66.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$66.99</td><td class="nt"></td></tr>
-<tr data-base="601.99"><td>LUM-420-IP-TMW Luma 420 4MP Turret Camera — White</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$601.99</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="7" data-grpbase="2339.96"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$2,339.96</td><td></td><td class="gsrv">$2,339.96</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Equipment — Parts $6,591.98</td></tr>
-<tr data-base="483.99"><td>SR-CS-RACK-21U Strong 21U Rack w/ Side Panels &amp; Casters</td><td>1</td><td>ea</td><td class="m">$483.99</td><td class="m">$483.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$483.99</td><td class="nt">Equipment closet</td></tr>
-<tr data-base="2112.99"><td>KIT-UPS-IPVM12-1100 WattBox IP UPS 12-outlet 1100VA</td><td>1</td><td>ea</td><td class="m">$2,112.99</td><td class="m">$2,112.99</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$2,112.99</td><td class="nt">Incl. WB-800-IPVM-12 + WB-OVRC-UPS-1100-1</td></tr>
-<tr data-base="3995.00"><td>AMP-black Sonos Streaming Amplifier</td><td>5</td><td>ea</td><td class="m">$799.00</td><td class="m">$3,995.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,995.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="8" data-grpbase="6591.98"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$6,591.98</td><td></td><td class="gsrv">$6,591.98</td><td></td><td></td></tr>
+<tr class="grp"><td colspan="9">Work Room</td></tr>
+<tr data-base="1340.00" data-qty="2.0" data-unitprice="670.0000"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,340.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="0" data-grpbase="1340.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,340.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,340.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Kitchen / Reception</td></tr>
+<tr data-base="1340.00" data-qty="2.0" data-unitprice="670.0000"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,340.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="1" data-grpbase="1340.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,340.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,340.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Conference Room #2</td></tr>
+<tr data-base="3099.99" data-qty="1.0" data-unitprice="3099.9900"><td>BRAVIA 7 II — Sony 75” 4K HDR Google TV</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$3,099.99</td><td class="m">$3,099.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,099.99</td><td class="nt">Tilt mount</td></tr>
+<tr data-base="374.99" data-qty="1.0" data-unitprice="374.9900"><td>SM-T-L Strong Large Tilting Mount 36–70”</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$374.99</td><td class="nt"></td></tr>
+<tr data-base="119.00" data-qty="1.0" data-unitprice="119.0000"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$119.00</td><td class="nt">Behind display</td></tr>
+<tr data-base="499.00" data-qty="1.0" data-unitprice="499.0000"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$499.00</td><td class="nt">Under TV</td></tr>
+<tr data-base="169.99" data-qty="1.0" data-unitprice="169.9900"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$169.99</td><td class="nt"></td></tr>
+<tr data-base="103.99" data-qty="1.0" data-unitprice="103.9900"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$103.99</td><td class="nt">2160J EMI/RFI</td></tr>
+<tr data-base="26.99" data-qty="1.0" data-unitprice="26.9900"><td>WB-PWR-EXT360-0.5FT WattBox 90° Power Cord</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$26.99</td><td class="nt"></td></tr>
+<tr data-base="1340.00" data-qty="2.0" data-unitprice="670.0000"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,340.00</td><td class="nt">Music only</td></tr>
+<tr data-base="29.00" data-qty="1.0" data-unitprice="29.0000"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$29.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="2" data-grpbase="5762.95"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$5,762.95</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$5,762.95</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Conference Room #1</td></tr>
+<tr data-base="2099.99" data-qty="1.0" data-unitprice="2099.9900"><td>BRAVIA 7 II — Sony 55” 4K HDR Google TV</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$2,099.99</td><td class="m">$2,099.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$2,099.99</td><td class="nt">Tilt mount</td></tr>
+<tr data-base="374.99" data-qty="1.0" data-unitprice="374.9900"><td>SMTL 36–80” Tilting Mount</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$374.99</td><td class="nt"></td></tr>
+<tr data-base="119.00" data-qty="1.0" data-unitprice="119.0000"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$119.00</td><td class="nt">Behind display</td></tr>
+<tr data-base="499.00" data-qty="1.0" data-unitprice="499.0000"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$499.00</td><td class="nt">Under TV</td></tr>
+<tr data-base="169.99" data-qty="1.0" data-unitprice="169.9900"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$169.99</td><td class="nt"></td></tr>
+<tr data-base="103.99" data-qty="1.0" data-unitprice="103.9900"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$103.99</td><td class="nt"></td></tr>
+<tr data-base="26.99" data-qty="1.0" data-unitprice="26.9900"><td>WB-PWR-EXT360-0.5FT WattBox 90° Power Cord</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$26.99</td><td class="nt"></td></tr>
+<tr data-base="29.00" data-qty="1.0" data-unitprice="29.0000"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$29.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="3" data-grpbase="3422.95"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$3,422.95</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$3,422.95</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Restrooms</td></tr>
+<tr data-base="670.00" data-qty="1.0" data-unitprice="670.0000"><td>VX64R 6” Round In-Ceiling Speaker (pair)</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>pair</td><td class="m">$670.00</td><td class="m">$670.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$670.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="4" data-grpbase="670.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$670.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$670.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Powder</td></tr>
+<tr data-base="660.00" data-qty="1.0" data-unitprice="660.0000"><td>VX66R SST 6” Round Single Stereo Speaker</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$660.00</td><td class="m">$660.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$660.00</td><td class="nt">Sonos Amp in rack</td></tr><tr class="grp-sub" data-grp="5" data-grpbase="660.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$660.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$660.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Wi-Fi</td></tr>
+<tr data-base="556.99" data-qty="1.0" data-unitprice="556.9900"><td>AN-220-RT Araknis 220-Series Single-WAN VPN Router</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$556.99</td><td class="m">$556.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$556.99</td><td class="nt">Equipment rack</td></tr>
+<tr data-base="1418.97" data-qty="3.0" data-unitprice="472.9900"><td>AN-520-AP-I Araknis Wi-Fi 6 520 Series Indoor AP</td><td><input class="qi" type="number" value="3" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$472.99</td><td class="m">$1,418.97</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,418.97</td><td class="nt">Ceiling mounted</td></tr>
+<tr data-base="1699.99" data-qty="1.0" data-unitprice="1699.9900"><td>AN-220-SW-R-44-POE Araknis L2 Managed Switch 44+2</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$1,699.99</td><td class="m">$1,699.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,699.99</td><td class="nt">Partial PoE+</td></tr><tr class="grp-sub" data-grp="6" data-grpbase="3675.95"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$3,675.95</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$3,675.95</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Surveillance</td></tr>
+<tr data-base="1068.99" data-qty="1.0" data-unitprice="1068.9900"><td>LUM-121-NVR-4CH-2T Luma 121 NVR 4-channel 2TB</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$1,068.99</td><td class="m">$1,068.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,068.99</td><td class="nt"></td></tr>
+<tr data-base="601.99" data-qty="1.0" data-unitprice="601.9900"><td>LUM-420-IP-TMB Luma 420 4MP Turret Camera — Black</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$601.99</td><td class="nt"></td></tr>
+<tr data-base="66.99" data-qty="1.0" data-unitprice="66.9900"><td>LUM-A20-JB-VF-BTB-BLACK Junction Box</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$66.99</td><td class="m">$66.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$66.99</td><td class="nt"></td></tr>
+<tr data-base="601.99" data-qty="1.0" data-unitprice="601.9900"><td>LUM-420-IP-TMW Luma 420 4MP Turret Camera — White</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$601.99</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="7" data-grpbase="2339.96"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$2,339.96</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$2,339.96</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Equipment</td></tr>
+<tr data-base="483.99" data-qty="1.0" data-unitprice="483.9900"><td>SR-CS-RACK-21U Strong 21U Rack w/ Side Panels &amp; Casters</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$483.99</td><td class="m">$483.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$483.99</td><td class="nt">Equipment closet</td></tr>
+<tr data-base="2112.99" data-qty="1.0" data-unitprice="2112.9900"><td>KIT-UPS-IPVM12-1100 WattBox IP UPS 12-outlet 1100VA</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$2,112.99</td><td class="m">$2,112.99</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$2,112.99</td><td class="nt">Incl. WB-800-IPVM-12 + WB-OVRC-UPS-1100-1</td></tr>
+<tr data-base="3995.00" data-qty="5.0" data-unitprice="799.0000"><td>AMP-black Sonos Streaming Amplifier</td><td><input class="qi" type="number" value="5" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$799.00</td><td class="m">$3,995.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,995.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="8" data-grpbase="6591.98"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$6,591.98</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$6,591.98</span></td><td></td></tr>
 <tr class="grp"><td colspan="9">Labor / Discount</td></tr>
-<tr data-base="6360.00"><td>Labor — Install and Setup (AL)</td><td>1</td><td>LS</td><td class="m">$6,360.00</td><td class="m">$6,360.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$6,360.00</td><td class="nt"></td></tr>
-<tr data-base="-4689.16"><td>Discount (already reflected in parts total)</td><td>1</td><td>LS</td><td class="m ng">−$4,689.16</td><td class="m ng">−$4,689.16</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv ng">−$4,689.16</td><td class="nt">Net parts = $21,114.63</td></tr><tr class="grp-sub" data-grp="9" data-grpbase="1670.8400000000001"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,670.84</td><td></td><td class="gsrv">$1,670.84</td><td></td><td></td></tr>
-<tr class="sub"><td colspan="4">Parts + Labor subtotal</td><td class="m">$27,474.63</td><td></td><td></td><td class="m rv">$27,474.63</td><td></td></tr>
-<tr data-base="2580.38"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$2,580.38</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$2,580.38</td><td class="nt">Alabama</td></tr>
-<tr class="tot"><td colspan="4">A/V Total</td><td class="m">$30,055.01</td><td></td><td></td><td class="m rv" id="av-tot">$30,055.01</td><td></td></tr>
+<tr data-base="6360.00" data-qty="1.0" data-unitprice="6360.0000"><td>Labor — Install and Setup (AL)</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m">$6,360.00</td><td class="m">$6,360.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$6,360.00</td><td class="nt"></td></tr>
+<tr data-base="-4689.16" data-qty="1.0" data-unitprice="4689.1600"><td>Discount (already reflected in parts total)</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>LS</td><td class="m ng">−$4,689.16</td><td class="m ng">−$4,689.16</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv ng">−$4,689.16</td><td class="nt">Net parts = $21,114.63</td></tr><tr class="grp-sub" data-grp="9" data-grpbase="1670.8400000000001"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,670.84</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,670.84</span></td><td></td></tr>
+<tr class="sub"><td colspan="4">Parts + Labor subtotal</td><td class="m" id="sub-av-base">$27,474.63</td><td></td><td class="m rv" id="sub-av">$27,474.63</td><td></td></tr>
+<tr data-base="2580.38"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$2,580.38</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$2,580.38</td><td class="nt">Alabama</td></tr>
+<tr class="tot"><td colspan="4">A/V Total</td><td class="m" id="av-tot-base">$30,055.01</td><td></td><td class="m rv" id="av-tot">$30,055.01</td><td></td></tr>
 </tbody></table>
 </div>
 <!-- ═══════════ 4. EMORY RATLIFF ═══════════ -->
@@ -694,54 +767,53 @@ tr.grp-sub td.gsrv.ch{color:var(--cma-accent);}
 <div class="ch"><h2>Emory Ratliff Interiors — Lighting &amp; Furnishings</h2>
 <div class="ch-right">Proposal 100018 · Dated 4.27.2026 · Bill Moore &amp; Scott Carlisle<span class="ch-total">$89,633.17</span></div></div>
 <table>
+<colgroup><col style="width:260px"><col style="width:38px"><col style="width:42px"><col style="width:80px"><col style="width:90px"><col style="width:140px"><col style="width:90px"><col></colgroup>
 <thead><tr>
-<th style="width:275px">Item</th><th style="width:36px">Qty</th><th style="width:36px">Unit</th>
-<th style="width:76px">Unit $</th><th style="width:88px">Total</th>
-<th class="thr" style="width:90px">Revision</th><th style="width:90px">Revised</th>
-<th style="width:72px"></th>
-<th class="thn" style="width:130px">Notes</th></tr></thead>
+<th>Item</th><th style="width:38px">Qty</th><th style="width:42px">Unit</th>
+<th style="width:80px">Unit $</th><th style="width:90px">Total</th>
+<th style="width:140px" class="thr">Revision</th><th style="width:90px">Revised</th><th class="thn">Notes</th></tr></thead>
 <tbody>
-<tr class="grp"><td colspan="9">Bath-1 — Room Total $2,726.00</td></tr>
-<tr data-base="2726.00"><td>The Hand Sconce — Polished Unlacquered Brass (1L + 1R)</td><td>2</td><td>ea</td><td class="m">$1,363.00</td><td class="m">$2,726.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$2,726.00</td><td class="nt">5.25”W × 10”H · shade clip needed</td></tr><tr class="grp-sub" data-grp="0" data-grpbase="2726.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$2,726.00</td><td></td><td class="gsrv">$2,726.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Bath-2 — Room Total $748.00</td></tr>
-<tr data-base="748.00"><td>Nautical Schoolhouse Sconce — Shiplights (white ball)</td><td>2</td><td>ea</td><td class="m">$374.00</td><td class="m">$748.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$748.00</td><td class="nt">9”H · 9.5” ext · 8” globe · brass</td></tr><tr class="grp-sub" data-grp="1" data-grpbase="748.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$748.00</td><td></td><td class="gsrv">$748.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Bath-3 — Room Total $1,543.10</td></tr>
-<tr data-base="266.00"><td>Soho Lighting Carlisle Half Cover IP65 Polished Brass</td><td>2</td><td>ea</td><td class="m">$133.00</td><td class="m">$266.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$266.00</td><td class="nt">Outdoor &amp; bathroom collection</td></tr>
-<tr data-base="989.10"><td>Toponas Paper — Spice (6 rolls / 66 yds)</td><td>6</td><td>roll</td><td class="m">$164.85</td><td class="m">$989.10</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$989.10</td><td class="nt">Install +$1,380 (separate)</td></tr>
-<tr data-base="288.00"><td>Tiny Stripe in Pale Pink — Checks &amp; Stripes fabric</td><td>4</td><td>ea</td><td class="m">$72.00</td><td class="m">$288.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$288.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="2" data-grpbase="1543.1"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,543.10</td><td></td><td class="gsrv">$1,543.10</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Breakfast Room — Room Total $10,645.60</td></tr>
-<tr data-base="3500.00"><td>Haven Dining Table, Cerused Oak 60” — Bunny Williams</td><td>1</td><td>ea</td><td class="m">$3,500.00</td><td class="m">$3,500.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,500.00</td><td class="nt">60” dia · reeded octagonal pedestal</td></tr>
-<tr data-base="3645.60"><td>Thibaut MACKINAC T10300 Natural Wallcovering (14 rolls)</td><td>14</td><td>ea</td><td class="m">$260.40</td><td class="m">$3,645.60</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,645.60</td><td class="nt">Raffia/papyrus · labor ~$2,000</td></tr>
-<tr data-base="3500.00"><td>Snowmass Bench — Charles Stewart (×3.5)</td><td>3.5</td><td>ea</td><td class="m">$1,000.00</td><td class="m">$3,500.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,500.00</td><td class="nt">51”W × 24.5”H · green trim +$208</td></tr><tr class="grp-sub" data-grp="3" data-grpbase="10645.6"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$10,645.60</td><td></td><td class="gsrv">$10,645.60</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Dining Room — Room Total $31,709.56</td></tr>
-<tr data-base="4318.56"><td>Mollino Large Tiered Chandelier ARN5427 — Visual Comfort</td><td>2</td><td>ea</td><td class="m">$2,159.28</td><td class="m">$4,318.56</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$4,318.56</td><td class="nt">25”H × 32”W · HRAB · 55 lbs</td></tr>
-<tr data-base="1294.00"><td>Emery 30 Picture Light — Visual Comfort</td><td>2</td><td>ea</td><td class="m">$647.00</td><td class="m">$1,294.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,294.00</td><td class="nt">30”W · LED 18W · HRAB</td></tr>
-<tr data-base="8991.00"><td>HH27-122T Palma Dining Table Top — Highland House</td><td>1</td><td>ea</td><td class="m">$8,991.00</td><td class="m">$8,991.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$8,991.00</td><td class="nt">96”W × 44”D · cream LQ</td></tr>
-<tr data-base="12000.00"><td>5204-41C Dining Chair — Lee (COM 5 yds)</td><td>8</td><td>ea</td><td class="m">$1,500.00</td><td class="m">$12,000.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$12,000.00</td><td class="nt">23.5”W × 40.5”H · seat ht 19.5”</td></tr>
-<tr data-base="5106.00"><td>Rembrandt Armchair</td><td>2</td><td>ea</td><td class="m">$2,553.00</td><td class="m">$5,106.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$5,106.00</td><td class="nt">23”W × 27.5”D × 39”H</td></tr><tr class="grp-sub" data-grp="4" data-grpbase="31709.56"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$31,709.56</td><td></td><td class="gsrv">$31,709.56</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Entry — Room Total $22,906.06</td></tr>
-<tr data-base="1439.28"><td>Modern Schoolhouse Lantern MS5030 — Visual Comfort</td><td>1</td><td>ea</td><td class="m">$1,439.28</td><td class="m">$1,439.28</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,439.28</td><td class="nt">18”W · 6’ chain · custom ht TBD</td></tr>
-<tr data-base="7200.00"><td>Durango Chair — Charles Stewart (custom +2” depth, mohair)</td><td>2</td><td>ea</td><td class="m">$3,600.00</td><td class="m">$7,200.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$7,200.00</td><td class="nt">27.5”W × 39.5”H</td></tr>
-<tr data-base="4900.00"><td>Vintage Michael Taylor Hand Carved Mirror</td><td>1</td><td>ea</td><td class="m">$4,900.00</td><td class="m">$4,900.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$4,900.00</td><td class="nt">38”W × 54.25”H · acanthus leaf</td></tr>
-<tr data-base="1692.00"><td>Antique French Empire Round Side Table</td><td>1</td><td>ea</td><td class="m">$1,692.00</td><td class="m">$1,692.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,692.00</td><td class="nt">19”W × 28”H</td></tr>
-<tr data-base="3740.00"><td>Summerville Stripe — Umber Wallpaper (22 rolls)</td><td>22</td><td>ea</td><td class="m">$170.00</td><td class="m">$3,740.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,740.00</td><td class="nt">Labor from installer +$5,250</td></tr>
-<tr data-base="3934.78"><td>HH19-726S Atlantic Demilune — Highland House</td><td>1</td><td>ea</td><td class="m">$3,934.78</td><td class="m">$3,934.78</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,934.78</td><td class="nt">48”W × 33.25”H · cream LQ</td></tr><tr class="grp-sub" data-grp="5" data-grpbase="22906.06"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$22,906.06</td><td></td><td class="gsrv">$22,906.06</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Gallery — Room Total $1,386.00</td></tr>
-<tr data-base="1386.00"><td>Small Hooded Ball Wall Mount — Shiplights (Unlaq. Brass)</td><td>3</td><td>ea</td><td class="m">$462.00</td><td class="m">$1,386.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,386.00</td><td class="nt">11”H · 10.5” ext</td></tr><tr class="grp-sub" data-grp="6" data-grpbase="1386.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,386.00</td><td></td><td class="gsrv">$1,386.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Kitchen — Room Total $1,078.00</td></tr>
-<tr data-base="1078.00"><td>Elkins Double Sconce TOB2068 — Visual Comfort</td><td>2</td><td>ea</td><td class="m">$539.00</td><td class="m">$1,078.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,078.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="7" data-grpbase="1078.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,078.00</td><td></td><td class="gsrv">$1,078.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Stairwell — Room Total $1,790.00</td></tr>
-<tr data-base="1790.00"><td>Large Nautical Bronze Ceiling Light — Shiplights</td><td>2</td><td>ea</td><td class="m">$895.00</td><td class="m">$1,790.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,790.00</td><td class="nt">13”H · Unlacquered Bronze</td></tr><tr class="grp-sub" data-grp="8" data-grpbase="1790.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$1,790.00</td><td></td><td class="gsrv">$1,790.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Studio — Room Total $3,770.00</td></tr>
-<tr data-base="3000.00"><td>Art Deco Pendant Light (on chain)</td><td>8</td><td>ea</td><td class="m">$375.00</td><td class="m">$3,000.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,000.00</td><td class="nt">Chain for ceiling height</td></tr>
-<tr data-base="770.00"><td>Trafalgar Cordless Table Lamp — Antique Brass</td><td>2</td><td>ea</td><td class="m">$385.00</td><td class="m">$770.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$770.00</td><td class="nt">10” empire shade, moonstone silk</td></tr><tr class="grp-sub" data-grp="9" data-grpbase="3770.0"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$3,770.00</td><td></td><td class="gsrv">$3,770.00</td><td></td><td></td></tr>
-<tr class="grp"><td colspan="9">Study — Room Total $3,679.20</td></tr>
-<tr data-base="3679.20"><td>Clivedon — Hudson Valley Lighting</td><td>2</td><td>ea</td><td class="m">$1,839.60</td><td class="m">$3,679.20</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$3,679.20</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="10" data-grpbase="3679.2"><td colspan="2"></td><td></td><td class="gslabel">Section Total</td><td class="gsbase">$3,679.20</td><td></td><td class="gsrv">$3,679.20</td><td></td><td></td></tr>
-<tr class="sub"><td colspan="4">Sub Total</td><td class="m">$81,981.52</td><td></td><td></td><td class="m rv">$81,981.52</td><td></td></tr>
-<tr data-base="1186.73"><td>Freight</td><td></td><td></td><td></td><td class="m">$1,186.73</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$1,186.73</td><td class="nt"></td></tr>
-<tr data-base="208.00"><td>Other — Snowmass green trim</td><td></td><td></td><td></td><td class="m">$208.00</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$208.00</td><td class="nt"></td></tr>
-<tr data-base="6256.92"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$6,256.92</td><td class="rc"><input class="ri" placeholder="+/− amount" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td><td class="rv">$6,256.92</td><td class="nt">Alabama</td></tr>
-<tr class="tot"><td colspan="4">Interiors Total</td><td class="m">$89,633.17</td><td></td><td></td><td class="m rv" id="er-tot">$89,633.17</td><td></td></tr>
+<tr class="grp"><td colspan="9">Bath-1</td></tr>
+<tr data-base="2726.00" data-qty="2.0" data-unitprice="1363.0000"><td>The Hand Sconce — Polished Unlacquered Brass (1L + 1R)</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$1,363.00</td><td class="m">$2,726.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$2,726.00</td><td class="nt">5.25”W × 10”H · shade clip needed</td></tr><tr class="grp-sub" data-grp="0" data-grpbase="2726.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$2,726.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$2,726.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Bath-2</td></tr>
+<tr data-base="748.00" data-qty="2.0" data-unitprice="374.0000"><td>Nautical Schoolhouse Sconce — Shiplights (white ball)</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$374.00</td><td class="m">$748.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$748.00</td><td class="nt">9”H · 9.5” ext · 8” globe · brass</td></tr><tr class="grp-sub" data-grp="1" data-grpbase="748.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$748.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$748.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Bath-3</td></tr>
+<tr data-base="266.00" data-qty="2.0" data-unitprice="133.0000"><td>Soho Lighting Carlisle Half Cover IP65 Polished Brass</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$133.00</td><td class="m">$266.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$266.00</td><td class="nt">Outdoor &amp; bathroom collection</td></tr>
+<tr data-base="989.10" data-qty="6.0" data-unitprice="164.8500"><td>Toponas Paper — Spice (6 rolls / 66 yds)</td><td><input class="qi" type="number" value="6" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>roll</td><td class="m">$164.85</td><td class="m">$989.10</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$989.10</td><td class="nt">Install +$1,380 (separate)</td></tr>
+<tr data-base="288.00" data-qty="4.0" data-unitprice="72.0000"><td>Tiny Stripe in Pale Pink — Checks &amp; Stripes fabric</td><td><input class="qi" type="number" value="4" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$72.00</td><td class="m">$288.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$288.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="2" data-grpbase="1543.1"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,543.10</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,543.10</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Breakfast Room</td></tr>
+<tr data-base="3500.00" data-qty="1.0" data-unitprice="3500.0000"><td>Haven Dining Table, Cerused Oak 60” — Bunny Williams</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$3,500.00</td><td class="m">$3,500.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,500.00</td><td class="nt">60” dia · reeded octagonal pedestal</td></tr>
+<tr data-base="3645.60" data-qty="14.0" data-unitprice="260.4000"><td>Thibaut MACKINAC T10300 Natural Wallcovering (14 rolls)</td><td><input class="qi" type="number" value="14" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$260.40</td><td class="m">$3,645.60</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,645.60</td><td class="nt">Raffia/papyrus · labor ~$2,000</td></tr>
+<tr data-base="3500.00" data-qty="3.5" data-unitprice="1000.0000"><td>Snowmass Bench — Charles Stewart (×3.5)</td><td><input class="qi" type="number" value="3.5" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$1,000.00</td><td class="m">$3,500.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,500.00</td><td class="nt">51”W × 24.5”H · green trim +$208</td></tr><tr class="grp-sub" data-grp="3" data-grpbase="10645.6"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$10,645.60</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$10,645.60</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Dining Room</td></tr>
+<tr data-base="4318.56" data-qty="2.0" data-unitprice="2159.2800"><td>Mollino Large Tiered Chandelier ARN5427 — Visual Comfort</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$2,159.28</td><td class="m">$4,318.56</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$4,318.56</td><td class="nt">25”H × 32”W · HRAB · 55 lbs</td></tr>
+<tr data-base="1294.00" data-qty="2.0" data-unitprice="647.0000"><td>Emery 30 Picture Light — Visual Comfort</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$647.00</td><td class="m">$1,294.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,294.00</td><td class="nt">30”W · LED 18W · HRAB</td></tr>
+<tr data-base="8991.00" data-qty="1.0" data-unitprice="8991.0000"><td>HH27-122T Palma Dining Table Top — Highland House</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$8,991.00</td><td class="m">$8,991.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$8,991.00</td><td class="nt">96”W × 44”D · cream LQ</td></tr>
+<tr data-base="12000.00" data-qty="8.0" data-unitprice="1500.0000"><td>5204-41C Dining Chair — Lee (COM 5 yds)</td><td><input class="qi" type="number" value="8" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$1,500.00</td><td class="m">$12,000.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$12,000.00</td><td class="nt">23.5”W × 40.5”H · seat ht 19.5”</td></tr>
+<tr data-base="5106.00" data-qty="2.0" data-unitprice="2553.0000"><td>Rembrandt Armchair</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$2,553.00</td><td class="m">$5,106.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$5,106.00</td><td class="nt">23”W × 27.5”D × 39”H</td></tr><tr class="grp-sub" data-grp="4" data-grpbase="31709.56"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$31,709.56</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$31,709.56</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Entry</td></tr>
+<tr data-base="1439.28" data-qty="1.0" data-unitprice="1439.2800"><td>Modern Schoolhouse Lantern MS5030 — Visual Comfort</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$1,439.28</td><td class="m">$1,439.28</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,439.28</td><td class="nt">18”W · 6’ chain · custom ht TBD</td></tr>
+<tr data-base="7200.00" data-qty="2.0" data-unitprice="3600.0000"><td>Durango Chair — Charles Stewart (custom +2” depth, mohair)</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$3,600.00</td><td class="m">$7,200.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$7,200.00</td><td class="nt">27.5”W × 39.5”H</td></tr>
+<tr data-base="4900.00" data-qty="1.0" data-unitprice="4900.0000"><td>Vintage Michael Taylor Hand Carved Mirror</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$4,900.00</td><td class="m">$4,900.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$4,900.00</td><td class="nt">38”W × 54.25”H · acanthus leaf</td></tr>
+<tr data-base="1692.00" data-qty="1.0" data-unitprice="1692.0000"><td>Antique French Empire Round Side Table</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$1,692.00</td><td class="m">$1,692.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,692.00</td><td class="nt">19”W × 28”H</td></tr>
+<tr data-base="3740.00" data-qty="22.0" data-unitprice="170.0000"><td>Summerville Stripe — Umber Wallpaper (22 rolls)</td><td><input class="qi" type="number" value="22" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$170.00</td><td class="m">$3,740.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,740.00</td><td class="nt">Labor from installer +$5,250</td></tr>
+<tr data-base="3934.78" data-qty="1.0" data-unitprice="3934.7800"><td>HH19-726S Atlantic Demilune — Highland House</td><td><input class="qi" type="number" value="1" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$3,934.78</td><td class="m">$3,934.78</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,934.78</td><td class="nt">48”W × 33.25”H · cream LQ</td></tr><tr class="grp-sub" data-grp="5" data-grpbase="22906.06"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$22,906.06</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$22,906.06</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Gallery</td></tr>
+<tr data-base="1386.00" data-qty="3.0" data-unitprice="462.0000"><td>Small Hooded Ball Wall Mount — Shiplights (Unlaq. Brass)</td><td><input class="qi" type="number" value="3" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$462.00</td><td class="m">$1,386.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,386.00</td><td class="nt">11”H · 10.5” ext</td></tr><tr class="grp-sub" data-grp="6" data-grpbase="1386.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,386.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,386.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Kitchen</td></tr>
+<tr data-base="1078.00" data-qty="2.0" data-unitprice="539.0000"><td>Elkins Double Sconce TOB2068 — Visual Comfort</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$539.00</td><td class="m">$1,078.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,078.00</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="7" data-grpbase="1078.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,078.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,078.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Stairwell</td></tr>
+<tr data-base="1790.00" data-qty="2.0" data-unitprice="895.0000"><td>Large Nautical Bronze Ceiling Light — Shiplights</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$895.00</td><td class="m">$1,790.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,790.00</td><td class="nt">13”H · Unlacquered Bronze</td></tr><tr class="grp-sub" data-grp="8" data-grpbase="1790.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$1,790.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$1,790.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Studio</td></tr>
+<tr data-base="3000.00" data-qty="8.0" data-unitprice="375.0000"><td>Art Deco Pendant Light (on chain)</td><td><input class="qi" type="number" value="8" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$375.00</td><td class="m">$3,000.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,000.00</td><td class="nt">Chain for ceiling height</td></tr>
+<tr data-base="770.00" data-qty="2.0" data-unitprice="385.0000"><td>Trafalgar Cordless Table Lamp — Antique Brass</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$385.00</td><td class="m">$770.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$770.00</td><td class="nt">10” empire shade, moonstone silk</td></tr><tr class="grp-sub" data-grp="9" data-grpbase="3770.0"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$3,770.00</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$3,770.00</span></td><td></td></tr>
+<tr class="grp"><td colspan="9">Study</td></tr>
+<tr data-base="3679.20" data-qty="2.0" data-unitprice="1839.6000"><td>Clivedon — Hudson Valley Lighting</td><td><input class="qi" type="number" value="2" min="0" step="any" placeholder="qty" style="width:100%;text-align:right;background:transparent;border:none;border-bottom:0.5px solid var(--ink-5);font-family:var(--ff-mono);font-size:0.83rem;color:var(--ink-1);padding:0 2px;outline:none;"></td><td>ea</td><td class="m">$1,839.60</td><td class="m">$3,679.20</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$3,679.20</td><td class="nt"></td></tr><tr class="grp-sub" data-grp="10" data-grpbase="3679.2"><td colspan="4"></td><td class="gsbase"><span class="gs-lbl">Section Total</span><span class="gs-num">$3,679.20</span></td><td></td><td class="gsrv"><span class="gs-lbl gs-lbl-rv">Revised Total</span><span class="gs-num">$3,679.20</span></td><td></td></tr>
+<tr class="sub"><td colspan="4">Sub Total</td><td class="m" id="sub-er-base">$81,981.52</td><td></td><td class="m rv" id="sub-er">$81,981.52</td><td></td></tr>
+<tr data-base="1186.73"><td>Freight</td><td></td><td></td><td></td><td class="m">$1,186.73</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$1,186.73</td><td class="nt"></td></tr>
+<tr data-base="208.00"><td>Other — Snowmass green trim</td><td></td><td></td><td></td><td class="m">$208.00</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$208.00</td><td class="nt"></td></tr>
+<tr data-base="6256.92"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$6,256.92</td><td class="rc"><div class="rc-inner"><input class="ri" placeholder="AMOUNT" step="any" type="number"/><button class="excl-btn" onclick="toggleExclude(this)">×</button></div></td><td class="rv">$6,256.92</td><td class="nt">Alabama</td></tr>
+<tr class="tot"><td colspan="4">Interiors Total</td><td class="m" id="er-tot-base">$89,633.17</td><td></td><td class="m rv" id="er-tot">$89,633.17</td><td></td></tr>
 </tbody></table>
 </div>
 <!-- GRAND TOTAL -->
@@ -816,66 +888,99 @@ function parseDelta(v){
 }
 
 function recalc(){
-  // Update per-group subtotals
-  document.querySelectorAll('tr.grp-sub').forEach(sub => {
-    const sec = sub.closest('.contract');
-    if(!sec) return;
-    const grpIdx = parseInt(sub.dataset.grp);
-    const grpRows = Array.from(sec.querySelectorAll('tbody tr.grp'));
-    const startGrp = grpRows[grpIdx];
-    const endGrp = grpRows[grpIdx+1] || null;
-    let tot = 0;
-    let anyChanged = false;
-    let node = startGrp ? startGrp.nextElementSibling : null;
-    while(node && node !== endGrp && node !== sub){
-      if(node.classList.contains('grp-sub')){node=node.nextElementSibling;continue;}
-      if(node.dataset.base !== undefined && !node.classList.contains('excluded-row')){
-        const base = parseFloat(node.dataset.base);
-        const inp = node.querySelector('.ri');
-        const delta = inp ? parseDelta(inp.value) : 0;
-        tot += base + delta;
-        if(Math.abs(delta)>0.005) anyChanged=true;
+  // Helper: sum all non-excluded data rows in a container, optionally stopping before a sentinel row
+  function sumRows(container, stopBefore){
+    let tot=0;
+    const rows=container.querySelectorAll('tbody tr[data-base]');
+    rows.forEach(row=>{
+      if(stopBefore && row===stopBefore) return;
+      if(row.classList.contains('excluded-row')) return;
+      const origBase=parseFloat(row.dataset.base)||0;
+      const unitPrice=parseFloat(row.dataset.unitprice)||null;
+      const qiEl=row.querySelector('.qi');
+      let effectiveBase=origBase;
+      if(unitPrice!==null && qiEl){
+        const newQty=parseFloat(qiEl.value)||0;
+        effectiveBase=unitPrice*newQty;
       }
-      node = node.nextElementSibling;
-    }
-    const baseCell = sub.querySelector('.gsbase');
-    const rvCell = sub.querySelector('.gsrv');
-    if(baseCell) baseCell.textContent = f(parseFloat(sub.dataset.grpbase||0));
-    if(rvCell){
-      rvCell.textContent = f(tot);
-      rvCell.classList.toggle('ch', anyChanged);
-    }
-  });
+      const inp=row.querySelector('.ri');
+      tot+=effectiveBase+(inp?parseDelta(inp.value):0);
+    });
+    return tot;
+  }
 
+  // ── Per-row revised cells ──────────────────────────────────────────────
   document.querySelectorAll('tbody tr[data-base]').forEach(row=>{
-    const base=parseFloat(row.dataset.base);
+    const base=parseFloat(row.dataset.base)||0;
     const inp=row.querySelector('.ri');
     const cell=row.querySelector('.rv');
-    if(!inp||!cell)return;
+    if(!inp||!cell) return;
     const delta=parseDelta(inp.value);
     const revised=base+delta;
     const changed=Math.abs(delta)>0.005;
     const isExcl=cell.dataset.excl==='1';
-    if(isExcl&&!changed)return;
-    const display=revised<0?('\u2212$'+Math.abs(revised).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})):
-                            ('$'+revised.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}));
-    cell.textContent=display;
+    if(isExcl&&!changed) return;
+    cell.textContent=revised<0?('\u2212$'+Math.abs(revised).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})):
+                               ('$'+revised.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}));
     cell.classList.toggle('ch',changed);
   });
 
+  // ── grp-sub section totals ─────────────────────────────────────────────
+  document.querySelectorAll('tr.grp-sub').forEach(sub=>{
+    const sec=sub.closest('.contract');
+    if(!sec) return;
+    const grpIdx=parseInt(sub.dataset.grp);
+    const grpRows=Array.from(sec.querySelectorAll('tbody tr.grp'));
+    const startGrp=grpRows[grpIdx];
+    let subTot=0;
+    let node=startGrp?startGrp.nextElementSibling:null;
+    while(node && node!==sub){
+      if(node.dataset&&node.dataset.base!==undefined&&!node.classList.contains('excluded-row')){
+        const base=parseFloat(node.dataset.base)||0;
+        const inp=node.querySelector('.ri');
+        subTot+=base+(inp?parseDelta(inp.value):0);
+      }
+      node=node.nextElementSibling;
+    }
+    const gsbase=sub.querySelector('.gsbase');
+    const gsrv=sub.querySelector('.gsrv');
+    if(gsrv){
+      const gsnum=gsrv.querySelector('.gs-num');
+      if(gsnum) gsnum.textContent=f(subTot);
+      gsrv.classList.toggle('ch',Math.abs(subTot-(parseFloat(sub.dataset.grpbase||0)))>0.005);
+    }
+  });
+
+  // ── Sub rows (walk siblings above each sub row) ────────────────────────
+  document.querySelectorAll('tr.sub').forEach(subRow=>{
+    const rvCell=subRow.querySelector('.rv');
+    const baseCell=subRow.querySelector('.m[id$="-base"]');
+    if(!rvCell) return;
+    let subTot=0;
+    let node=subRow.previousElementSibling;
+    while(node){
+      if(node.dataset&&node.dataset.base!==undefined&&!node.classList.contains('excluded-row')){
+        const _ob=parseFloat(node.dataset.base)||0;
+        const _up=parseFloat(node.dataset.unitprice)||null;
+        const _qi=node.querySelector('.qi');
+        let _eb=_ob;
+        if(_up!==null&&_qi){const _nq=parseFloat(_qi.value)||0;_eb=_up*_nq;}
+        subTot+=_eb+(node.querySelector('.ri')?parseDelta(node.querySelector('.ri').value):0);
+      }
+      node=node.previousElementSibling;
+    }
+    rvCell.textContent=f(subTot);
+  });
+
+  // ── Section contract totals ────────────────────────────────────────────
   let grandRev=0, anyChanged=false;
   SECS.forEach(s=>{
-    let tot=0;
-    document.querySelectorAll(s.sel+' tbody tr[data-base]').forEach(row=>{
-      const base=parseFloat(row.dataset.base);
-      const inp=row.querySelector('.ri');
-      if(row.classList.contains('excluded-row'))return;
-      const delta=inp?parseDelta(inp.value):0;
-      tot+=base+delta;
-    });
+    const container=document.querySelector(s.sel);
+    if(!container) return;
+    const tot=sumRows(container);
     grandRev+=tot;
     const delta=tot-BASE[s.key];
-    if(Math.abs(delta)>0.005)anyChanged=true;
+    if(Math.abs(delta)>0.005) anyChanged=true;
 
     const tEl=document.getElementById(s.tid);
     if(tEl){tEl.textContent=f(tot);tEl.classList.toggle('ch',Math.abs(delta)>0.005);}
@@ -888,6 +993,7 @@ function recalc(){
     }
   });
 
+  // ── Grand total ────────────────────────────────────────────────────────
   const gd=grandRev-GRAND_BASE;
   document.getElementById('gt-grand').textContent=f(grandRev);
   document.getElementById('gt-grand').classList.toggle('live',anyChanged);
@@ -904,10 +1010,10 @@ function recalc(){
   sd.className='bc-val'+(gd>0.005?' neg':gd<-0.005?' pos':'');
 }
 
-/* ── SAVE (download) ── */
+/* ── BUILD DATA ── */
 function buildData(){
   const out={
-    _meta:{exported:new Date().toISOString(),file:'revisions.json',note:'Values are deltas added to base amounts. Positive = increase, negative = decrease. excluded[] lists row keys removed from totals.'},
+    _meta:{saved:new Date().toISOString(),file:'revisions.json',note:'Deltas added to base amounts. excluded[] = row keys removed from totals.'},
     revisions:{},
     excluded:[]
   };
@@ -917,20 +1023,85 @@ function buildData(){
     if(k&&v!==''&&!isNaN(parseFloat(v)))out.revisions[k]=parseFloat(v);
     if(k&&inp.closest('tr').classList.contains('excluded-row'))out.excluded.push(k);
   });
+  // Save qty changes
+  out.quantities={};
+  document.querySelectorAll('tbody tr[data-qty] .qi').forEach(qi=>{
+    const row=qi.closest('tr');
+    const sec=qi.closest('.contract');
+    if(!sec||!row) return;
+    const rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
+    const idx=rows.indexOf(row);
+    const k=sec.id+'::'+idx;
+    const origQty=parseFloat(row.dataset.qty)||0;
+    const newQty=parseFloat(qi.value)||0;
+    if(Math.abs(newQty-origQty)>0.0001) out.quantities[k]=newQty;
+  });
   return out;
 }
 
-function saveData(){
+/* ── GITHUB API SAVE ── */
+const GH_OWNER = 'tscarlisle-ghub';
+const GH_REPO  = 'CMA';
+const GH_PATH  = 'revisions.json';
+const GH_BRANCH= 'main';
+
+function getToken(){
+  return (document.getElementById('gh-token')||{}).value ||
+         localStorage.getItem('cma-gh-token') || '';
+}
+
+function updateTokenStatus(){
+  const t=getToken();
+  const el=document.getElementById('token-status');
+  if(!el)return;
+  el.textContent = t.startsWith('ghp_')||t.startsWith('github_pat_') ? '✓ token set' : t?'? unrecognised format':'';
+  el.style.color = (t.startsWith('ghp_')||t.startsWith('github_pat_')) ? 'var(--forest-1)' : 'var(--ink-4)';
+}
+
+async function saveToGitHub(){
+  const token=getToken();
+  if(!token){
+    setStatus('Paste your GitHub token first',5000);
+    document.getElementById('gh-token')&&document.getElementById('gh-token').focus();
+    return;
+  }
   const data=buildData();
-  const n=Object.keys(data.revisions).length+data.excluded.length;
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='revisions.json';
-  a.click();
-  URL.revokeObjectURL(a.href);
-  setStatus(n===0?'Saved — no revisions yet':'Saved '+Object.keys(data.revisions).length+' revision'+(Object.keys(data.revisions).length!==1?'s':'')+
-    (data.excluded.length?' + '+data.excluded.length+' excluded':'')+' — commit revisions.json to git');
+  const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2)+'
+')));
+
+  setStatus('Saving…',60000);
+
+  // Get current SHA (needed to update existing file)
+  let sha='';
+  try{
+    const r=await fetch(
+      \`https://api.github.com/repos/\${GH_OWNER}/\${GH_REPO}/contents/\${GH_PATH}?ref=\${GH_BRANCH}\`,
+      {headers:{Authorization:\`Bearer \${token}\`,'Accept':'application/vnd.github+json'}}
+    );
+    if(r.ok){const j=await r.json();sha=j.sha||'';}
+  }catch(e){}
+
+  // Commit the file
+  const body={message:'Update revisions.json',content,branch:GH_BRANCH};
+  if(sha) body.sha=sha;
+
+  try{
+    const r=await fetch(
+      \`https://api.github.com/repos/\${GH_OWNER}/\${GH_REPO}/contents/\${GH_PATH}\`,
+      {method:'PUT',headers:{Authorization:\`Bearer \${token}\`,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+       body:JSON.stringify(body)}
+    );
+    if(r.ok){
+      const n=Object.keys(data.revisions).length+data.excluded.length;
+      setStatus('Saved to GitHub — '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'}),6000);
+      localStorage.setItem('cma-budget-draft',JSON.stringify(data));
+    } else {
+      const err=await r.json();
+      setStatus('GitHub error: '+(err.message||r.status),8000);
+    }
+  }catch(e){
+    setStatus('Network error — '+e.message,8000);
+  }
 }
 
 /* ── LOAD ── */
@@ -951,9 +1122,21 @@ function loadFromFile(input){
           const row=inp.closest('tr');
           row.classList.add('excluded-row');
           const btn=row.querySelector('.excl-btn');
-          if(btn){btn.textContent='restore';btn.title='Restore to total';}
+          if(btn){btn.title='Click to include';}
         }
       });
+
+  // Restore qty changes
+  const qtys=data.quantities||{};
+  document.querySelectorAll('tbody tr[data-qty] .qi').forEach(qi=>{
+    const row=qi.closest('tr');
+    const sec=qi.closest('.contract');
+    if(!sec||!row) return;
+    const rows=Array.from(sec.querySelectorAll('tbody tr[data-base]'));
+    const idx=rows.indexOf(row);
+    const k=sec.id+'::'+idx;
+    if(qtys[k]!==undefined) qi.value=qtys[k];
+  });
       recalc();
       setStatus('Loaded '+n+' revision'+(n!==1?'s':'')+' from '+file.name);
     }catch(err){
@@ -981,61 +1164,18 @@ async function autoLoad(){
         const row=inp.closest('tr');
         row.classList.add('excluded-row');
         const btn=row.querySelector('.excl-btn');
-        if(btn){btn.textContent='restore';btn.title='Restore to total';}
+        if(btn){btn.title='Click to include';}
       }
     });
     if(n>0){recalc();setStatus('Loaded '+n+' revision'+(n!==1?'s':'')+' from revisions.json',6000);}
-  }catch(_){}
+    else{loadDraft();}
+  }catch(_){loadDraft();}
 }
-
-
-/* Section subtotal row */
-tr.grp-sub td{
-  border-top:0.5px solid var(--cma-accent-rule);
-  border-bottom:1px solid var(--paper-3);
-  padding:5px 6px;
-  font-family:var(--ff-mono);
-  font-weight:700;
-  font-size:0.78rem;
-  color:var(--ink-2);
-  text-align:right;
-  background:var(--paper-1) !important;
-  font-variant-numeric:tabular-nums lining-nums;
-}
-tr.grp-sub td:first-child{text-align:left;padding-left:18px;}
-tr.grp-sub td.gslabel{
-  text-align:right;
-  font-family:var(--ff-sans);
-  font-weight:700;
-  font-size:0.72rem;
-  color:var(--ink-2);
-  letter-spacing:0.04em;
-  padding-right:8px;
-  white-space:nowrap;
-}
-tr.grp-sub td.gsbase{
-  font-family:var(--ff-mono);
-  font-weight:400;
-  font-size:0.78rem;
-  color:var(--ink-3);
-  text-align:right;
-  font-variant-numeric:tabular-nums lining-nums;
-}
-tr.grp-sub td.gsrv{
-  font-family:var(--ff-mono);
-  font-weight:700;
-  font-size:0.78rem;
-  color:var(--ink-2);
-  text-align:right;
-  font-variant-numeric:tabular-nums lining-nums;
-}
-tr.grp-sub td.gsrv.ch{color:var(--cma-accent);}
 /* ── EXCLUDE TOGGLE ── */
 function toggleExclude(btn){
   const row=btn.closest('tr');
   const excluded=row.classList.toggle('excluded-row');
-  btn.textContent=excluded?'restore':'excl.';
-  btn.title=excluded?'Restore to total':'Exclude from total';
+  btn.title=excluded?'Click to include':'Click to exclude';
   recalc();
 }
 
@@ -1047,8 +1187,51 @@ function setStatus(msg,ms=6000){
 }
 
 allInputs().forEach(inp=>inp.addEventListener('input',recalc));
+document.querySelectorAll('.qi').forEach(qi=>qi.addEventListener('input',recalc));
 document.querySelectorAll('.rv[data-excl="1"]').forEach(cell=>{cell.dataset.origText=cell.textContent;});
 autoLoad();
+// Restore token input from localStorage
+(function(){
+  const t=localStorage.getItem('cma-gh-token');
+  const inp=document.getElementById('gh-token');
+  if(t&&inp){inp.value=t;updateTokenStatus();}
+})();
+
+/* ── Autosave to GitHub every 10 seconds (if token set and data exists) ── */
+setInterval(()=>{
+  const token=getToken();
+  const data=buildData();
+  const n=Object.keys(data.revisions).length+data.excluded.length;
+  if(n===0) return;
+  // Always keep localStorage draft
+  try{localStorage.setItem('cma-budget-draft',JSON.stringify(data));}catch(e){}
+  // Push to GitHub silently if token is available
+  if(token) saveToGitHub();
+}, 10000);
+
+/* ── Restore draft from localStorage on load (fallback if no revisions.json) ── */
+function loadDraft(){
+  try{
+    const raw=localStorage.getItem('cma-budget-draft');
+    if(!raw) return false;
+    const data=JSON.parse(raw);
+    const revs=data.revisions||{};
+    const excl=data.excluded||[];
+    let n=0;
+    allInputs().forEach(inp=>{
+      const k=rowKey(inp);
+      if(k&&revs[k]!==undefined){inp.value=revs[k];n++;}
+      if(k&&excl.includes(k)){
+        const row=inp.closest('tr');
+        row.classList.add('excluded-row');
+        const btn=row.querySelector('.excl-btn');
+        if(btn) btn.title='Click to include';
+      }
+    });
+    if(n>0){recalc();setStatus('Restored '+n+' revision'+(n!==1?'s':'')+' from local draft',5000);}
+    return n>0;
+  }catch(e){return false;}
+}
 </script>
 </body>
 </html>
