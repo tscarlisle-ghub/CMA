@@ -4,119 +4,432 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CMA Office — Budget</title>
+<link rel="stylesheet" href="https://tscarlisle-ghub.github.io/fonts/tsc-fonts.css">
 <style>
-@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Book.woff2')format('woff2');font-weight:400;font-style:normal}
-@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Book%20Italic.woff2')format('woff2');font-weight:400;font-style:italic}
-@font-face{font-family:'Eames Century Modern';src:url('https://tscarlisle-ghub.github.io/fonts/Eames%20Century%20Modern-Medium.woff2')format('woff2');font-weight:500;font-style:normal}
-@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Hairline.woff2')format('woff2');font-weight:100;font-style:normal}
-@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Light.woff2')format('woff2');font-weight:300;font-style:normal}
-@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Regular.woff2')format('woff2');font-weight:400;font-style:normal}
-@font-face{font-family:'Interstate';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-Bold.woff2')format('woff2');font-weight:700;font-style:normal}
-@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-LightCondensed.woff2')format('woff2');font-weight:300;font-style:normal}
-@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-RegularCondensed.woff2')format('woff2');font-weight:400;font-style:normal}
-@font-face{font-family:'Interstate Condensed';src:url('https://tscarlisle-ghub.github.io/fonts/Interstate-BoldCondensed.woff2')format('woff2');font-weight:700;font-style:normal}
-@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF49-Liteweight.woff2')format('woff2');font-weight:400;font-style:normal}
-@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF68-FullFeatherwt.woff2')format('woff2');font-weight:600;font-style:normal}
-@font-face{font-family:'Knockout';src:url('https://tscarlisle-ghub.github.io/fonts/Knockout-HTF73-FullHeviweight.woff2')format('woff2');font-weight:800;font-style:normal}
+/* ── DESIGN SYSTEM TOKENS ─────────────────────────────── */
+:root{
+  --paper-0:#fbfaf6; --paper-1:#f5f2ea; --paper-2:#ede8db; --paper-3:#ddd6c4;
+  --ink-0:#14110d;   --ink-1:#2b271f;   --ink-2:#57514a;   --ink-3:#8a847b;
+  --ink-4:#b6b0a6;   --ink-5:#d5cfc3;
+  --cma-accent:#a85c24; --cma-accent-deep:#7d4319; --cma-accent-soft:#c47a48;
+  --cma-accent-tint:#f6ece1; --cma-accent-rule:#d6b59a;
+  --forest-0:#103627; --forest-1:#1f4d3a; --forest-2:#2f6b53;
+  --forest-3:#b8cdb9; --forest-4:#e8efe5;
+  --alert:#8a2a1f; --alert-tint:#f4e3df;
+  --engraved:#1a1814; --engraved-rule:#3b352c;
+  --rule:var(--ink-5);
+
+  /* Font roles from design system */
+  --ff-brand:    'Penumbra Flare', 'Optima', Georgia, serif;
+  --ff-display:  'BioRhyme Expanded', 'Trajan Pro 3', Georgia, serif;
+  --ff-serif:    'Surveyor Text', 'Warnock Pro', Charter, Georgia, serif;
+  --ff-sans:     'Whitney', 'Helvetica Neue', Arial, sans-serif;
+  --ff-sans-cond:'Whitney Condensed', 'Whitney', 'Arial Narrow', sans-serif;
+  --ff-mono:     'Interstate Condensed Mono', 'Interstate Mono', 'SF Mono', Menlo, monospace;
+  --ff-knockout: 'Knockout', impact, sans-serif;
+
+  /* Tracking */
+  --tr-label:0.12em; --tr-engraved:0.22em; --tr-engraved-wide:0.32em;
+
+  /* BASE FONT SIZE — all rem/em scale from here */
+  font-size: 18px; /* 15px × 1.2 = 18px */
+}
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --paper:#f8f6f1;--paper-2:#f0ede6;--paper-3:#e8e4db;
-  --ink:#1c1a17;--ink-2:#3d3a34;--ink-3:#7a7670;--ink-4:#b0ada6;
-  --rule:rgba(28,26,23,.12);--rule-md:rgba(28,26,23,.28);--rule-hv:rgba(28,26,23,.58);
-  --red:#7a2515;--red-lt:#f9f0ed;--green:#1a4020;
+body{
+  font-family:var(--ff-serif);
+  font-weight:400;
+  background:var(--paper-0);
+  color:var(--ink-1);
+  line-height:1.55;
+  padding:52px 56px 96px;
+  max-width:1240px;
+  margin:0 auto;
 }
-html{font-size:15px}
-body{font-family:'Eames Century Modern',Georgia,serif;font-weight:400;background:var(--paper);color:var(--ink);line-height:1.55;padding:48px 52px 96px;max-width:1160px;margin:0 auto}
 
-/* MASTHEAD */
-.mast{border-top:1.5px solid var(--ink);border-bottom:.5px solid var(--rule-md);padding:14px 0 12px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:28px}
-.mast-title{font-family:'Knockout',sans-serif;font-weight:600;font-size:32px;letter-spacing:.05em;text-transform:uppercase;line-height:1}
-.mast-sub{font-family:'Interstate',sans-serif;font-weight:100;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
-.mast-meta{text-align:right;font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;color:var(--ink-3);line-height:2;letter-spacing:.04em}
+/* ── MASTHEAD ──────────────────────────────────────────── */
+.mast{
+  border-top:2px solid var(--engraved);
+  border-bottom:0.5px solid var(--cma-accent-rule);
+  padding:16px 0 14px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:24px;
+  margin-bottom:24px;
+}
+.mast-title{
+  font-family:var(--ff-brand);
+  font-weight:700;
+  font-size:2rem;
+  letter-spacing:var(--tr-engraved-wide);
+  text-transform:uppercase;
+  color:var(--engraved);
+  line-height:1;
+}
+.mast-sub{
+  font-family:var(--ff-sans-cond);
+  font-weight:400;
+  font-size:0.72rem;
+  letter-spacing:var(--tr-label);
+  text-transform:uppercase;
+  color:var(--ink-3);
+  margin-top:6px;
+}
+.mast-meta{
+  text-align:right;
+  font-family:var(--ff-mono);
+  font-weight:300;
+  font-size:0.67rem;
+  color:var(--ink-3);
+  line-height:2;
+  letter-spacing:0.04em;
+}
 
-/* SAVE STRIP */
-.save-strip{display:flex;align-items:center;gap:14px;padding:7px 0 18px;font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
-.save-strip button,.save-strip .load-lbl{font-family:'Interstate',sans-serif;font-weight:400;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-hv);padding:4px 12px;cursor:pointer;color:var(--ink-2);display:inline-block}
-.save-strip button:hover,.save-strip .load-lbl:hover{background:var(--paper-3)}
-.save-strip .status{font-style:italic}
-.save-strip .hint{font-style:italic;color:var(--ink-4);font-size:9.5px}
+/* ── SAVE STRIP ────────────────────────────────────────── */
+.save-strip{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 0 20px;
+  font-family:var(--ff-sans);
+  font-weight:300;
+  font-size:0.67rem;
+  letter-spacing:0.06em;
+  color:var(--ink-3);
+}
+.btn-save{
+  font-family:var(--ff-sans-cond);
+  font-weight:600;
+  font-size:0.72rem;
+  letter-spacing:var(--tr-label);
+  text-transform:uppercase;
+  background:var(--forest-1);
+  color:#fff;
+  border:none;
+  padding:6px 20px;
+  cursor:pointer;
+  transition:background .15s;
+}
+.btn-save:hover{background:var(--forest-0);}
+.btn-minor{
+  font-family:var(--ff-sans-cond);
+  font-weight:400;
+  font-size:0.67rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  background:transparent;
+  border:0.5px solid var(--ink-4);
+  padding:5px 13px;
+  cursor:pointer;
+  color:var(--ink-2);
+  display:inline-block;
+  transition:all .12s;
+}
+.btn-minor:hover{border-color:var(--cma-accent);color:var(--cma-accent);}
+.load-lbl{
+  font-family:var(--ff-sans-cond);
+  font-weight:400;
+  font-size:0.67rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  background:transparent;
+  border:0.5px solid var(--ink-4);
+  padding:5px 13px;
+  cursor:pointer;
+  color:var(--ink-2);
+  display:inline-block;
+  transition:all .12s;
+}
+.load-lbl:hover{border-color:var(--cma-accent);color:var(--cma-accent);}
+.save-status{font-style:italic;color:var(--ink-3);font-size:0.67rem;}
+.save-hint{font-style:italic;color:var(--ink-4);font-size:0.62rem;}
 
-/* SUMMARY BAND */
-.band{display:grid;grid-template-columns:repeat(4,1fr);border-top:.5px solid var(--rule-hv);border-bottom:.5px solid var(--rule-hv);margin-bottom:44px}
-.bc{padding:12px 0;border-right:.5px solid var(--rule)}
-.bc:last-child{border-right:none}
-.bc:not(:first-child){padding-left:20px}
-.bc-label{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:3px}
-.bc-val{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:19px;letter-spacing:.01em}
-.bc-val.live{color:var(--red)}
-.bc-val.pos{color:var(--green)}
-.bc-val.neg{color:var(--red)}
+/* ── SUMMARY BAND ──────────────────────────────────────── */
+.band{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:0.5px solid var(--engraved-rule);
+  border-bottom:0.5px solid var(--engraved-rule);
+  margin-bottom:48px;
+}
+.bc{padding:14px 0;border-right:0.5px solid var(--ink-5);}
+.bc:last-child{border-right:none;}
+.bc:not(:first-child){padding-left:22px;}
+.bc-label{
+  font-family:var(--ff-sans-cond);
+  font-weight:400;
+  font-size:0.6rem;
+  letter-spacing:var(--tr-label);
+  text-transform:uppercase;
+  color:var(--ink-4);
+  margin-bottom:4px;
+}
+.bc-val{
+  font-family:var(--ff-mono);
+  font-weight:400;
+  font-size:1.33rem;
+  letter-spacing:0.01em;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.bc-val.live{color:var(--cma-accent);}
+.bc-val.pos{color:var(--forest-1);}
+.bc-val.neg{color:var(--alert);}
 
-/* CONTRACT */
-.contract{margin-bottom:52px}
-.ch{display:grid;grid-template-columns:1fr auto;align-items:baseline;border-top:1px solid var(--rule-hv);padding:9px 0 7px;gap:16px}
-.ch h2{font-family:'Knockout',sans-serif;font-weight:800;font-size:17px;letter-spacing:.06em;text-transform:uppercase}
-.ch-right{font-family:'Interstate',sans-serif;font-weight:300;font-size:10px;letter-spacing:.05em;color:var(--ink-3);text-align:right;white-space:nowrap}
-.ch-total{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:12.5px;color:var(--ink-2);display:block}
+/* ── CONTRACT SECTION ──────────────────────────────────── */
+.contract{margin-bottom:56px;}
+.ch{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:baseline;
+  border-top:1.5px solid var(--engraved);
+  padding:10px 0 8px;
+  gap:16px;
+}
+.ch h2{
+  font-family:var(--ff-display);
+  font-weight:400;
+  font-size:1rem;
+  letter-spacing:var(--tr-engraved);
+  text-transform:uppercase;
+  color:var(--cma-accent);
+  line-height:1.2;
+}
+.ch-right{
+  font-family:var(--ff-mono);
+  font-weight:300;
+  font-size:0.67rem;
+  color:var(--ink-3);
+  text-align:right;
+  white-space:nowrap;
+  letter-spacing:0.04em;
+}
+.ch-total{
+  font-family:var(--ff-mono);
+  font-weight:400;
+  font-size:0.83rem;
+  color:var(--ink-2);
+  display:block;
+  font-variant-numeric:tabular-nums lining-nums;
+}
 
-/* TABLE */
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-thead tr{border-bottom:.5px solid var(--rule-hv)}
-thead th{font-family:'Interstate',sans-serif;font-weight:300;font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-4);padding:5px 5px 5px;text-align:right;white-space:nowrap}
-thead th:first-child{text-align:left;padding-left:0}
-thead th.thn{text-align:left}
-thead th.thr{color:var(--red)}
+/* ── TABLE ─────────────────────────────────────────────── */
+table{width:100%;border-collapse:collapse;font-size:0.83rem;}
 
-tr.grp td{font-family:'Knockout',sans-serif;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:12px 0 4px;border-bottom:.5px solid var(--rule-md)}
-tbody tr:not(.grp):not(.sub):not(.tot){border-bottom:.5px solid var(--rule)}
-tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--paper-2)}
+thead tr{border-bottom:0.5px solid var(--engraved-rule);}
+thead th{
+  font-family:var(--ff-sans-cond);
+  font-weight:400;
+  font-size:0.56rem;
+  letter-spacing:var(--tr-label);
+  text-transform:uppercase;
+  color:var(--ink-4);
+  padding:6px 6px 6px;
+  text-align:right;
+  white-space:nowrap;
+}
+thead th:first-child{text-align:left;padding-left:0;}
+thead th.thn{text-align:left;}
+thead th.thr{color:var(--cma-accent);}
 
-td{padding:5px 5px;vertical-align:top;text-align:right;color:var(--ink)}
-td:first-child{text-align:left;padding-left:0}
-td.m{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px;white-space:nowrap}
-td.nt{font-style:italic;font-size:11px;color:var(--ink-3);text-align:left;max-width:200px}
-td.ex{font-family:'Interstate',sans-serif;font-weight:300;font-size:9.5px;letter-spacing:.03em;color:var(--ink-4);text-align:right}
-td.ng{color:var(--red)}
-td.rv{font-family:'Interstate Condensed',sans-serif;font-weight:300;font-size:12px;white-space:nowrap;color:var(--ink-3)}
-td.rv.ch{color:var(--red);font-weight:700}
+/* Alternating row colors — odd rows paper-0, even rows paper-1 */
+tbody tr:not(.grp):not(.sub):not(.tot):nth-child(odd){background:var(--paper-0);}
+tbody tr:not(.grp):not(.sub):not(.tot):nth-child(even){background:var(--paper-1);}
+tbody tr:not(.grp):not(.sub):not(.tot){border-bottom:0.5px solid var(--ink-5);}
+tbody tr:not(.grp):not(.sub):not(.tot):hover{background:var(--cma-accent-tint);}
 
-td.rc{padding:3px 4px}
-.ri{width:82px;background:transparent;border:none;border-bottom:.5px solid var(--rule-md);font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:11px;color:var(--red);text-align:right;padding:2px 2px 1px;outline:none;transition:border-color .15s,background .12s;display:block}
-.ri:focus{background:var(--red-lt);border-bottom-color:var(--red)}
-.ri::placeholder{color:var(--ink-4);font-size:9.5px;letter-spacing:.05em}
+tr.grp td{
+  font-family:var(--ff-sans-cond);
+  font-weight:600;
+  font-size:0.67rem;
+  letter-spacing:var(--tr-label);
+  text-transform:uppercase;
+  color:var(--ink-2);
+  padding:14px 0 4px;
+  border-bottom:0.5px solid var(--cma-accent-rule);
+  background:transparent !important;
+}
 
-tr.sub td{border-top:.5px solid var(--rule-md);padding-top:7px;font-family:'Interstate',sans-serif;font-weight:300;font-size:11px;letter-spacing:.03em;color:var(--ink-2);background:var(--paper-2)}
-tr.sub td.m{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:12px}
-tr.sub td:first-child{font-style:italic;padding-left:0;text-align:left}
-tr.tot td{border-top:1px solid var(--rule-hv);border-bottom:1px solid var(--rule-hv);padding:8px 5px;font-family:'Interstate',sans-serif;font-weight:400;font-size:12px;letter-spacing:.03em;background:var(--paper-3)}
-tr.tot td:first-child{padding-left:0;font-style:italic}
-tr.tot td.m{font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:13px}
-tr.tot td.rv.ch{font-weight:700}
+td{padding:6px 6px;vertical-align:middle;text-align:right;color:var(--ink-1);}
+td:first-child{text-align:left;padding-left:0;}
+td.m{
+  font-family:var(--ff-mono);
+  font-weight:400;
+  font-size:0.83rem;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+td.nt{
+  font-family:var(--ff-serif);
+  font-style:italic;
+  font-size:0.72rem;
+  color:var(--ink-3);
+  text-align:left;
+  max-width:220px;
+}
+td.ex{
+  font-family:var(--ff-sans-cond);
+  font-weight:300;
+  font-size:0.67rem;
+  letter-spacing:0.06em;
+  color:var(--ink-4);
+  text-align:right;
+}
+td.ng{color:var(--alert);}
+td.rv{
+  font-family:var(--ff-mono);
+  font-weight:300;
+  font-size:0.83rem;
+  white-space:nowrap;
+  color:var(--ink-3);
+  font-variant-numeric:tabular-nums lining-nums;
+}
+td.rv.ch{color:var(--cma-accent);font-weight:700;}
 
-/* GRAND */
-.grand{margin-top:52px;border-top:1.5px solid var(--ink)}
-.grand table{font-size:13px}
-.grand thead th{font-size:9px;padding:6px 5px 5px}
-.grand tr.gr td{padding:7px 5px;border-bottom:.5px solid var(--rule);font-family:'Interstate',sans-serif;font-weight:300;font-size:12px;color:var(--ink-2)}
-.grand tr.gr td:first-child{padding-left:0;text-align:left}
-.grand tr.gr td.m{font-family:'Interstate Condensed',sans-serif;font-weight:400;font-size:13px;color:var(--ink)}
-.grand tr.gr td.dp{color:var(--red)}
-.grand tr.gr td.dn{color:var(--green)}
-.grand tr.grt td{padding:11px 5px;border-top:1px solid var(--rule-hv);font-family:'Interstate Condensed',sans-serif;font-weight:700;font-size:18px}
-.grand tr.grt td:first-child{font-family:'Knockout',sans-serif;font-weight:600;font-size:15px;letter-spacing:.07em;text-transform:uppercase;padding-left:0;text-align:left}
-.grand tr.grt td.live{color:var(--red)}
-.dep-note{font-family:'Interstate',sans-serif;font-weight:300;font-size:9.5px;color:var(--ink-3);letter-spacing:.04em;padding:9px 0 0;border-top:.5px solid var(--rule);margin-top:6px;line-height:2}
-.fn{margin-top:36px;padding-top:12px;border-top:.5px solid var(--rule);font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;color:var(--ink-4);letter-spacing:.05em;line-height:2.1}
+/* Revision input cell */
+td.rc{padding:3px 5px;}
+.ri{
+  width:90px;
+  background:transparent;
+  border:none;
+  border-bottom:0.5px solid var(--ink-5);
+  font-family:var(--ff-mono);
+  font-weight:400;
+  font-size:0.78rem;
+  color:var(--cma-accent);
+  text-align:right;
+  padding:2px 3px 1px;
+  outline:none;
+  transition:border-color .15s,background .12s;
+  display:block;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.ri:focus{background:var(--cma-accent-tint);border-bottom-color:var(--cma-accent);}
+.ri::placeholder{color:var(--ink-4);font-size:0.62rem;letter-spacing:0.05em;}
 
-/* Exclude toggle */
-.excl-btn{font-family:'Interstate',sans-serif;font-weight:300;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule-md);padding:2px 7px;cursor:pointer;color:var(--ink-4);white-space:nowrap;transition:all .12s}
-.excl-btn:hover{border-color:var(--red);color:var(--red)}
-tr.excluded-row{opacity:.35}
-tr.excluded-row td{text-decoration:line-through;text-decoration-color:var(--ink-4)}
-tr.excluded-row .excl-btn{border-color:var(--red);color:var(--red);background:var(--red-lt)}
-tr.excluded-row td.rv{text-decoration:none}
-td.xc{padding:3px 4px;text-align:right}
+/* Subtotal row */
+tr.sub td{
+  border-top:0.5px solid var(--cma-accent-rule);
+  padding-top:8px;
+  font-family:var(--ff-sans);
+  font-weight:300;
+  font-size:0.72rem;
+  letter-spacing:0.03em;
+  color:var(--ink-2);
+  background:var(--paper-2) !important;
+}
+tr.sub td.m{
+  font-family:var(--ff-mono);
+  font-weight:500;
+  font-size:0.83rem;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+tr.sub td:first-child{font-style:italic;padding-left:0;text-align:left;}
+
+/* Total row */
+tr.tot td{
+  border-top:1.5px solid var(--engraved);
+  border-bottom:1.5px solid var(--engraved);
+  padding:9px 6px;
+  font-family:var(--ff-sans);
+  font-weight:500;
+  font-size:0.78rem;
+  letter-spacing:0.03em;
+  background:var(--paper-2) !important;
+}
+tr.tot td:first-child{padding-left:0;font-style:italic;}
+tr.tot td.m{
+  font-family:var(--ff-mono);
+  font-weight:700;
+  font-size:0.89rem;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+tr.tot td.rv.ch{color:var(--cma-accent);font-weight:700;}
+
+/* ── GRAND TOTAL ───────────────────────────────────────── */
+.grand{margin-top:56px;border-top:2px solid var(--engraved);}
+.grand table{font-size:0.89rem;}
+.grand thead th{font-size:0.6rem;padding:7px 6px 6px;}
+.grand tr.gr td{
+  padding:8px 6px;
+  border-bottom:0.5px solid var(--ink-5);
+  font-family:var(--ff-sans);
+  font-weight:300;
+  font-size:0.78rem;
+  color:var(--ink-2);
+}
+.grand tr.gr td:first-child{padding-left:0;text-align:left;}
+.grand tr.gr td.m{
+  font-family:var(--ff-mono);
+  font-weight:400;
+  font-size:0.89rem;
+  color:var(--ink-1);
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.grand tr.gr td.dp{color:var(--cma-accent);}
+.grand tr.gr td.dn{color:var(--forest-1);}
+.grand tr.grt td{
+  padding:12px 6px;
+  border-top:1px solid var(--engraved-rule);
+  font-family:var(--ff-mono);
+  font-weight:700;
+  font-size:1.22rem;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.grand tr.grt td:first-child{
+  font-family:var(--ff-display);
+  font-weight:400;
+  font-size:0.83rem;
+  letter-spacing:var(--tr-engraved);
+  text-transform:uppercase;
+  padding-left:0;
+  text-align:left;
+}
+.grand tr.grt td.live{color:var(--cma-accent);}
+.dep-note{
+  font-family:var(--ff-serif);
+  font-style:italic;
+  font-size:0.67rem;
+  color:var(--ink-3);
+  letter-spacing:0.02em;
+  padding:10px 0 0;
+  border-top:0.5px solid var(--ink-5);
+  margin-top:8px;
+  line-height:2;
+}
+.fn{
+  margin-top:40px;
+  padding-top:14px;
+  border-top:0.5px solid var(--ink-5);
+  font-family:var(--ff-serif);
+  font-style:italic;
+  font-size:0.61rem;
+  color:var(--ink-4);
+  letter-spacing:0.03em;
+  line-height:2.2;
+}
+
+/* ── EXCLUDE TOGGLE ────────────────────────────────────── */
+td.xc{padding:3px 5px;text-align:right;}
+.excl-btn{
+  font-family:var(--ff-sans-cond);
+  font-weight:400;
+  font-size:0.56rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  background:transparent;
+  border:0.5px solid var(--ink-5);
+  padding:3px 8px;
+  cursor:pointer;
+  color:var(--ink-4);
+  white-space:nowrap;
+  transition:all .12s;
+}
+.excl-btn:hover{border-color:var(--alert);color:var(--alert);}
+tr.excluded-row{opacity:.3;}
+tr.excluded-row td{text-decoration:line-through;text-decoration-color:var(--ink-4);}
+tr.excluded-row .excl-btn{border-color:var(--alert);color:var(--alert);background:var(--alert-tint);}
+tr.excluded-row td.rv{text-decoration:none;}
 </style>
 </head>
 <body>
@@ -130,11 +443,10 @@ td.xc{padding:3px 4px;text-align:right}
 </div>
 
 <div class="save-strip">
-  <button onclick="downloadJSON()">Export revisions.json</button>
-  <label class="load-lbl" title="Load a previously exported revisions.json">Load revisions.json<input type="file" accept=".json" style="display:none" onchange="loadFromFile(this)"></label>
-  <button onclick="clearData()">Clear all</button>
-  <span class="status" id="save-status"></span>
-  <span class="hint">Revision column adds or subtracts from the base amount &middot; export to commit alongside the HTML in git</span>
+  <button class="btn-save" onclick="saveData()">Save</button>
+  <label class="load-lbl" title="Load a previously saved revisions.json">Load revisions.json<input type="file" accept=".json" style="display:none" onchange="loadFromFile(this)"></label>
+  <span class="save-status" id="save-status"></span>
+  <span class="save-hint">Revision column adds or subtracts from the base amount &middot; save commits revisions.json alongside the HTML in git</span>
 </div>
 
 <div class="band">
@@ -152,7 +464,7 @@ td.xc{padding:3px 4px;text-align:right}
 <thead><tr>
   <th style="width:218px">Item</th><th style="width:40px">Qty</th><th style="width:34px">Unit</th>
   <th style="width:90px">Base</th><th class="thn" style="width:180px">Notes</th>
-  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
+  <th class="thr" style="width:90px">Revision</th><th style="width:90px">Revised</th>
 </tr></thead>
 <tbody>
 <tr class="grp"><td colspan="7">General Conditions</td></tr>
@@ -170,40 +482,31 @@ td.xc{padding:3px 4px;text-align:right}
 <tr data-base="0"><td>Builder&rsquo;s Risk Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="1000.00"><td>Sample Allowance</td><td>1</td><td>LS</td><td class="m">$1,000.00</td><td class="nt">Paint, floor, misc samples</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,000.00</td></tr>
 <tr data-base="0"><td>Retainage</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Sitework / Demo</td></tr>
 <tr data-base="11610.00"><td>Demo Work</td><td>1</td><td>LS</td><td class="m">$11,610.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$11,610.00</td></tr>
-
 <tr class="grp"><td colspan="7">Foundation</td></tr>
 <tr data-base="0"><td>Foundation</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Masonry</td></tr>
 <tr data-base="6500.00"><td>New Fireplace Surround Allowance</td><td>1</td><td>LS</td><td class="m">$6,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,500.00</td></tr>
-
 <tr class="grp"><td colspan="7">Framing</td></tr>
 <tr data-base="14070.00"><td>Framing Materials Allowance</td><td>1</td><td>LS</td><td class="m">$14,070.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$14,070.00</td></tr>
 <tr data-base="12150.00"><td>Framing Labor</td><td>1</td><td>LS</td><td class="m">$12,150.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$12,150.00</td></tr>
 <tr data-base="0"><td>Structural Steel</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Trim Carpentry / Interior</td></tr>
 <tr data-base="13365.00"><td>Running Trim / Treads / Accessories</td><td>1</td><td>LS</td><td class="m">$13,365.00</td><td class="nt">No crown / paneling / wood walls / clgs</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$13,365.00</td></tr>
 <tr data-base="33718.75"><td>Material Interior Trim</td><td>1</td><td>LS</td><td class="m">$33,718.75</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$33,718.75</td></tr>
 <tr data-base="3500.00"><td>Interior Handrail Allowance</td><td>1</td><td>LS</td><td class="m">$3,500.00</td><td class="nt">New wall rail / iron</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td></tr>
-
 <tr class="grp"><td colspan="7">Exterior</td></tr>
 <tr data-base="6500.00"><td>Exterior Handrail Allowance</td><td>1</td><td>LS</td><td class="m">$6,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,500.00</td></tr>
 <tr data-base="0"><td>Exterior Decorative Fixture Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="0"><td>Generator Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Roofing / Flashing</td></tr>
 <tr data-base="0"><td>Roofing / Flashing</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Doors and Windows</td></tr>
 <tr data-base="9500.00"><td>Exterior Doors and Windows</td><td>1</td><td>LS</td><td class="m">$9,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$9,500.00</td></tr>
 <tr data-base="8550.00"><td>Interior Doors and Windows</td><td>1</td><td>LS</td><td class="m">$8,550.00</td><td class="nt">Solid door units</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$8,550.00</td></tr>
 <tr data-base="34200.00"><td>Glass Interior Doors and Transoms</td><td>1</td><td>LS</td><td class="m">$34,200.00</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$34,200.00</td></tr>
 <tr data-base="0"><td>Door Hardware Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Paint / Insulation / Sheetrock</td></tr>
 <tr data-base="18856.00"><td>Painting</td><td>1</td><td>LS</td><td class="m">$18,856.00</td><td class="nt">Sherwin Williams</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$18,856.00</td></tr>
 <tr data-base="0"><td>Paint Registers / Trims / Plates</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
@@ -211,14 +514,12 @@ td.xc{padding:3px 4px;text-align:right}
 <tr data-base="7760.00"><td>Insulation</td><td>1</td><td>LS</td><td class="m">$7,760.00</td><td class="nt">Sound batts only</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$7,760.00</td></tr>
 <tr data-base="22610.00"><td>Sheetrock / Walls and Ceilings</td><td>1</td><td>LS</td><td class="m">$22,610.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$22,610.00</td></tr>
 <tr data-base="0"><td>Plaster</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Flooring and Tile</td></tr>
 <tr data-base="16590.00"><td>Wood Flooring / Paint Allowance</td><td>1</td><td>LS</td><td class="m">$16,590.00</td><td class="nt">$7,500 patch allowance</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$16,590.00</td></tr>
 <tr data-base="0"><td>Carpet</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="0"><td>Tile Material / Grout Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="1664.30"><td>Floor Protection</td><td>1</td><td>LS</td><td class="m">$1,664.30</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,664.30</td></tr>
 <tr data-base="0"><td>Tile Labor</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">None figured</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Cabinets / Tops</td></tr>
 <tr data-base="4040.00"><td>Bookcase / Shelves</td><td>1</td><td>LS</td><td class="m">$4,040.00</td><td class="nt">Island @ workroom only (most deleted)</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,040.00</td></tr>
 <tr data-base="1820.00"><td>Plywood Shelves</td><td>1</td><td>LS</td><td class="m">$1,820.00</td><td class="nt">Stained</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,820.00</td></tr>
@@ -227,19 +528,16 @@ td.xc{padding:3px 4px;text-align:right}
 <tr data-base="20405.00"><td>Top Allowance</td><td>1</td><td>LS</td><td class="m">$20,405.00</td><td class="nt">Incl. butcher block &middot; $150/SF marble @ baths/kitchen</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$20,405.00</td></tr>
 <tr data-base="0"><td>Mirror / Glass</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="0"><td>Cabinet Hardware Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Appliances / Specialties</td></tr>
 <tr data-base="0"><td>Appliance Allowance (incl. install)</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="0"><td>Waterfountain Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="6060.00"><td>Exterior Signage Allowance</td><td>1</td><td>LS</td><td class="m">$6,060.00</td><td class="nt">Need guidance &middot; none figured yet</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,060.00</td></tr>
 <tr data-base="0"><td>Shades</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By others</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="0"><td>Allowance &mdash; Intumescent Paint on Floor</td><td>3030</td><td>SF</td><td class="ex">TBD</td><td class="nt">Need guidance &middot; placeholder</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">TBD</td></tr>
-
 <tr class="grp"><td colspan="7">Electrical</td></tr>
 <tr data-base="0"><td>Electrical M/L (panel rebuild)</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">~$30k est. + fee &middot; excl. fire alarm / sprinkler</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="75000.00"><td>Can Light Allowance</td><td>50</td><td>EA</td><td class="m">$75,000.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$75,000.00</td></tr>
 <tr data-base="0"><td>Decorative Fixture Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Plumbing</td></tr>
 <tr data-base="15000.00"><td>Plumbing M/L</td><td>1</td><td>LS</td><td class="m">$15,000.00</td><td class="nt">Assume move fixtures in storage / powder</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$15,000.00</td></tr>
 <tr data-base="0"><td>Water Heaters</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">Assume none needed or existing to remain</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
@@ -251,13 +549,10 @@ td.xc{padding:3px 4px;text-align:right}
 <tr data-base="0"><td>Sewer Impact</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="0"><td>Bathroom Accessory Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
 <tr data-base="0"><td>Plumbing Fixture Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner per BM</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="grp"><td colspan="7">Mechanical</td></tr>
 <tr data-base="64999.00"><td>HVAC Allowance</td><td>1</td><td>LS</td><td class="m">$64,999.00</td><td class="nt">Assumes no work below grade &middot; excl. fire alarm / sprinkler</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$64,999.00</td></tr>
-
 <tr class="grp"><td colspan="7">Audio / Video / Security</td></tr>
 <tr data-base="0"><td>AV / Security Allowance</td><td>&mdash;</td><td></td><td class="ex">Excluded</td><td class="nt">By owner &mdash; see GHT proposals</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ex" data-excl="1">Excl.</td></tr>
-
 <tr class="sub"><td colspan="3">Subtotal (from signed estimate)</td><td class="m">$462,752.20</td><td></td><td></td><td class="m rv" id="tcc-sub-rv">$462,752.20</td></tr>
 <tr data-base="92550.44"><td>Overhead / Profit / Supervision</td><td></td><td></td><td class="m">$92,550.44</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$92,550.44</td></tr>
 <tr data-base="25000.00"><td>Contingency</td><td></td><td></td><td class="m">$25,000.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$25,000.00</td></tr>
@@ -274,24 +569,24 @@ td.xc{padding:3px 4px;text-align:right}
   <th style="width:218px">Item</th><th style="width:40px">Qty</th><th style="width:46px">Unit</th>
   <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
   <th class="thn" style="width:130px">Notes</th>
-  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
-  <th style="width:58px"></th>
+  <th class="thr" style="width:90px">Revision</th><th style="width:90px">Revised</th>
+  <th style="width:72px"></th>
 </tr></thead>
 <tbody>
 <tr class="grp"><td colspan="9">Data</td></tr>
-<tr data-base="3584.00"><td>CAT6 Data Locations</td><td>32</td><td>ea</td><td class="m">$112.00</td><td class="m">$3,584.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,584.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3584.00"><td>CAT6 Data Locations</td><td>32</td><td>ea</td><td class="m">$112.00</td><td class="m">$3,584.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,584.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">TVs</td></tr>
-<tr data-base="960.00"><td>CAT6 (&#xd7;2) &amp; CAT6A (&#xd7;1) per TV location</td><td>2</td><td>loc</td><td class="m">$480.00</td><td class="m">$960.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$960.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="960.00"><td>CAT6 (&#xd7;2) &amp; CAT6A (&#xd7;1) per TV location</td><td>2</td><td>loc</td><td class="m">$480.00</td><td class="m">$960.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$960.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Shades</td></tr>
-<tr data-base="1500.00"><td>Lutron QS Shade / Lighting Wiring</td><td>10</td><td>loc</td><td class="m">$150.00</td><td class="m">$1,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1500.00"><td>Lutron QS Shade / Lighting Wiring</td><td>10</td><td>loc</td><td class="m">$150.00</td><td class="m">$1,500.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Cameras</td></tr>
-<tr data-base="253.34"><td>IP Camera Plus &mdash; CAT6 Camera Locations</td><td>2</td><td>ea</td><td class="m">$126.67</td><td class="m">$253.34</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$253.34</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="253.34"><td>IP Camera Plus &mdash; CAT6 Camera Locations</td><td>2</td><td>ea</td><td class="m">$126.67</td><td class="m">$253.34</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$253.34</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Audio</td></tr>
-<tr data-base="1225.00"><td>Speaker Wire Pre-Wire 16/4 Looped</td><td>7</td><td>loop</td><td class="m">$175.00</td><td class="m">$1,225.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,225.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1225.00"><td>Speaker Wire Pre-Wire 16/4 Looped</td><td>7</td><td>loop</td><td class="m">$175.00</td><td class="m">$1,225.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,225.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Discount</td></tr>
-<tr data-base="-900.00"><td>Key Partner Discount</td><td>1</td><td>LS</td><td class="m ng">&minus;$900.00</td><td class="m ng">&minus;$900.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ng">&minus;$900.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="-900.00"><td>Key Partner Discount</td><td>1</td><td>LS</td><td class="m ng">&minus;$900.00</td><td class="m ng">&minus;$900.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ng">&minus;$900.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="sub"><td colspan="4">Parts subtotal</td><td class="m">$6,622.34</td><td></td><td></td><td class="m rv">$6,622.34</td><td></td></tr>
-<tr data-base="752.23"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$752.23</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$752.23</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="752.23"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$752.23</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$752.23</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="tot"><td colspan="4">Pre-Wire Total</td><td class="m">$7,374.57</td><td></td><td></td><td class="m rv" id="pw-tot">$7,374.57</td><td></td></tr>
 </tbody></table>
 </div>
@@ -305,55 +600,55 @@ td.xc{padding:3px 4px;text-align:right}
   <th style="width:234px">Item / SKU</th><th style="width:36px">Qty</th><th style="width:42px">Unit</th>
   <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
   <th class="thn" style="width:120px">Notes</th>
-  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
-  <th style="width:58px"></th>
+  <th class="thr" style="width:90px">Revision</th><th style="width:90px">Revised</th>
+  <th style="width:72px"></th>
 </tr></thead>
 <tbody>
 <tr class="grp"><td colspan="9">Work Room &mdash; Parts $1,340.00</td></tr>
-<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Kitchen / Reception &mdash; Parts $1,340.00</td></tr>
-<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Conference Room #2 &mdash; Parts $5,762.95</td></tr>
-<tr data-base="3099.99"><td>BRAVIA 7 II &mdash; Sony 75&rdquo; 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$3,099.99</td><td class="m">$3,099.99</td><td class="nt">Tilt mount</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,099.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="374.99"><td>SM-T-L Strong Large Tilting Mount 36&ndash;70&rdquo;</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$374.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="nt">Behind display</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$119.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="499.00"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td>1</td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="nt">Under TV</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$499.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="169.99"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td>1</td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$169.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="nt">2160J EMI/RFI</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$103.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90&deg; Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$26.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Music only</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$29.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3099.99"><td>BRAVIA 7 II &mdash; Sony 75&rdquo; 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$3,099.99</td><td class="m">$3,099.99</td><td class="nt">Tilt mount</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,099.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="374.99"><td>SM-T-L Strong Large Tilting Mount 36&ndash;70&rdquo;</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$374.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="nt">Behind display</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$119.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="499.00"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td>1</td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="nt">Under TV</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$499.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="169.99"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td>1</td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$169.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="nt">2160J EMI/RFI</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$103.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90&deg; Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$26.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="1340.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>2</td><td>pair</td><td class="m">$670.00</td><td class="m">$1,340.00</td><td class="nt">Music only</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,340.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$29.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Conference Room #1 &mdash; Parts $3,422.95</td></tr>
-<tr data-base="2099.99"><td>BRAVIA 7 II &mdash; Sony 55&rdquo; 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$2,099.99</td><td class="m">$2,099.99</td><td class="nt">Tilt mount</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,099.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="374.99"><td>SMTL 36&ndash;80&rdquo; Tilting Mount</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$374.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="nt">Behind display</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$119.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="499.00"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td>1</td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="nt">Under TV</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$499.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="169.99"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td>1</td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$169.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$103.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90&deg; Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$26.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$29.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="2099.99"><td>BRAVIA 7 II &mdash; Sony 55&rdquo; 4K HDR Google TV</td><td>1</td><td>ea</td><td class="m">$2,099.99</td><td class="m">$2,099.99</td><td class="nt">Tilt mount</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,099.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="374.99"><td>SMTL 36&ndash;80&rdquo; Tilting Mount</td><td>1</td><td>ea</td><td class="m">$374.99</td><td class="m">$374.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$374.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="119.00"><td>SM-RBX-14-WH Strong VersaBox Recessed</td><td>1</td><td>ea</td><td class="m">$119.00</td><td class="m">$119.00</td><td class="nt">Behind display</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$119.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="499.00"><td>BEAM V2 Sonos Beam Soundbar Gen2 (Black)</td><td>1</td><td>ea</td><td class="m">$499.00</td><td class="m">$499.00</td><td class="nt">Under TV</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$499.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="169.99"><td>WSSBM1-B2 Soundbar Mount for Sonos Beam</td><td>1</td><td>ea</td><td class="m">$169.99</td><td class="m">$169.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$169.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="103.99"><td>WB-200-2 WattBox Power Conditioner 2-outlet</td><td>1</td><td>ea</td><td class="m">$103.99</td><td class="m">$103.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$103.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="26.99"><td>WB-PWR-EXT360-0.5FT WattBox 90&deg; Power Cord</td><td>1</td><td>ea</td><td class="m">$26.99</td><td class="m">$26.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$26.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="29.00"><td>BT-02 Bullet Train 2m HDMI 18Gbps</td><td>1</td><td>ea</td><td class="m">$29.00</td><td class="m">$29.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$29.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Restrooms &mdash; Parts $670.00</td></tr>
-<tr data-base="670.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>1</td><td>pair</td><td class="m">$670.00</td><td class="m">$670.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$670.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="670.00"><td>VX64R 6&rdquo; Round In-Ceiling Speaker (pair)</td><td>1</td><td>pair</td><td class="m">$670.00</td><td class="m">$670.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$670.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Powder &mdash; Parts $660.00</td></tr>
-<tr data-base="660.00"><td>VX66R SST 6&rdquo; Round Single Stereo Speaker</td><td>1</td><td>ea</td><td class="m">$660.00</td><td class="m">$660.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$660.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="660.00"><td>VX66R SST 6&rdquo; Round Single Stereo Speaker</td><td>1</td><td>ea</td><td class="m">$660.00</td><td class="m">$660.00</td><td class="nt">Sonos Amp in rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$660.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Wi-Fi &mdash; Parts $3,675.95</td></tr>
-<tr data-base="556.99"><td>AN-220-RT Araknis 220-Series Single-WAN VPN Router</td><td>1</td><td>ea</td><td class="m">$556.99</td><td class="m">$556.99</td><td class="nt">Equipment rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$556.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="1418.97"><td>AN-520-AP-I Araknis Wi-Fi 6 520 Series Indoor AP</td><td>3</td><td>ea</td><td class="m">$472.99</td><td class="m">$1,418.97</td><td class="nt">Ceiling mounted</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,418.97</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="1699.99"><td>AN-220-SW-R-44-POE Araknis L2 Managed Switch 44+2</td><td>1</td><td>ea</td><td class="m">$1,699.99</td><td class="m">$1,699.99</td><td class="nt">Partial PoE+</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,699.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="556.99"><td>AN-220-RT Araknis 220-Series Single-WAN VPN Router</td><td>1</td><td>ea</td><td class="m">$556.99</td><td class="m">$556.99</td><td class="nt">Equipment rack</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$556.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="1418.97"><td>AN-520-AP-I Araknis Wi-Fi 6 520 Series Indoor AP</td><td>3</td><td>ea</td><td class="m">$472.99</td><td class="m">$1,418.97</td><td class="nt">Ceiling mounted</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,418.97</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="1699.99"><td>AN-220-SW-R-44-POE Araknis L2 Managed Switch 44+2</td><td>1</td><td>ea</td><td class="m">$1,699.99</td><td class="m">$1,699.99</td><td class="nt">Partial PoE+</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,699.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Surveillance &mdash; Parts $2,339.96</td></tr>
-<tr data-base="1068.99"><td>LUM-121-NVR-4CH-2T Luma 121 NVR 4-channel 2TB</td><td>1</td><td>ea</td><td class="m">$1,068.99</td><td class="m">$1,068.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,068.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="601.99"><td>LUM-420-IP-TMB Luma 420 4MP Turret Camera &mdash; Black</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$601.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="66.99"><td>LUM-A20-JB-VF-BTB-BLACK Junction Box</td><td>1</td><td>ea</td><td class="m">$66.99</td><td class="m">$66.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$66.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="601.99"><td>LUM-420-IP-TMW Luma 420 4MP Turret Camera &mdash; White</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$601.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1068.99"><td>LUM-121-NVR-4CH-2T Luma 121 NVR 4-channel 2TB</td><td>1</td><td>ea</td><td class="m">$1,068.99</td><td class="m">$1,068.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,068.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="601.99"><td>LUM-420-IP-TMB Luma 420 4MP Turret Camera &mdash; Black</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$601.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="66.99"><td>LUM-A20-JB-VF-BTB-BLACK Junction Box</td><td>1</td><td>ea</td><td class="m">$66.99</td><td class="m">$66.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$66.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="601.99"><td>LUM-420-IP-TMW Luma 420 4MP Turret Camera &mdash; White</td><td>1</td><td>ea</td><td class="m">$601.99</td><td class="m">$601.99</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$601.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Equipment &mdash; Parts $6,591.98</td></tr>
-<tr data-base="483.99"><td>SR-CS-RACK-21U Strong 21U Rack w/ Side Panels &amp; Casters</td><td>1</td><td>ea</td><td class="m">$483.99</td><td class="m">$483.99</td><td class="nt">Equipment closet</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$483.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="2112.99"><td>KIT-UPS-IPVM12-1100 WattBox IP UPS 12-outlet 1100VA</td><td>1</td><td>ea</td><td class="m">$2,112.99</td><td class="m">$2,112.99</td><td class="nt">Incl. WB-800-IPVM-12 + WB-OVRC-UPS-1100-1</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,112.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="3995.00"><td>AMP-black Sonos Streaming Amplifier</td><td>5</td><td>ea</td><td class="m">$799.00</td><td class="m">$3,995.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,995.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="483.99"><td>SR-CS-RACK-21U Strong 21U Rack w/ Side Panels &amp; Casters</td><td>1</td><td>ea</td><td class="m">$483.99</td><td class="m">$483.99</td><td class="nt">Equipment closet</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$483.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="2112.99"><td>KIT-UPS-IPVM12-1100 WattBox IP UPS 12-outlet 1100VA</td><td>1</td><td>ea</td><td class="m">$2,112.99</td><td class="m">$2,112.99</td><td class="nt">Incl. WB-800-IPVM-12 + WB-OVRC-UPS-1100-1</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,112.99</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="3995.00"><td>AMP-black Sonos Streaming Amplifier</td><td>5</td><td>ea</td><td class="m">$799.00</td><td class="m">$3,995.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,995.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Labor / Discount</td></tr>
-<tr data-base="6360.00"><td>Labor &mdash; Install and Setup (AL)</td><td>1</td><td>LS</td><td class="m">$6,360.00</td><td class="m">$6,360.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,360.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="-4689.16"><td>Discount (already reflected in parts total)</td><td>1</td><td>LS</td><td class="m ng">&minus;$4,689.16</td><td class="m ng">&minus;$4,689.16</td><td class="nt">Net parts = $21,114.63</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ng">&minus;$4,689.16</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="6360.00"><td>Labor &mdash; Install and Setup (AL)</td><td>1</td><td>LS</td><td class="m">$6,360.00</td><td class="m">$6,360.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,360.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="-4689.16"><td>Discount (already reflected in parts total)</td><td>1</td><td>LS</td><td class="m ng">&minus;$4,689.16</td><td class="m ng">&minus;$4,689.16</td><td class="nt">Net parts = $21,114.63</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv ng">&minus;$4,689.16</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="sub"><td colspan="4">Parts + Labor subtotal</td><td class="m">$27,474.63</td><td></td><td></td><td class="m rv">$27,474.63</td><td></td></tr>
-<tr data-base="2580.38"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$2,580.38</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,580.38</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="2580.38"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$2,580.38</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,580.38</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="tot"><td colspan="4">A/V Total</td><td class="m">$30,055.01</td><td></td><td></td><td class="m rv" id="av-tot">$30,055.01</td><td></td></tr>
 </tbody></table>
 </div>
@@ -367,50 +662,50 @@ td.xc{padding:3px 4px;text-align:right}
   <th style="width:240px">Item</th><th style="width:36px">Qty</th><th style="width:36px">Unit</th>
   <th style="width:76px">Unit $</th><th style="width:88px">Total</th>
   <th class="thn" style="width:130px">Notes</th>
-  <th class="thr" style="width:88px">Revision</th><th style="width:88px">Revised</th>
-  <th style="width:58px"></th>
+  <th class="thr" style="width:90px">Revision</th><th style="width:90px">Revised</th>
+  <th style="width:72px"></th>
 </tr></thead>
 <tbody>
 <tr class="grp"><td colspan="9">Bath-1 &mdash; Room Total $2,726.00</td></tr>
-<tr data-base="2726.00"><td>The Hand Sconce &mdash; Polished Unlacquered Brass (1L + 1R)</td><td>2</td><td>ea</td><td class="m">$1,363.00</td><td class="m">$2,726.00</td><td class="nt">5.25&rdquo;W &times; 10&rdquo;H &middot; shade clip needed</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,726.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="2726.00"><td>The Hand Sconce &mdash; Polished Unlacquered Brass (1L + 1R)</td><td>2</td><td>ea</td><td class="m">$1,363.00</td><td class="m">$2,726.00</td><td class="nt">5.25&rdquo;W &times; 10&rdquo;H &middot; shade clip needed</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$2,726.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Bath-2 &mdash; Room Total $748.00</td></tr>
-<tr data-base="748.00"><td>Nautical Schoolhouse Sconce &mdash; Shiplights (white ball)</td><td>2</td><td>ea</td><td class="m">$374.00</td><td class="m">$748.00</td><td class="nt">9&rdquo;H &middot; 9.5&rdquo; ext &middot; 8&rdquo; globe &middot; brass</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$748.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="748.00"><td>Nautical Schoolhouse Sconce &mdash; Shiplights (white ball)</td><td>2</td><td>ea</td><td class="m">$374.00</td><td class="m">$748.00</td><td class="nt">9&rdquo;H &middot; 9.5&rdquo; ext &middot; 8&rdquo; globe &middot; brass</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$748.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Bath-3 &mdash; Room Total $1,543.10</td></tr>
-<tr data-base="266.00"><td>Soho Lighting Carlisle Half Cover IP65 Polished Brass</td><td>2</td><td>ea</td><td class="m">$133.00</td><td class="m">$266.00</td><td class="nt">Outdoor &amp; bathroom collection</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$266.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="989.10"><td>Toponas Paper &mdash; Spice (6 rolls / 66 yds)</td><td>6</td><td>roll</td><td class="m">$164.85</td><td class="m">$989.10</td><td class="nt">Install +$1,380 (separate)</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$989.10</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="288.00"><td>Tiny Stripe in Pale Pink &mdash; Checks &amp; Stripes fabric</td><td>4</td><td>ea</td><td class="m">$72.00</td><td class="m">$288.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$288.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="266.00"><td>Soho Lighting Carlisle Half Cover IP65 Polished Brass</td><td>2</td><td>ea</td><td class="m">$133.00</td><td class="m">$266.00</td><td class="nt">Outdoor &amp; bathroom collection</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$266.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="989.10"><td>Toponas Paper &mdash; Spice (6 rolls / 66 yds)</td><td>6</td><td>roll</td><td class="m">$164.85</td><td class="m">$989.10</td><td class="nt">Install +$1,380 (separate)</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$989.10</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="288.00"><td>Tiny Stripe in Pale Pink &mdash; Checks &amp; Stripes fabric</td><td>4</td><td>ea</td><td class="m">$72.00</td><td class="m">$288.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$288.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Breakfast Room &mdash; Room Total $10,645.60</td></tr>
-<tr data-base="3500.00"><td>Haven Dining Table, Cerused Oak 60&rdquo; &mdash; Bunny Williams</td><td>1</td><td>ea</td><td class="m">$3,500.00</td><td class="m">$3,500.00</td><td class="nt">60&rdquo; dia &middot; reeded octagonal pedestal</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="3645.60"><td>Thibaut MACKINAC T10300 Natural Wallcovering (14 rolls)</td><td>14</td><td>ea</td><td class="m">$260.40</td><td class="m">$3,645.60</td><td class="nt">Raffia/papyrus &middot; labor ~$2,000</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,645.60</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="3500.00"><td>Snowmass Bench &mdash; Charles Stewart (&#xd7;3.5)</td><td>3.5</td><td>ea</td><td class="m">$1,000.00</td><td class="m">$3,500.00</td><td class="nt">51&rdquo;W &times; 24.5&rdquo;H &middot; green trim +$208</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3500.00"><td>Haven Dining Table, Cerused Oak 60&rdquo; &mdash; Bunny Williams</td><td>1</td><td>ea</td><td class="m">$3,500.00</td><td class="m">$3,500.00</td><td class="nt">60&rdquo; dia &middot; reeded octagonal pedestal</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="3645.60"><td>Thibaut MACKINAC T10300 Natural Wallcovering (14 rolls)</td><td>14</td><td>ea</td><td class="m">$260.40</td><td class="m">$3,645.60</td><td class="nt">Raffia/papyrus &middot; labor ~$2,000</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,645.60</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="3500.00"><td>Snowmass Bench &mdash; Charles Stewart (&#xd7;3.5)</td><td>3.5</td><td>ea</td><td class="m">$1,000.00</td><td class="m">$3,500.00</td><td class="nt">51&rdquo;W &times; 24.5&rdquo;H &middot; green trim +$208</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,500.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Dining Room &mdash; Room Total $31,709.56</td></tr>
-<tr data-base="4318.56"><td>Mollino Large Tiered Chandelier ARN5427 &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$2,159.28</td><td class="m">$4,318.56</td><td class="nt">25&rdquo;H &times; 32&rdquo;W &middot; HRAB &middot; 55 lbs</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,318.56</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="1294.00"><td>Emery 30 Picture Light &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$647.00</td><td class="m">$1,294.00</td><td class="nt">30&rdquo;W &middot; LED 18W &middot; HRAB</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,294.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="8991.00"><td>HH27-122T Palma Dining Table Top &mdash; Highland House</td><td>1</td><td>ea</td><td class="m">$8,991.00</td><td class="m">$8,991.00</td><td class="nt">96&rdquo;W &times; 44&rdquo;D &middot; cream LQ</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$8,991.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="12000.00"><td>5204-41C Dining Chair &mdash; Lee (COM 5 yds)</td><td>8</td><td>ea</td><td class="m">$1,500.00</td><td class="m">$12,000.00</td><td class="nt">23.5&rdquo;W &times; 40.5&rdquo;H &middot; seat ht 19.5&rdquo;</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$12,000.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="5106.00"><td>Rembrandt Armchair</td><td>2</td><td>ea</td><td class="m">$2,553.00</td><td class="m">$5,106.00</td><td class="nt">23&rdquo;W &times; 27.5&rdquo;D &times; 39&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$5,106.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="4318.56"><td>Mollino Large Tiered Chandelier ARN5427 &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$2,159.28</td><td class="m">$4,318.56</td><td class="nt">25&rdquo;H &times; 32&rdquo;W &middot; HRAB &middot; 55 lbs</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,318.56</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="1294.00"><td>Emery 30 Picture Light &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$647.00</td><td class="m">$1,294.00</td><td class="nt">30&rdquo;W &middot; LED 18W &middot; HRAB</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,294.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="8991.00"><td>HH27-122T Palma Dining Table Top &mdash; Highland House</td><td>1</td><td>ea</td><td class="m">$8,991.00</td><td class="m">$8,991.00</td><td class="nt">96&rdquo;W &times; 44&rdquo;D &middot; cream LQ</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$8,991.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="12000.00"><td>5204-41C Dining Chair &mdash; Lee (COM 5 yds)</td><td>8</td><td>ea</td><td class="m">$1,500.00</td><td class="m">$12,000.00</td><td class="nt">23.5&rdquo;W &times; 40.5&rdquo;H &middot; seat ht 19.5&rdquo;</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$12,000.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="5106.00"><td>Rembrandt Armchair</td><td>2</td><td>ea</td><td class="m">$2,553.00</td><td class="m">$5,106.00</td><td class="nt">23&rdquo;W &times; 27.5&rdquo;D &times; 39&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$5,106.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Entry &mdash; Room Total $22,906.06</td></tr>
-<tr data-base="1439.28"><td>Modern Schoolhouse Lantern MS5030 &mdash; Visual Comfort</td><td>1</td><td>ea</td><td class="m">$1,439.28</td><td class="m">$1,439.28</td><td class="nt">18&rdquo;W &middot; 6&rsquo; chain &middot; custom ht TBD</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,439.28</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="7200.00"><td>Durango Chair &mdash; Charles Stewart (custom +2&rdquo; depth, mohair)</td><td>2</td><td>ea</td><td class="m">$3,600.00</td><td class="m">$7,200.00</td><td class="nt">27.5&rdquo;W &times; 39.5&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$7,200.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="4900.00"><td>Vintage Michael Taylor Hand Carved Mirror</td><td>1</td><td>ea</td><td class="m">$4,900.00</td><td class="m">$4,900.00</td><td class="nt">38&rdquo;W &times; 54.25&rdquo;H &middot; acanthus leaf</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,900.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="1692.00"><td>Antique French Empire Round Side Table</td><td>1</td><td>ea</td><td class="m">$1,692.00</td><td class="m">$1,692.00</td><td class="nt">19&rdquo;W &times; 28&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,692.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="3740.00"><td>Summerville Stripe &mdash; Umber Wallpaper (22 rolls)</td><td>22</td><td>ea</td><td class="m">$170.00</td><td class="m">$3,740.00</td><td class="nt">Labor from installer +$5,250</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,740.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="3934.78"><td>HH19-726S Atlantic Demilune &mdash; Highland House</td><td>1</td><td>ea</td><td class="m">$3,934.78</td><td class="m">$3,934.78</td><td class="nt">48&rdquo;W &times; 33.25&rdquo;H &middot; cream LQ</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,934.78</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1439.28"><td>Modern Schoolhouse Lantern MS5030 &mdash; Visual Comfort</td><td>1</td><td>ea</td><td class="m">$1,439.28</td><td class="m">$1,439.28</td><td class="nt">18&rdquo;W &middot; 6&rsquo; chain &middot; custom ht TBD</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,439.28</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="7200.00"><td>Durango Chair &mdash; Charles Stewart (custom +2&rdquo; depth, mohair)</td><td>2</td><td>ea</td><td class="m">$3,600.00</td><td class="m">$7,200.00</td><td class="nt">27.5&rdquo;W &times; 39.5&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$7,200.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="4900.00"><td>Vintage Michael Taylor Hand Carved Mirror</td><td>1</td><td>ea</td><td class="m">$4,900.00</td><td class="m">$4,900.00</td><td class="nt">38&rdquo;W &times; 54.25&rdquo;H &middot; acanthus leaf</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$4,900.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="1692.00"><td>Antique French Empire Round Side Table</td><td>1</td><td>ea</td><td class="m">$1,692.00</td><td class="m">$1,692.00</td><td class="nt">19&rdquo;W &times; 28&rdquo;H</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,692.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="3740.00"><td>Summerville Stripe &mdash; Umber Wallpaper (22 rolls)</td><td>22</td><td>ea</td><td class="m">$170.00</td><td class="m">$3,740.00</td><td class="nt">Labor from installer +$5,250</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,740.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="3934.78"><td>HH19-726S Atlantic Demilune &mdash; Highland House</td><td>1</td><td>ea</td><td class="m">$3,934.78</td><td class="m">$3,934.78</td><td class="nt">48&rdquo;W &times; 33.25&rdquo;H &middot; cream LQ</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,934.78</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Gallery &mdash; Room Total $1,386.00</td></tr>
-<tr data-base="1386.00"><td>Small Hooded Ball Wall Mount &mdash; Shiplights (Unlaq. Brass)</td><td>3</td><td>ea</td><td class="m">$462.00</td><td class="m">$1,386.00</td><td class="nt">11&rdquo;H &middot; 10.5&rdquo; ext</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,386.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1386.00"><td>Small Hooded Ball Wall Mount &mdash; Shiplights (Unlaq. Brass)</td><td>3</td><td>ea</td><td class="m">$462.00</td><td class="m">$1,386.00</td><td class="nt">11&rdquo;H &middot; 10.5&rdquo; ext</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,386.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Kitchen &mdash; Room Total $1,078.00</td></tr>
-<tr data-base="1078.00"><td>Elkins Double Sconce TOB2068 &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$539.00</td><td class="m">$1,078.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,078.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1078.00"><td>Elkins Double Sconce TOB2068 &mdash; Visual Comfort</td><td>2</td><td>ea</td><td class="m">$539.00</td><td class="m">$1,078.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,078.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Stairwell &mdash; Room Total $1,790.00</td></tr>
-<tr data-base="1790.00"><td>Large Nautical Bronze Ceiling Light &mdash; Shiplights</td><td>2</td><td>ea</td><td class="m">$895.00</td><td class="m">$1,790.00</td><td class="nt">13&rdquo;H &middot; Unlacquered Bronze</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,790.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1790.00"><td>Large Nautical Bronze Ceiling Light &mdash; Shiplights</td><td>2</td><td>ea</td><td class="m">$895.00</td><td class="m">$1,790.00</td><td class="nt">13&rdquo;H &middot; Unlacquered Bronze</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,790.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Studio &mdash; Room Total $3,770.00</td></tr>
-<tr data-base="3000.00"><td>Art Deco Pendant Light (on chain)</td><td>8</td><td>ea</td><td class="m">$375.00</td><td class="m">$3,000.00</td><td class="nt">Chain for ceiling height</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,000.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="770.00"><td>Trafalgar Cordless Table Lamp &mdash; Antique Brass</td><td>2</td><td>ea</td><td class="m">$385.00</td><td class="m">$770.00</td><td class="nt">10&rdquo; empire shade, moonstone silk</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$770.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3000.00"><td>Art Deco Pendant Light (on chain)</td><td>8</td><td>ea</td><td class="m">$375.00</td><td class="m">$3,000.00</td><td class="nt">Chain for ceiling height</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,000.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="770.00"><td>Trafalgar Cordless Table Lamp &mdash; Antique Brass</td><td>2</td><td>ea</td><td class="m">$385.00</td><td class="m">$770.00</td><td class="nt">10&rdquo; empire shade, moonstone silk</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$770.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="grp"><td colspan="9">Study &mdash; Room Total $3,679.20</td></tr>
-<tr data-base="3679.20"><td>Clivedon &mdash; Hudson Valley Lighting</td><td>2</td><td>ea</td><td class="m">$1,839.60</td><td class="m">$3,679.20</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,679.20</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="3679.20"><td>Clivedon &mdash; Hudson Valley Lighting</td><td>2</td><td>ea</td><td class="m">$1,839.60</td><td class="m">$3,679.20</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$3,679.20</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="sub"><td colspan="4">Sub Total</td><td class="m">$81,981.52</td><td></td><td></td><td class="m rv">$81,981.52</td><td></td></tr>
-<tr data-base="1186.73"><td>Freight</td><td></td><td></td><td></td><td class="m">$1,186.73</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,186.73</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="208.00"><td>Other &mdash; Snowmass green trim</td><td></td><td></td><td></td><td class="m">$208.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$208.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
-<tr data-base="6256.92"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$6,256.92</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,256.92</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)" title="Exclude from total">excl.</button></td></tr>
+<tr data-base="1186.73"><td>Freight</td><td></td><td></td><td></td><td class="m">$1,186.73</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$1,186.73</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="208.00"><td>Other &mdash; Snowmass green trim</td><td></td><td></td><td></td><td class="m">$208.00</td><td class="nt"></td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$208.00</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
+<tr data-base="6256.92"><td>Sales Tax</td><td></td><td></td><td></td><td class="m">$6,256.92</td><td class="nt">Alabama</td><td class="rc"><input class="ri" type="number" placeholder="+/− amount" step="any"></td><td class="rv">$6,256.92</td><td class="xc"><button class="excl-btn" onclick="toggleExclude(this)">excl.</button></td></tr>
 <tr class="tot"><td colspan="4">Interiors Total</td><td class="m">$89,633.17</td><td></td><td></td><td class="m rv" id="er-tot">$89,633.17</td><td></td></tr>
 </tbody></table>
 </div>
@@ -431,7 +726,7 @@ td.xc{padding:3px 4px;text-align:right}
   <td>Total</td>
   <td>$707,365.39</td>
   <td class="live" id="gt-grand">$707,365.39</td>
-  <td id="gd-grand" style="color:var(--ink-3);font-size:15px">&mdash;</td>
+  <td id="gd-grand" style="color:var(--ink-3);font-size:1rem">&mdash;</td>
 </tr>
 </tbody>
 </table>
@@ -448,7 +743,7 @@ td.xc{padding:3px 4px;text-align:right}
   GHT proposals expire 15 days from 6.3.2026 &middot; Tariff pricing subject to change per GHT Group notice &middot; TCC contract signed 5.26.26, cost-plus 15%, Exhibit B schematic 3.7.26<br>
   Wallpaper install labor not in proposal totals: Bath-3 $1,380 &middot; Breakfast Room ~$2,000 &middot; Entry $5,250 &middot; total ~$8,630 additional<br>
   TCC line item subtotals are sourced from the signed Exhibit B scan; the ~$5,800 gap between visible line items and the $462,752.20 subtotal likely reflects the intumescent paint allowance (3030 SF) which is illegible in the rotated scan<br>
-  Revision column accepts positive or negative amounts added to the base &middot; Export revisions.json and commit it alongside index.html &middot; Load revisions.json to restore &middot; when served via GitHub Pages the file loads automatically
+  Revision column accepts positive or negative amounts added to the base &middot; Save downloads revisions.json — commit it alongside index.html &middot; Load revisions.json to restore &middot; when served via GitHub Pages the file loads automatically
 </div>
 
 <script>
@@ -472,9 +767,8 @@ function fd(d){
   return (d>0?'+$':'\u2212$')+s;
 }
 
-function allInputs(){return document.querySelectorAll('.ri')}
+function allInputs(){return document.querySelectorAll('.ri');}
 
-// Stable key: section-id + row index within that section's data rows
 function rowKey(inp){
   const sec=inp.closest('.contract');
   if(!sec)return null;
@@ -483,8 +777,6 @@ function rowKey(inp){
   return sec.id+'::'+idx;
 }
 
-// Parse revision field: treats entry as a delta (+/-) added to base.
-// "+500" or "500" → +500; "-200" → -200; blank → 0 delta
 function parseDelta(v){
   const s=v.trim();
   if(s===''||isNaN(parseFloat(s)))return 0;
@@ -501,7 +793,7 @@ function recalc(){
     const revised=base+delta;
     const changed=Math.abs(delta)>0.005;
     const isExcl=cell.dataset.excl==='1';
-    if(isExcl&&!changed)return; // leave as Excl./TBD
+    if(isExcl&&!changed)return;
     const display=revised<0?('\u2212$'+Math.abs(revised).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})):
                             ('$'+revised.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}));
     cell.textContent=display;
@@ -525,7 +817,7 @@ function recalc(){
     const tEl=document.getElementById(s.tid);
     if(tEl){tEl.textContent=f(tot);tEl.classList.toggle('ch',Math.abs(delta)>0.005);}
     const gtEl=document.getElementById(s.gtid);
-    if(gtEl){gtEl.textContent=f(tot);gtEl.style.color=Math.abs(delta)>0.005?'var(--red)':'';}
+    if(gtEl){gtEl.textContent=f(tot);gtEl.style.color=Math.abs(delta)>0.005?'var(--cma-accent)':'';}
     const gdEl=document.getElementById(s.gdid);
     if(gdEl){
       gdEl.textContent=fd(delta);
@@ -538,8 +830,8 @@ function recalc(){
   document.getElementById('gt-grand').classList.toggle('live',anyChanged);
   const gdG=document.getElementById('gd-grand');
   gdG.textContent=fd(gd);
-  gdG.style.color=gd>0.005?'var(--red)':gd<-0.005?'var(--green)':'var(--ink-3)';
-  gdG.style.fontSize='18px';
+  gdG.style.color=gd>0.005?'var(--cma-accent)':gd<-0.005?'var(--forest-1)':'var(--ink-3)';
+  gdG.style.fontSize='1.1rem';
 
   const sr=document.getElementById('sum-rev');
   sr.textContent=anyChanged?f(grandRev):'\u2014';
@@ -549,7 +841,7 @@ function recalc(){
   sd.className='bc-val'+(gd>0.005?' neg':gd<-0.005?' pos':'');
 }
 
-/* ── JSON EXPORT (Download) ── */
+/* ── SAVE (download) ── */
 function buildData(){
   const out={
     _meta:{exported:new Date().toISOString(),file:'revisions.json',note:'Values are deltas added to base amounts. Positive = increase, negative = decrease. excluded[] lists row keys removed from totals.'},
@@ -565,20 +857,20 @@ function buildData(){
   return out;
 }
 
-function downloadJSON(){
+function saveData(){
   const data=buildData();
-  const n=Object.keys(data.revisions).length;
-  if(n===0){setStatus('No revisions to export.');return;}
+  const n=Object.keys(data.revisions).length+data.excluded.length;
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
   a.download='revisions.json';
   a.click();
   URL.revokeObjectURL(a.href);
-  setStatus('Exported '+n+' revision'+(n!==1?'s':'')+' \u2014 commit revisions.json alongside index.html');
+  setStatus(n===0?'Saved — no revisions yet':'Saved '+Object.keys(data.revisions).length+' revision'+(Object.keys(data.revisions).length!==1?'s':'')+
+    (data.excluded.length?' + '+data.excluded.length+' excluded':'')+' — commit revisions.json to git');
 }
 
-/* ── JSON IMPORT (Load from file picker) ── */
+/* ── LOAD ── */
 function loadFromFile(input){
   const file=input.files[0];
   if(!file)return;
@@ -586,7 +878,7 @@ function loadFromFile(input){
   reader.onload=e=>{
     try{
       const data=JSON.parse(e.target.result);
-      const revs=data.revisions||data; // support both wrapped and bare formats
+      const revs=data.revisions||data;
       let n=0;
       const excl=data.excluded||[];
       allInputs().forEach(inp=>{
@@ -596,26 +888,25 @@ function loadFromFile(input){
           const row=inp.closest('tr');
           row.classList.add('excluded-row');
           const btn=row.querySelector('.excl-btn');
-          if(btn){btn.textContent='include';btn.title='Include in total';}
+          if(btn){btn.textContent='restore';btn.title='Restore to total';}
         }
       });
       recalc();
       setStatus('Loaded '+n+' revision'+(n!==1?'s':'')+' from '+file.name);
     }catch(err){
-      setStatus('Could not parse '+file.name+' \u2014 check it is a valid revisions.json');
+      setStatus('Could not parse '+file.name+' — check it is a valid revisions.json');
     }
-    input.value=''; // reset so same file can be re-loaded
+    input.value='';
   };
   reader.readAsText(file);
 }
 
-/* ── Auto-fetch revisions.json if served from same origin (GitHub Pages) ── */
+/* ── Auto-fetch revisions.json from same origin (GitHub Pages) ── */
 async function autoLoad(){
-  // Only attempt fetch when served via http(s) — skips file:// silently
   if(!location.protocol.startsWith('http'))return;
   try{
     const r=await fetch('./revisions.json',{cache:'no-cache'});
-    if(!r.ok)return; // 404 is fine — no revisions yet
+    if(!r.ok)return;
     const data=await r.json();
     const revs=data.revisions||data;
     let n=0;
@@ -627,7 +918,7 @@ async function autoLoad(){
         const row=inp.closest('tr');
         row.classList.add('excluded-row');
         const btn=row.querySelector('.excl-btn');
-        if(btn){btn.textContent='include';btn.title='Include in total';}
+        if(btn){btn.textContent='restore';btn.title='Restore to total';}
       }
     });
     if(n>0){recalc();setStatus('Loaded '+n+' revision'+(n!==1?'s':'')+' from revisions.json',6000);}
@@ -638,31 +929,12 @@ async function autoLoad(){
 function toggleExclude(btn){
   const row=btn.closest('tr');
   const excluded=row.classList.toggle('excluded-row');
-  btn.textContent=excluded?'include':'excl.';
-  btn.title=excluded?'Include in total':'Exclude from total';
+  btn.textContent=excluded?'restore':'excl.';
+  btn.title=excluded?'Restore to total':'Exclude from total';
   recalc();
 }
 
-/* ── Clear ── */
-function clearData(){
-  if(!confirm('Clear all revisions and reset to base values?'))return;
-  allInputs().forEach(inp=>{inp.value='';});
-  document.querySelectorAll('tr.excluded-row').forEach(row=>{
-    row.classList.remove('excluded-row');
-    const btn=row.querySelector('.excl-btn');
-    if(btn){btn.textContent='excl.';btn.title='Exclude from total';}
-  });
-  document.querySelectorAll('.rv[data-excl="1"]').forEach(cell=>{
-    if(cell.classList.contains('ch')){
-      cell.textContent=cell.dataset.origText||'Excl.';
-      cell.classList.remove('ch');
-    }
-  });
-  recalc();
-  setStatus('Cleared \u2014 export a new revisions.json to save the reset state');
-}
-
-function setStatus(msg,ms=5000){
+function setStatus(msg,ms=6000){
   const st=document.getElementById('save-status');
   if(!st)return;
   st.textContent=msg;
@@ -670,10 +942,7 @@ function setStatus(msg,ms=5000){
 }
 
 allInputs().forEach(inp=>inp.addEventListener('input',recalc));
-
-// Store original text of excl cells for clear()
 document.querySelectorAll('.rv[data-excl="1"]').forEach(cell=>{cell.dataset.origText=cell.textContent;});
-
 autoLoad();
 </script>
 </body>
