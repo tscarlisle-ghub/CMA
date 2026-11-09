@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neerhof Residence</title>
+<meta name="description" content="Exterior model viewer — Carlisle Moore Architects">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23FBF6EE'/%3E%3Crect x='4' y='4' width='24' height='24' fill='none' stroke='%23A2512D' stroke-width='2'/%3E%3Cpath d='M10 23V9l12 14V9' fill='none' stroke='%23A2512D' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://use.typekit.net/wup0iix.css">
+<style>
+  :root{
+    --rust:#A2512D; --rust-mid:#B57340; --rust-soft:#E2BFA7; --rust-wash:#F2E2D2;
+    --ink:#2A2520; --ink-soft:#6E5E52; --ink-mute:#8E7E72;
+    --paper:#FBF6EE; --paper-edge:#F1E9DA; --paper-deep:#ECE3D0;
+    --hair:rgba(162,81,45,.32); --hair-strong:rgba(162,81,45,.65); --hair-ink:rgba(42,37,32,.16);
+    --forest:#3F6B4E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden}
+  body{background:var(--paper);color:var(--ink);font-family:"urw-antiqua",Georgia,serif;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  #stage{position:fixed;inset:0;touch-action:none}
+  #stage canvas{display:block;width:100%;height:100%}
+
+  .titling{font-family:"columbia-titling","aviano-sans",sans-serif;text-transform:uppercase;font-size:10px;letter-spacing:.3em;font-variant-numeric:tabular-nums}
+
+  header{position:fixed;top:0;left:0;right:0;padding:28px 32px 0;pointer-events:none;display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+  .kicker{color:var(--rust)}
+  .rule{width:40px;height:2px;background:var(--rust);margin:10px 0 12px}
+  h1{font-family:"aviano-sans",sans-serif;font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+  .note{font-style:italic;color:var(--ink-soft);margin-top:6px;max-width:34ch}
+  .meta{text-align:right;color:var(--ink-mute);letter-spacing:.24em}
+
+  footer{position:fixed;left:0;right:0;bottom:0;padding:0 32px 24px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+  .views{display:flex;gap:0;border-top:1px solid var(--hair-strong);padding-top:12px}
+  .views button{border-left:1px solid var(--hair)}
+  .views button:first-child{border-left:none;padding-left:0}
+  .actions{display:flex;gap:8px}
+  button{appearance:none;background:transparent;border:0;border-radius:0;cursor:pointer;color:var(--ink-soft);padding:6px 14px;font-family:"columbia-titling","aviano-sans",sans-serif;text-transform:uppercase;font-size:10px;letter-spacing:.22em;transition:color .15s,background .15s,border-color .15s}
+  button:hover{color:var(--rust)}
+  .views button[aria-pressed="true"]{color:var(--rust)}
+  .btn{border:1px solid var(--hair-ink);padding:9px 16px}
+  .btn:hover{border-color:var(--rust)}
+  .btn-primary{border-color:var(--rust);color:var(--rust)}
+  .btn-primary:hover{background:var(--rust);color:var(--paper)}
+  .btn-primary[aria-pressed="true"]{background:var(--rust);color:var(--paper)}
+
+  #loader{position:fixed;inset:0;display:grid;place-items:center;background:var(--paper);z-index:5;transition:opacity .3s}
+  #loader.done{opacity:0;pointer-events:none}
+  .load-box{width:min(320px,70vw);text-align:center}
+  .load-box .titling{color:var(--rust);margin-bottom:14px}
+  .bar{height:1px;background:var(--hair-ink);position:relative}
+  .bar i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--rust);transition:width .2s}
+  .load-note{font-style:italic;color:var(--ink-soft);margin-top:14px;font-size:15px}
+  .pct{font-family:"franklin-gothic-condensed",sans-serif;font-variant-numeric:tabular-nums;color:var(--ink-mute);margin-top:8px;font-size:13px;letter-spacing:.06em}
+  #err{display:none;color:#8A2A1F;font-style:italic;margin-top:12px}
+
+  @media (max-width:640px){
+    header{padding:20px 16px 0;flex-direction:column;gap:6px}
+    .meta{text-align:left}
+    .note{display:none}
+    footer{padding:0 16px 16px}
+    .views button{padding:6px 10px;letter-spacing:.16em}
+    .btn{padding:9px 12px}
+  }
+</style>
+</head>
+<body>
+
+<div id="stage"></div>
+
+<header>
+  <div>
+    <div class="titling kicker">Carlisle Moore Architects</div>
+    <div class="rule"></div>
+    <h1>Neerhof Residence</h1>
+    <p class="note">Exterior study. Drag to orbit, scroll or pinch to zoom.</p>
+  </div>
+  <div class="titling meta">Schematic Design</div>
+</header>
+
+<footer>
+  <div class="views" role="group" aria-label="Views">
+    <button data-view="front" aria-pressed="true">Front</button>
+    <button data-view="left">Left</button>
+    <button data-view="rear">Rear</button>
+    <button data-view="right">Right</button>
+    <button data-view="aerial">Aerial</button>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" id="rotate" aria-pressed="true">Rotate</button>
+    <button class="btn" id="reset">Reset view</button>
+  </div>
+</footer>
+
+<div id="loader">
+  <div class="load-box">
+    <div class="titling">Loading model</div>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="pct" id="pct">0%</div>
+    <p class="load-note">About 35 MB. A moment on a slow connection.</p>
+    <p id="err"></p>
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const MODEL = 'neerhof-exterior.glb';
+const stage = document.getElementById('stage');
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xFBF6EE);
+
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.55;
+
+const camera = new THREE.PerspectiveCamera(38, innerWidth / innerHeight, 0.1, 5000);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.enablePan = false;
+controls.minPolarAngle = 0.25;                 // never straight down over the roof
+controls.maxPolarAngle = Math.PI / 2 - 0.04;   // never below the ground plane
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.6;
+controls.rotateSpeed = 0.7;
+controls.zoomSpeed = 0.8;
+
+// Light: warm key sun + cool sky fill
+const hemi = new THREE.HemisphereLight(0xE8EEF5, 0xD9C9B3, 0.9);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xFFF4E6, 3.0);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.bias = -0.0004;
+sun.shadow.normalBias = 0.02;
+scene.add(sun);
+
+// Shadow-catching ground
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(1, 1),
+  new THREE.ShadowMaterial({ color: 0x2A2520, opacity: 0.18 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+let radius = 10, target = new THREE.Vector3();
+const views = {};
+
+const loader = new GLTFLoader();
+const barfill = document.getElementById('barfill'), pct = document.getElementById('pct');
+loader.load(MODEL, (gltf) => {
+  const root = gltf.scene;
+  root.traverse(o => {
+    if (o.isMesh) {
+      o.castShadow = true; o.receiveShadow = true;
+      if (o.material) {
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        mats.forEach(m => { m.side = THREE.DoubleSide; });
+      }
+    }
+  });
+
+  // Recenter on the footprint, sit on the ground
+  const box = new THREE.Box3().setFromObject(root);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  root.position.set(-center.x, -box.min.y, -center.z);
+  scene.add(root);
+
+  const footprint = Math.max(size.x, size.z);
+  radius = Math.max(size.x, size.y * 1.6, size.z) * 0.9;
+  target.set(0, size.y * 0.42, 0);
+
+  ground.scale.set(footprint * 8, footprint * 8, 1);
+  ground.position.y = 0.002;
+
+  sun.position.set(footprint * 0.9, footprint * 1.1, footprint * 0.7);
+  sun.target.position.copy(target); scene.add(sun.target);
+  const sc = sun.shadow.camera, ext = footprint * 0.75;
+  sc.left = -ext; sc.right = ext; sc.top = ext; sc.bottom = -ext;
+  sc.near = 1; sc.far = footprint * 4; sc.updateProjectionMatrix();
+
+  const eyeH = size.y * 0.55;
+  const r = radius;
+  Object.assign(views, {
+    front:  [ 0.35 * r, eyeH,  1.0 * r],
+    left:   [-1.0 * r, eyeH,  0.35 * r],
+    rear:   [-0.35 * r, eyeH, -1.0 * r],
+    right:  [ 1.0 * r, eyeH, -0.35 * r],
+    aerial: [ 0.8 * r, 1.1 * r, 0.8 * r],
+  });
+  controls.minDistance = r * 0.45;
+  controls.maxDistance = r * 2.2;
+  controls.target.copy(target);
+  goTo('front', true);
+
+  document.getElementById('loader').classList.add('done');
+}, (e) => {
+  if (e.total) {
+    const p = Math.round(e.loaded / e.total * 100);
+    barfill.style.width = p + '%'; pct.textContent = p + '%';
+  } else {
+    pct.textContent = (e.loaded / 1048576).toFixed(1) + ' MB';
+  }
+}, (err) => {
+  console.error(err);
+  const el = document.getElementById('err');
+  el.style.display = 'block';
+  el.textContent = 'The model could not be loaded. Check that ' + MODEL + ' sits beside this page.';
+});
+
+// View presets with a short eased move
+let anim = null;
+function goTo(name, instant) {
+  const v = views[name]; if (!v) return;
+  document.querySelectorAll('.views button').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === name));
+  const to = new THREE.Vector3(...v);
+  if (instant) { camera.position.copy(to); controls.update(); return; }
+  anim = { from: camera.position.clone(), to, t: 0 };
+}
+
+document.querySelectorAll('.views button').forEach(b => b.addEventListener('click', () => goTo(b.dataset.view)));
+document.getElementById('reset').addEventListener('click', () => { controls.target.copy(target); goTo('front'); setRotate(true); });
+
+const rotateBtn = document.getElementById('rotate');
+function setRotate(on) { controls.autoRotate = on; rotateBtn.setAttribute('aria-pressed', on); }
+rotateBtn.addEventListener('click', () => setRotate(!controls.autoRotate));
+controls.addEventListener('start', () => { setRotate(false); anim = null; document.querySelectorAll('.views button').forEach(b => b.setAttribute('aria-pressed', 'false')); });
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  if (anim) {
+    anim.t = Math.min(1, anim.t + dt / 0.9);
+    const k = 1 - Math.pow(1 - anim.t, 3);
+    camera.position.lerpVectors(anim.from, anim.to, k);
+    if (anim.t >= 1) anim = null;
+  }
+  controls.update();
+  renderer.render(scene, camera);
+});
+</script>
+</body>
+</html>
